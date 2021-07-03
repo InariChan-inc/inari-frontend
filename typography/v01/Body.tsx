@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
 
+
 type BodyType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 interface BodyProps {
@@ -21,5 +22,6 @@ const bodyStyles: {[type in BodyType]: string} = {
 const Body: FunctionComponent<BodyProps> = ({type, children}) => (
     <p className={bodyStyles[type]}>{children}</p>
 )
+
 
 export default Body;

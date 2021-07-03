@@ -2,6 +2,7 @@ import Head from 'next/head';
 import {
     Headline,
     Body,
+    Button,
 } from '../typography';
 
 export default function Typography() {
@@ -64,7 +65,20 @@ export default function Typography() {
 
                 <br /><br /><br />
 
-                
+                <Button type={1}>
+                    Button 1
+                </Button>
+                <br />
+                <Button type={2}>
+                    Button 2
+                </Button>
+                <br />
+                <Button type={3}>
+                    Button 3
+                </Button>
+
+                <br /><br /><br />
+
             </div>
         </>
     )

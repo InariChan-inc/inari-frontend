@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
 
+
 type HeadlineType =  1 | 2 | 3 | 4;
 
 interface HeadlineProps {
