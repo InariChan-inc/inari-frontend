@@ -36,4 +36,4 @@ yarn-error.log*
 # custom
 .vscode
 
-./env.js
+/env.js
