@@ -3,6 +3,8 @@ import {
     Headline,
     Body,
     Button,
+    Subtitle,
+    Link,
 } from '../typography';
 
 export default function Typography() {
@@ -79,6 +81,17 @@ export default function Typography() {
 
                 <br /><br /><br />
 
+                <Subtitle>
+                    Subtitle
+                </Subtitle>
+
+                <br /><br /><br />
+
+                <Link>
+                    Link
+                </Link>
+
+                <br /><br /><br />
             </div>
         </>
     )
