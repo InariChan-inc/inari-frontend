@@ -1,9 +1,12 @@
 import 'tailwindcss/tailwind.css';
 import Head from 'next/head';
+import { ApolloProvider } from "@apollo/client";
+import client from '../common/graphql/client';
+
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <ApolloProvider client={client}>
       {/* Default settings: icon, fonts, etc. */}
       <Head>
         <link rel="icon" href="/favicon.ico" />
@@ -13,7 +16,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       {/* Component to be rendered */}
       <Component {...pageProps} />
-    </>
+    </ApolloProvider>
   );
 };
 

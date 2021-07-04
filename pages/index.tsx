@@ -1,6 +1,25 @@
 import Head from 'next/head'
+import {
+  useQuery,
+  gql,
+} from '@apollo/client';
+
+const REQUEST = gql`
+  query {
+    userProfile {
+      email, name
+    }
+  }
+`;
 
 export default function Home() {
+
+  const {loading, error, data} = useQuery(REQUEST);
+
+  if (!loading) {
+    console.log(data.userProfile);
+  }
+
   return (
     
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
