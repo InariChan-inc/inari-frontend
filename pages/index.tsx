@@ -14,11 +14,11 @@ const REQUEST = gql`
 
 export default function Home() {
 
-  const {loading, error, data} = useQuery(REQUEST);
+  // const {loading, error, data} = useQuery(REQUEST);
 
-  if (!loading) {
-    console.log(data.userProfile);
-  }
+  // if (!loading) {
+  //   console.log(data.userProfile);
+  // }
 
   return (
     
