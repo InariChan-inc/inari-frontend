@@ -9,7 +9,7 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}', 
     './typography/**/*.{js,ts,jsx,tsx}'
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class',
   theme: {
     colors: {
       white: '#FFFFFF',
