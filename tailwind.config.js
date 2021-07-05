@@ -14,7 +14,6 @@ module.exports = {
     colors: {
       white: '#FFFFFF',
       black: '#000000',
-      accent: '#FF5722',
       yellow: {
         '1': '#FFEFCD',
         '2': '#FEDF9A',
@@ -37,7 +36,9 @@ module.exports = {
         '10': '#2E2E33',
         '11': '#171719',
         '12': '#020203',
+        '13': '#121212',
       },
+      brown: '#301818',
     },
 
     fontFamily: {
