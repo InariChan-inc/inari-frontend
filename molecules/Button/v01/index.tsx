@@ -6,7 +6,6 @@ interface ButtonProps {
     onClick?: () => void,
     children?: any,
     icon?: JSX.Element,
-    color: string,
     style?: CSSProperties,
     className?: string,
 }
@@ -14,13 +13,12 @@ interface ButtonProps {
 const Button: FunctionComponent<ButtonProps> = ({
     onClick,
     children = '',
-    color,
     icon,
     style,
     className = '',
 }) => (
   <button 
-    className={'flex items-center px-6 py-3 rounded-full text-white bg-' + color + ' ' + className}
+    className={'flex items-center px-6 py-3 rounded-full text-white ' + className}
     style={style}
     onClick={onClick}
   >
