@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   mode: 'jit',
   purge: [
@@ -12,8 +14,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     colors: {
-      white: '#FFFFFF',
-      black: '#000000',
+      transparent: defaultTheme.colors.transparent,
+      white: defaultTheme.colors.white,
+      black: defaultTheme.colors.black,
       yellow: {
         '1': '#FFEFCD',
         '2': '#FEDF9A',
