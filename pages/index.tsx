@@ -12,7 +12,7 @@ const REQUEST = gql`
   }
 `;
 
-import { Header } from '../organizms';
+import { Header } from '../components';
 
 export default function Home() {
 

@@ -3,18 +3,20 @@ import { BaseAtom } from "../interfaces";
 
 interface SunCTAProps extends BaseAtom {
   onClick?: () => void,
+  size?: number,
 }
 
 const SunCTA: FunctionComponent<SunCTAProps> = ({
     className = '',
     onClick,
+    size = 24,
 }) => (
   <svg 
     className={className}
     xmlns="http://www.w3.org/2000/svg" 
-    height="24px" 
+    height={size} 
     viewBox="0 0 24 24" 
-    width="24px" 
+    width={size}
     fill="#000000"
     onClick={onClick}
   >
