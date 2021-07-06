@@ -12,11 +12,7 @@ const REQUEST = gql`
   }
 `;
 
-import { Logo } from '../atoms';
-
-import {
-  SearchInput
-} from '../molecules';
+import { Header } from '../organizms';
 
 export default function Home() {
 
@@ -31,14 +27,10 @@ export default function Home() {
       <Head>
         <title>Inari</title>
       </Head>
-      <Logo 
-        width={50}
-        height={50}
-      />
-      <SearchInput 
-        placeholder="Шукаю аніме..." 
-        onChange={() => console.log('CHANGE')}
-        onFocus={() => console.log('FOCUS')}
+      
+      <Header 
+        onSearchChange={() => console.log('CHANGE')}
+        onSearchFocus={() => console.log('FOCUS')}
       />
     </div>
   )

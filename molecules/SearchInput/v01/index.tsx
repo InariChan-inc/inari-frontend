@@ -8,7 +8,7 @@ interface SearchInputProps {
 }
 
 const SearchInput: FunctionComponent<SearchInputProps> = props => (
-    <div className="bg-yellow-1 py-3 px-12 rounded-tl-full rounded-br-full">
+    <div className="bg-yellow-1 py-2 px-11 rounded-tl-full rounded-br-full w-1/2">
         <label className="flex items-center">
             <SearchCTA className="text-brown fill-current mr-3" />
             <input

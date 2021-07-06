@@ -1,9 +1,9 @@
 import Logo from "./Logo";
 import SearchCTA from "./SearchCTA";
-
-console.log("LOGO", Logo);
+import SunCTA from "./SunCTA";
 
 export {
     Logo,
     SearchCTA,
+    SunCTA,
 };

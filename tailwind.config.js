@@ -3,13 +3,14 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 module.exports = {
   mode: 'jit',
   purge: [
-    './atoms/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}', 
-    './containers/**/*.{js,ts,jsx,tsx}',
-    './layouts/**/*.{js,ts,jsx,tsx}',
-    './molecules/**/*.{js,ts,jsx,tsx}', 
-    './pages/**/*.{js,ts,jsx,tsx}', 
-    './typography/**/*.{js,ts,jsx,tsx}'
+    './atoms/**/*.tsx',
+    './components/**/*.{ts,tsx}', 
+    './containers/**/*.{ts,tsx}',
+    './layouts/**/*.{ts,tsx}',
+    './molecules/**/*.{ts,tsx}',
+    './organizms/**/*.{ts,tsx}', 
+    './pages/**/*.{ts,tsx}', 
+    './typography/**/*.{ts,tsx}'
   ],
   darkMode: 'class',
   theme: {
