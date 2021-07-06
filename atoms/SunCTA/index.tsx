@@ -1,8 +1,13 @@
 import { FunctionComponent } from "react";
 import { BaseAtom } from "../interfaces";
 
-const SunCTA: FunctionComponent<BaseAtom> = ({
+interface SunCTAProps extends BaseAtom {
+  onClick?: () => void,
+}
+
+const SunCTA: FunctionComponent<SunCTAProps> = ({
     className = '',
+    onClick,
 }) => (
   <svg 
     className={className}
@@ -11,6 +16,7 @@ const SunCTA: FunctionComponent<BaseAtom> = ({
     viewBox="0 0 24 24" 
     width="24px" 
     fill="#000000"
+    onClick={onClick}
   >
     <path 
       d="M0 0h24v24H0z" 

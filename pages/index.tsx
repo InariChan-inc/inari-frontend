@@ -31,6 +31,7 @@ export default function Home() {
       <Header 
         onSearchChange={() => console.log('CHANGE')}
         onSearchFocus={() => console.log('FOCUS')}
+        onThemeSwitch={() => console.log('THEME SWITCHING')}
       />
     </div>
   )
