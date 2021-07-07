@@ -29,7 +29,7 @@ const Button: FunctionComponent<ButtonProps> = ({
     children = '',
     icon,
     style,
-    className = ',',
+    className = '',
     bg,
 }) => {
   const resClassName = [DEFAULT, backgrounds[bg], className].join(' ');
