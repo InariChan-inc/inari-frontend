@@ -8,7 +8,7 @@ import { ButtonTextColors } from "../../../typography";
  * Add new background here and specify its tailwind classes
  */
 const backgrounds = {
-  brown: 'bg-brown hover:bg-black',
+  brown: 'bg-brown-2 hover:bg-black',
 }
 
 /**

@@ -28,7 +28,7 @@ const Header: FunctionComponent<HeaderProps> = ({
       <div className="flex items-center">
         <SunCTA 
           size={36}
-          className="text-brown dark:text-white fill-current cursor-pointer mr-8" 
+          className="text-brown-2 dark:text-white fill-current cursor-pointer mr-8" 
           onClick={onThemeSwitch}
         />
         <Authorization />

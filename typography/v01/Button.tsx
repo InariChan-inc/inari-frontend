@@ -14,6 +14,7 @@ interface ButtonProps {
     type: ButtonType,
     children: string,
     color?: ButtonTextColors,
+    className?: string,
 }
 
 const buttonStyles: {[type in ButtonType]: string} = {
@@ -25,9 +26,10 @@ const buttonStyles: {[type in ButtonType]: string} = {
 const Button: FunctionComponent<ButtonProps> = ({
     type, 
     children,
-    color = 'black'
+    color = 'black',
+    className = ''
 }) => {
-    const resClassName = [buttonStyles[type], colors[color]].join(' ');
+    const resClassName = [className, buttonStyles[type], colors[color]].join(' ').trim();
 
     return (
         <span className={resClassName}>{children}</span>

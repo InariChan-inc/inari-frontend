@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FunctionComponent } from "react";
+import { FunctionComponent, JSXElementConstructor } from "react";
 import { 
   Button,
   ButtonTextColors,
@@ -7,29 +7,34 @@ import {
 
 interface MenuItemProps {
     to: string,
-    icon: JSX.Element,
+    Icon: JSXElementConstructor<{ className: string, size: number }>,
     text: string,
     color?: ButtonTextColors,
+    isActive?: boolean,
 }
 
 const MenuItem: FunctionComponent<MenuItemProps> = ({
     to,
-    icon,
+    Icon,
     text,
     color = 'black',
-}) => (
-  <Link href={'/' + to}>
-    <div className="flex flex-col items-center my-5 text-center whitespace-pre-line">
-      {icon}
-      <Button 
-        type={2} 
-        color={color}
-      >
-        {text}
-      </Button>
-    </div>
-  </Link>
-);
+    isActive = false
+}) => {
+  return (
+    <Link href={'/' + to}>
+      <div className={'group cursor-pointer flex flex-col w-full items-center py-5 text-center whitespace-pre-line ' + (isActive ? 'bg-yellow-7' : 'hover:bg-yellow-7')}>
+        <Icon className={'text-brown-2 fill-current ' + (isActive ? 'text-brown-1' : 'group-hover:text-brown-1')} size={36} />
+        <Button 
+          type={2} 
+          color={color}
+          className={isActive ? 'text-brown-1' : 'group-hover:text-brown-1'}
+        >
+          {text}
+        </Button>
+      </div>
+    </Link>
+  );
+};
 
 
 export default MenuItem;
