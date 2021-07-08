@@ -12,7 +12,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = props => (
         <label className="flex flex-1 items-center">
             <SearchCTA className="text-brown fill-current mr-3 cursor-pointer" />
             <input
-                className="flex-1 outline-none bg-transparent font-montserrat font-light italic text-14 tracking-3p leading-none text-yellow-6 placeholder-yellow-6"
+                className="flex-1 outline-none bg-transparent font-montserrat placeholder-shown:font-light font-medium text-brown italic text-14 tracking-3p leading-none placeholder-yellow-6"
                 type="text"
                 {...props}
             />
