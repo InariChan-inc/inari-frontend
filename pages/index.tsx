@@ -14,6 +14,8 @@ const REQUEST = gql`
 
 import { Header } from '../components';
 
+import { Logo } from '../atoms';
+
 export default function Home() {
 
   // const {loading, error, data} = useQuery(REQUEST);
@@ -26,13 +28,7 @@ export default function Home() {
     <div>
       <Head>
         <title>Inari</title>
-      </Head>
-      
-      <Header 
-        onSearchChange={() => console.log('CHANGE')}
-        onSearchFocus={() => console.log('FOCUS')}
-        onThemeSwitch={() => console.log('THEME SWITCHING')}
-      />
+      </Head>      
     </div>
   )
 }

@@ -1,13 +1,14 @@
 import { CSSProperties } from "react";
 import { FunctionComponent, JSXElementConstructor } from "react";
 import { Button as Text } from '../../../typography';
+import { ButtonTextColors } from "../../../typography";
 
 /**
  * Object with classes for button background
  * Add new background here and specify its tailwind classes
  */
 const backgrounds = {
-  brown: 'bg-brown hover:bg-black',
+  brown: 'bg-brown-2 hover:bg-black',
 }
 
 /**
@@ -22,6 +23,7 @@ interface ButtonProps {
     style?: CSSProperties,
     className?: string,
     bg: keyof typeof backgrounds,
+    color?: ButtonTextColors,
 }
 
 const Button: FunctionComponent<ButtonProps> = ({
@@ -31,8 +33,9 @@ const Button: FunctionComponent<ButtonProps> = ({
     style,
     className = '',
     bg,
+    color = 'black',
 }) => {
-  const resClassName = [DEFAULT, backgrounds[bg], className].join(' ');
+  const resClassName = [DEFAULT, className, backgrounds[bg]].join(' ');
 
   return (
     <button 
@@ -42,7 +45,10 @@ const Button: FunctionComponent<ButtonProps> = ({
     >
       {icon}
       <div className="pl-2">
-        <Text type={1}>
+        <Text 
+          type={1}
+          color={color}
+        >
           {children}
         </Text>
       </div>

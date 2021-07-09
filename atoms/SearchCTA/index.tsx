@@ -1,16 +1,17 @@
 import { FunctionComponent } from "react";
-import { BaseAtom } from "../interfaces";
+import { BaseCTA } from "../interfaces";
 
-const SearchCTA: FunctionComponent<BaseAtom> = ({
-        className = '',
+const SearchCTA: FunctionComponent<BaseCTA> = ({
+  className = '',
+  size = 24,
 }) => (
   <svg 
     className={className} 
     xmlns="http://www.w3.org/2000/svg" 
-    height="24px" 
-    width="24px"
+    height={`${size}px`} 
+    width={`${size}px`} 
     viewBox="0 0 24 24"
-    fill="#000000">
+  >
       <path 
         d="M0 0h24v24H0V0z" 
         fill="none"

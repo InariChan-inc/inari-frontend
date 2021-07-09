@@ -1,9 +1,8 @@
 import { FunctionComponent } from "react";
-import { BaseAtom } from "../interfaces";
+import { BaseCTA } from "../interfaces";
 
-interface SunCTAProps extends BaseAtom {
+interface SunCTAProps extends BaseCTA {
   onClick?: () => void,
-  size?: number,
 }
 
 const SunCTA: FunctionComponent<SunCTAProps> = ({
