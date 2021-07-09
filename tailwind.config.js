@@ -78,7 +78,11 @@ module.exports = {
     },
   },
   variants: {
+    scrollbar: ['dark'],
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    //@ts-ignore
+    require('tailwind-scrollbar'),
+  ],
 }

@@ -15,7 +15,7 @@ const Header: FunctionComponent<HeaderProps> = ({
     onThemeSwitch,
 }) => (
   <div 
-    className="flex items-center justify-between py-4 px-16 border-b-2 border-yellow-1"
+    className="flex items-center justify-between py-4 px-16 border-b border-yellow-1 sticky top-0 left-0 right-0 before:absolute before:top-0 before:left-[-1px] before:bottom-0 before:w-[1px] before:bg-white"
     style={{
       height: 80,
     }}>
