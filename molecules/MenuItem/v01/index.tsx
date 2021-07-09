@@ -21,7 +21,7 @@ const MenuItem: FunctionComponent<MenuItemProps> = ({
     isActive = false
 }) => {
   return (
-    <Link href={'/' + to}>
+    <Link href={to}>
       <div className={'group box-content cursor-pointer flex flex-col w-full items-center py-5 text-center whitespace-pre-line ' + (isActive ? 'bg-yellow-7 border-t border-b border-yellow-1' : 'hover:bg-yellow-7')}>
         <Icon className={'text-brown-2 fill-current ' + (isActive ? 'text-brown-1' : 'group-hover:text-brown-1')} size={36} />
         <Button 
