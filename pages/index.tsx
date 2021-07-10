@@ -12,9 +12,7 @@ const REQUEST = gql`
   }
 `;
 
-import { Header } from '../components';
-
-import { Logo } from '../atoms';
+import { GlobalLayout } from '../layouts';
 
 export default function Home() {
 
@@ -28,7 +26,13 @@ export default function Home() {
     <div>
       <Head>
         <title>Inari</title>
-      </Head>      
+      </Head>
+
+      <GlobalLayout>
+        <div>
+          
+        </div>
+      </GlobalLayout>
     </div>
   )
 }
