@@ -60,7 +60,9 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
       {/**
         * COMPONENT ENTRY 
         */}
-      {children}
+      <main>
+        {children}
+      </main>
     </div>
 
     {/**

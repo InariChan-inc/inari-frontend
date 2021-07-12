@@ -29,9 +29,7 @@ export default function Home() {
       </Head>
 
       <GlobalLayout>
-        <div>
-          
-        </div>
+        
       </GlobalLayout>
     </div>
   )
