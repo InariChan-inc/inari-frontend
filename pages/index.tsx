@@ -36,7 +36,9 @@ export default function Home() {
 
       <GlobalLayout>
         <ImageSlider />
-        <AnimeSlider />
+        <AnimeSlider className="my-16" title="Останні додані аніме" />
+        <AnimeSlider className="my-16" title="Топ місяця" />
+        <AnimeSlider className="my-16" title="Всі аніме" slidesPerColumn={2} />
       </GlobalLayout>
     </div>
   )

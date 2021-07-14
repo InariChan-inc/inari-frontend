@@ -9,7 +9,7 @@ import {
   truncateByWords
 } from '../../../utils/truncate';
 
-interface AnimeCardProps {
+export interface AnimeCardProps {
     title?: string,
     posterUrl?: string,
     availableSeriesAmount?: number,
@@ -22,7 +22,7 @@ const AnimeCard: FunctionComponent<AnimeCardProps> = ({
     availableSeriesAmount = 100,
     allSeriesAmount = 100,
 }) => (
-  <div className="relative ml-5">
+  <div className="w-[306px] relative pl-5 flex justify-end">
     <div className="flex flex-col w-[285px] border-[1px] rounded-[3px]">
       <div
         className="w-full h-[400px] bg-yellow-4" 
@@ -36,7 +36,7 @@ const AnimeCard: FunctionComponent<AnimeCardProps> = ({
         </Subtitle>
       </div>
     </div>
-    <div className="p-2 rounded-sm bg-brown-2 text-white absolute top-[18px] left-[-20px]">
+    <div className="p-2 rounded-sm bg-brown-2 text-white absolute top-[18px] left-0">
       <Body type={3}>
         {availableSeriesAmount + '/' + allSeriesAmount}
       </Body>
