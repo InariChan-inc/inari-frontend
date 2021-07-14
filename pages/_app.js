@@ -6,14 +6,15 @@ import Head from 'next/head';
 
 import SwiperCore, {
   Navigation,
-  Pagination
+  Pagination,
+  Autoplay,
 } from 'swiper/core';
 
 import { ApolloProvider } from "@apollo/client";
 import { Provider as ReduxProvider } from 'react-redux';
 
 
-SwiperCore.use([Navigation, Pagination]);
+SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 
 import client from '../common/graphql/client';

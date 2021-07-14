@@ -36,6 +36,10 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
     <div className={DEFAULT + className}>
       <Swiper
         className="w-full h-[455px]"
+        loop
+        autoplay={{
+          delay: 3000,
+        }}
         navigation={{
           nextEl: nextElRef.current,
           prevEl: prevElRef.current,
