@@ -1,0 +1,1 @@
+export const truncateByWords: (text: string, wordsLimit: number) => string = (text, wordsLimit) => text.split(' ').length <= wordsLimit ? text : text.split(' ').slice(0, wordsLimit).join(' ') + '...';
