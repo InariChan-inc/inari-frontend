@@ -1,4 +1,9 @@
-import Head from 'next/head'
+import Head from 'next/head';
+
+import {
+  ImageSlider,
+} from '../components';
+
 import {
   useQuery,
   gql,
@@ -29,7 +34,9 @@ export default function Home() {
       </Head>
 
       <GlobalLayout>
-        
+        <ImageSlider className="w-full h-[455px]" />
+        <ImageSlider className="w-full h-[455px]" />
+        <ImageSlider className="w-full h-[455px]" />
       </GlobalLayout>
     </div>
   )

@@ -1,12 +1,19 @@
 import 'tailwindcss/tailwind.css';
-
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
 import Head from 'next/head';
+
+import SwiperCore, {
+  Navigation,
+  Pagination
+} from 'swiper/core';
 
 import { ApolloProvider } from "@apollo/client";
 import { Provider as ReduxProvider } from 'react-redux';
 
 
-
+SwiperCore.use([Navigation, Pagination]);
 
 
 import client from '../common/graphql/client';

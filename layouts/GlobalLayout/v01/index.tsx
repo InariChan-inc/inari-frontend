@@ -20,7 +20,7 @@ interface GlobalLayoutProps {
 const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
     children
 }) => (
-  <div className="flex">
+  <div className="flex w-full">
     <Menu
       menuItems={[
         {
@@ -51,7 +51,7 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
       ]}
     />
 
-    <div className="flex-1 relative" style={{ marginLeft: 132 }}>
+    <div className="flex-1 relative overflow-x-hidden" style={{ marginLeft: 132 }}>
       <Header
         onSearchChange={() => console.log('CHANGE')}
         onSearchFocus={() => console.log('FOCUS')}
@@ -60,7 +60,7 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
       {/**
         * COMPONENT ENTRY 
         */}
-      <main>
+      <main className="mt-[80px] py-8 px-14">
         {children}
       </main>
     </div>
@@ -88,6 +88,27 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
       /* Handle on hover */
       ::-webkit-scrollbar-thumb:hover {
         background: #000;
+      }
+
+      .swiper-button-prev, .swiper-button-next {
+        top: 0;
+        transform: translate(0, 100%);
+        margin: 0;
+        padding: 0;
+      }
+
+      .swiper-button-next {
+        right: 0;
+      }
+
+      .swiper-button-prev {
+        left: unset;
+        right: 44px;
+      }
+
+      .swiper-button-prev:after, .swiper-button-next:after {
+        font-size: 20px;
+        font-weight: 600;
       }
 
     `}

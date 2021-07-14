@@ -15,10 +15,7 @@ const Header: FunctionComponent<HeaderProps> = ({
     onThemeSwitch,
 }) => (
   <div 
-    className="flex items-center justify-between py-4 px-16 border-b border-yellow-1 sticky top-0 left-0 right-0 before:absolute before:top-0 before:left-[-1px] before:bottom-0 before:w-[1px] before:bg-white"
-    style={{
-      height: 80,
-    }}>
+    className="fixed top-0 right-0 left-[132px] z-[5001] h-[80px] flex items-center justify-between py-4 px-16 bg-white border-b border-yellow-1 before:absolute before:top-0 before:left-[-1px] before:bottom-0 before:w-[1px] before:bg-white">
       <SearchInput 
           placeholder="Шукаю аніме..."
           onChange={onSearchChange}
