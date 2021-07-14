@@ -70,7 +70,7 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
           />
           
         </div>
-        <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-9 z-[1001]" ref={prevElRef}>
+        <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-[68px] z-[1001]" ref={prevElRef}>
           <ArrowLeftCTA
             className="text-brown-2 fill-current"
             size={36}
