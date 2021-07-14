@@ -2,6 +2,7 @@ import Head from 'next/head';
 
 import {
   ImageSlider,
+  AnimeSlider,
 } from '../components';
 
 import {
@@ -34,9 +35,8 @@ export default function Home() {
       </Head>
 
       <GlobalLayout>
-        <ImageSlider className="w-full h-[455px]" />
-        <ImageSlider className="w-full h-[455px]" />
-        <ImageSlider className="w-full h-[455px]" />
+        <ImageSlider />
+        <AnimeSlider />
       </GlobalLayout>
     </div>
   )

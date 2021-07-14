@@ -10,44 +10,96 @@ import {
     SwiperSlide,
 } from 'swiper/react';
 
+import {
+  ArrowLeftCTA,
+  ArrowRightCTA
+} from '../../../../atoms';
+
+import tailwind from '../../../../tailwind.config';
+
 interface ImageSliderProps {
     className?: string,
 }
+
+const DEFAULT = 'pt-[68px] overflow-hidden ';
 
 const ImageSlider: FunctionComponent<ImageSliderProps> = ({
     className = '',
 }) => {
 
-  const nextEl = useRef(null);
-  const prevEl = useRef(null);
+  const nextElRef = useRef(null);
+  const prevElRef = useRef(null);
+
+  const paginationElRef = useRef(null); 
 
   return (
-    <>
-      <Swiper 
+    <div className={DEFAULT + className}>
+      <Swiper
+        className="w-full h-[455px]"
         navigation={{
-          nextEl: nextEl.current,
-          prevEl: prevEl.current,
+          nextEl: nextElRef.current,
+          prevEl: prevElRef.current,
         }}
-        pagination={{ clickable: true }}
-        className={className}
+        pagination={{ 
+          clickable: true, 
+          el: paginationElRef.current,
+        }}
         slidesPerView={1}   
         onBeforeInit={swiper => {
           //@ts-ignore
-          swiper.params.navigation.nextEl = nextEl.current;
+          swiper.params.navigation.nextEl = nextElRef.current;
           //@ts-ignore
-          swiper.params.navigation.prevEl = prevEl.current;
+          swiper.params.navigation.prevEl = prevElRef.current;
+          //@ts-ignore
+          swiper.params.pagination.el = paginationElRef.current;
         }}      
       >
-        <SwiperSlide className="flex justify-center items-center text-48">1</SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center text-48">2</SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center text-48">3</SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center text-48">4</SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center text-48">5</SwiperSlide>
-        <div className="custom-navigation" style={{width: 100, height: 100, border: '3px solid #000', position: 'absolute', top: 0, right: 0, zIndex: 5000}} ref={nextEl}></div>
-        <div className="custom-navigation" style={{width: 100, height: 100, border: '3px solid #000', position: 'absolute', top: 0, right: 100, zIndex: 5000}} ref={prevEl}></div>
+        <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">1</SwiperSlide>
+        <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">2</SwiperSlide>
+        <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">3</SwiperSlide>
+        <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">4</SwiperSlide>
+        <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">5</SwiperSlide>
+        <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-0 z-[1001]" ref={nextElRef}>
+          <ArrowRightCTA 
+            className="text-brown-2 fill-current"
+            size={36}
+          />
+          
+        </div>
+        <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-9 z-[1001]" ref={prevElRef}>
+          <ArrowLeftCTA
+            className="text-brown-2 fill-current"
+            size={36}
+          />
+        </div>
+        <div className="absolute left-0 top-[-59px] h-[18px] z-[1000]" ref={paginationElRef} />
+        <style jsx global>{`
+            .swiper-button-disabled {
+              cursor: default;
+            }
+
+            .swiper-button-disabled > svg {
+              fill: ${tailwind.theme.colors.yellow[2]};
+            }
+
+            .swiper-container {
+              overflow: visible;
+            }
+
+            .swiper-pagination-bullet {
+              width: 15px;
+              height: 15px;
+              background-color: transparent;
+              border: 3px solid ${tailwind.theme.colors.yellow[1]};
+              opacity: 1;
+            }
+
+            .swiper-pagination-bullet-active {
+              background-color: ${tailwind.theme.colors.yellow[1]};
+            }
+          `}</style>
       </Swiper>
-      
-    </>
+    </div>
   );
 };
 

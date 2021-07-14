@@ -89,28 +89,6 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
       ::-webkit-scrollbar-thumb:hover {
         background: #000;
       }
-
-      .swiper-button-prev, .swiper-button-next {
-        top: 0;
-        transform: translate(0, 100%);
-        margin: 0;
-        padding: 0;
-      }
-
-      .swiper-button-next {
-        right: 0;
-      }
-
-      .swiper-button-prev {
-        left: unset;
-        right: 44px;
-      }
-
-      .swiper-button-prev:after, .swiper-button-next:after {
-        font-size: 20px;
-        font-weight: 600;
-      }
-
     `}
     </style>
   </div>
