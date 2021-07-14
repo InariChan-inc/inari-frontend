@@ -22,7 +22,7 @@ const AnimeCard: FunctionComponent<AnimeCardProps> = ({
     availableSeriesAmount = 100,
     allSeriesAmount = 100,
 }) => (
-  <div className="relative">
+  <div className="relative ml-5">
     <div className="flex flex-col w-[285px] border-[1px] rounded-[3px]">
       <div
         className="w-full h-[400px] bg-yellow-4" 
