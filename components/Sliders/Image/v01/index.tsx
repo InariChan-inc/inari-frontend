@@ -97,6 +97,11 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
             .swiper-pagination-bullet-active {
               background-color: ${tailwind.theme.colors.yellow[1]};
             }
+
+            .swiper-pagination-clickable > .swiper-pagination-bullet-active {
+              cursor: default;
+            }
+
           `}</style>
       </Swiper>
     </div>
