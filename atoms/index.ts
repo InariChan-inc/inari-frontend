@@ -11,6 +11,7 @@ import ArrowLeftCTA from "./ArrowLeftCTA";
 import ArrowRightCTA from "./ArrowRightCTA";
 import ArrowDownCTA from "./ArrowDownCTA";
 import ArrowUpCTA from "./ArrowUpCTA";
+import FilterCTA from "./FilterCTA";
 
 export {
     Logo,
@@ -25,5 +26,6 @@ export {
     ArrowLeftCTA,
     ArrowRightCTA,
     ArrowDownCTA,
-    ArrowUpCTA
+    ArrowUpCTA,
+    FilterCTA,
 };
