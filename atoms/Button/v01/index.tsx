@@ -1,7 +1,6 @@
 import { CSSProperties } from "react";
 import { FunctionComponent, JSXElementConstructor } from "react";
-import { Button as Text } from '../../../typography';
-import { ButtonTextColors } from "../../../typography";
+import { Button as Text, ButtonTextColors } from '../../../typography';
 
 /**
  * Object with classes for button background

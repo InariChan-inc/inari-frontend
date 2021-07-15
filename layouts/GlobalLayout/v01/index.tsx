@@ -1,17 +1,19 @@
 import { FunctionComponent } from "react";
 
 import {
-  SearchRoundedCTA, 
-  CooperationCTA,
-  SupportCTA,
-  HelpCTA,
-  InfoCTA,
-} from '../../../atoms';
+  SearchRounded, 
+  Cooperation,
+  Support,
+  Help,
+  Info,
+} from '../../../atoms/icons';
 
 import { 
   Header, 
   Menu,
 } from '../../../components';
+
+import tailwind from '../../../tailwind.config';
 
 interface GlobalLayoutProps {
     children: any
@@ -25,27 +27,27 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
       menuItems={[
         {
           page: 'search',
-          Icon: SearchRoundedCTA,
+          Icon: SearchRounded,
           text: 'Пошук',
         },
         {
           page: 'cooperation',
-          Icon: CooperationCTA,
+          Icon: Cooperation,
           text: 'Співпраця',
         },
         {
           page: 'help',
-          Icon: HelpCTA,
+          Icon: Help,
           text: 'Технічна допомога',
         },
         {
           page: 'support',
-          Icon: SupportCTA,
+          Icon: Support,
           text: 'Підтримати' + '\n' + 'нас',
         },
         {
           page: 'info',
-          Icon: InfoCTA,
+          Icon: Info,
           text: 'Право-\nвласникам',
         }
       ]}
@@ -69,6 +71,11 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
      * Global style (scrollbar)
      */}
     <style jsx global>{`
+      html {
+        scrollbar-color: ${tailwind.theme.colors.brown[2]} ${tailwind.theme.colors.yellow[5]} ;
+        scrollbar-width: 10px;
+      }
+
       /* width */
       ::-webkit-scrollbar {
         width: 10px;
@@ -76,12 +83,12 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
       
       /* Track */
       ::-webkit-scrollbar-track {
-        background: #CC7F36;
+        background-color: ${tailwind.theme.colors.yellow[5]};
       }
       
       /* Handle */
       ::-webkit-scrollbar-thumb {
-        background: #301818;
+        background: ${tailwind.theme.colors.brown[2]};
         border-radius: 10px;
       }
       

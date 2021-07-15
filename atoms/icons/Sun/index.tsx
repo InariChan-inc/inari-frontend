@@ -1,11 +1,11 @@
 import { FunctionComponent } from "react";
-import { BaseCTA } from "../interfaces";
+import { BaseCTA } from "../../interfaces";
 
-interface SunCTAProps extends BaseCTA {
+interface SunProps extends BaseCTA {
   onClick?: () => void,
 }
 
-const SunCTA: FunctionComponent<SunCTAProps> = ({
+const Sun: FunctionComponent<SunProps> = ({
     className = '',
     onClick,
     size = 24,
@@ -27,4 +27,4 @@ const SunCTA: FunctionComponent<SunCTAProps> = ({
   </svg>
 );
 
-export default SunCTA;
+export default Sun;

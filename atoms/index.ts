@@ -1,25 +1,18 @@
-import Logo from "./Logo";
-import SearchCTA from "./SearchCTA";
-import SearchRoundedCTA from "./SearchRoundedCTA";
-import SunCTA from "./SunCTA";
-import PersonCTA from "./PersonCTA";
-import SupportCTA from "./SupportCTA";
-import CooperationCTA from "./CooperationCTA";
-import HelpCTA from "./HelpCTA";
-import InfoCTA from "./InfoCTA";
-import ArrowLeftCTA from "./ArrowLeftCTA";
-import ArrowRightCTA from "./ArrowRightCTA";
+export { default as Logo } from './Logo';
+export { default as Button } from './Button';
 
 export {
-    Logo,
-    SearchCTA,
-    SearchRoundedCTA,
-    SunCTA,
-    PersonCTA,
-    SupportCTA,
-    CooperationCTA,
-    HelpCTA,
-    InfoCTA,
-    ArrowLeftCTA,
-    ArrowRightCTA,
-};
+  Search,
+  SearchRounded,
+  Sun,
+  Person,
+  Support,
+  Cooperation,
+  Help,
+  Info,
+  ArrowLeft,
+  ArrowRight,
+  ArrowDown,
+  ArrowUp,
+  Filter,
+} from './icons';

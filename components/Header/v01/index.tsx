@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { SunCTA } from '../../../atoms';
+import { Sun } from '../../../atoms/icons';
 import { SearchInput } from '../../../molecules';
 import { Authorization } from '../../../organizms';
 
@@ -23,7 +23,7 @@ const Header: FunctionComponent<HeaderProps> = ({
       />
       
       <div className="flex items-center">
-        <SunCTA 
+        <Sun 
           size={36}
           className="text-brown-2 dark:text-white fill-current cursor-pointer mr-8" 
           onClick={onThemeSwitch}

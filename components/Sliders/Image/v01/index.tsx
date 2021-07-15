@@ -11,9 +11,9 @@ import {
 } from 'swiper/react';
 
 import {
-  ArrowLeftCTA,
-  ArrowRightCTA
-} from '../../../../atoms';
+  ArrowLeft,
+  ArrowRight
+} from '../../../../atoms/icons';
 
 import tailwind from '../../../../tailwind.config';
 
@@ -66,14 +66,14 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
         <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">4</SwiperSlide>
         <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">5</SwiperSlide>
         <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-0 z-[1001]" ref={nextElRef}>
-          <ArrowRightCTA 
+          <ArrowRight
             className="text-brown-2 fill-current"
             size={36}
           />
           
         </div>
         <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-[68px] z-[1001]" ref={prevElRef}>
-          <ArrowLeftCTA
+          <ArrowLeft
             className="text-brown-2 fill-current"
             size={36}
           />

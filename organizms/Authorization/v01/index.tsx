@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { FunctionComponent } from "react";
-import { Button } from '../../../molecules';
-import { PersonCTA } from '../../../atoms';
+import { Person, Button } from '../../../atoms';
 import { Button as Text } from '../../../typography';
 
 interface AuthorizationProps {
@@ -16,7 +15,7 @@ const Authorization: FunctionComponent<AuthorizationProps> = ({
   return (
   <div className="flex items-center">
       <Button 
-        icon={<PersonCTA className="fill-current relative" />}
+        icon={<Person className="fill-current relative" />}
         bg="brown"
         color="white"
         className="z-10"
