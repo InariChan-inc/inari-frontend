@@ -22,8 +22,8 @@ const AnimeCard: FunctionComponent<AnimeCardProps> = ({
     availableSeriesAmount = 100,
     allSeriesAmount = 100,
 }) => (
-  <div className="w-[306px] relative pl-5 flex justify-end">
-    <div className="flex flex-col w-[285px] border-[1px] rounded-[3px]">
+  <div className="w-[306px] pl-5 flex justify-end">
+    <div className="relative cursor-pointer flex flex-col w-[285px] border-[1px] border-yellow-6 hover:border-brown-2 rounded-[3px] hover:shadow-anime-card">
       <div
         className="w-full h-[400px] bg-yellow-4" 
         style={{
@@ -35,11 +35,11 @@ const AnimeCard: FunctionComponent<AnimeCardProps> = ({
           {truncateByWords(title || 'Уявімо, що тут дуже довгий заголовок, і він не вміщається, що будемо робити?', 7)}
         </Subtitle>
       </div>
-    </div>
-    <div className="p-2 rounded-sm bg-brown-2 text-white absolute top-[18px] left-0">
+      <div className="cursor-pointer p-2 rounded-sm bg-brown-2 text-white absolute top-[18px] -left-5">
       <Body type={3}>
         {availableSeriesAmount + '/' + allSeriesAmount}
       </Body>
+    </div>
     </div>
   </div>
 );

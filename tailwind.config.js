@@ -74,6 +74,10 @@ module.exports = {
 
       lineHeight: {
         '140p': '140%',
+      },
+
+      boxShadow: {
+        'anime-card': '0 4px 16px 0 #FEDF9A'
       }
     },
   },

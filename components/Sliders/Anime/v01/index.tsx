@@ -93,7 +93,7 @@ const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
       >
         {
           new Array(100).fill(0).map((_, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide className="pb-4" key={index}>
               <AnimeCard />
             </SwiperSlide>
           ))
@@ -105,7 +105,7 @@ const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
           />
           
         </div>
-        <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-9 z-[1001]" ref={prevElRef}>
+        <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-[68px] z-[1001]" ref={prevElRef}>
           <ArrowLeftCTA
             className="text-brown-2 fill-current"
             size={36}

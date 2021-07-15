@@ -18,7 +18,7 @@ const DEFAULT = 'flex items-center px-6 py-3 rounded-full text-white duration-70
 
 interface ButtonProps {
     onClick?: () => void,
-    children?: any,
+    children?: string,
     icon?: JSX.Element,
     style?: CSSProperties,
     className?: string,

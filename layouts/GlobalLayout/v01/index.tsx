@@ -60,7 +60,7 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
       {/**
         * COMPONENT ENTRY 
         */}
-      <main className="mt-[80px] py-8 px-14">
+      <main className="mt-[80px] py-8 px-[60px]">
         {children}
       </main>
     </div>
