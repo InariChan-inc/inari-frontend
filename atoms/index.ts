@@ -9,6 +9,8 @@ import HelpCTA from "./HelpCTA";
 import InfoCTA from "./InfoCTA";
 import ArrowLeftCTA from "./ArrowLeftCTA";
 import ArrowRightCTA from "./ArrowRightCTA";
+import ArrowDownCTA from "./ArrowDownCTA";
+import ArrowUpCTA from "./ArrowUpCTA";
 
 export {
     Logo,
@@ -22,4 +24,6 @@ export {
     InfoCTA,
     ArrowLeftCTA,
     ArrowRightCTA,
+    ArrowDownCTA,
+    ArrowUpCTA
 };
