@@ -39,7 +39,9 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
         loop
         autoplay={{
           delay: 3000,
+          disableOnInteraction: false,
         }}
+        speed={1000}
         navigation={{
           nextEl: nextElRef.current,
           prevEl: prevElRef.current,
