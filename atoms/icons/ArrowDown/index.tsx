@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react";
-import { BaseCTA } from "../interfaces";
+import { BaseCTA } from "../../interfaces";
 
 
-const ArrowDownCTA: FunctionComponent<BaseCTA> = ({
+const ArrowDown: FunctionComponent<BaseCTA> = ({
   className = '',
   size = 24,
 }) => (
@@ -19,4 +19,4 @@ const ArrowDownCTA: FunctionComponent<BaseCTA> = ({
 );
 
 
-export default ArrowDownCTA;
+export default ArrowDown;

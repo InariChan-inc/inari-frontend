@@ -20,7 +20,7 @@ SwiperCore.use([Navigation, Pagination, Autoplay]);
 import client from '../common/graphql/client';
 import store from '../redux';
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
       <ReduxProvider store={store}>
@@ -37,4 +37,4 @@ function MyApp({ Component, pageProps }) {
   );
 };
 
-export default MyApp
+export default App;

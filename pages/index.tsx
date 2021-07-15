@@ -7,7 +7,7 @@ import {
 
 import {
   Button
-} from '../molecules';
+} from '../atoms';
 
 import {
   useQuery,

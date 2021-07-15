@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
-import { BaseCTA } from '../interfaces';
+import { BaseCTA } from '../../interfaces';
 
-const ArrowUpCTA:FunctionComponent<BaseCTA> = ({
+const ArrowUp:FunctionComponent<BaseCTA> = ({
   className = '',
   size = 24, 
 }) => (
@@ -17,4 +17,4 @@ const ArrowUpCTA:FunctionComponent<BaseCTA> = ({
   </svg>
 );
 
-export default ArrowUpCTA;
+export default ArrowUp;

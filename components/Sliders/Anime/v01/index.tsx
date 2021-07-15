@@ -9,9 +9,9 @@ import {
 } from 'swiper/react';
 
 import {
-  ArrowLeftCTA,
-  ArrowRightCTA,
-} from '../../../../atoms';
+  ArrowLeft,
+  ArrowRight,
+} from '../../../../atoms/icons';
 
 import {
   AnimeCard,
@@ -99,14 +99,14 @@ const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
           ))
         }
         <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-0 z-[1001]" ref={nextElRef}>
-          <ArrowRightCTA 
+          <ArrowRight
             className="text-brown-2 fill-current"
             size={36}
           />
           
         </div>
         <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-[68px] z-[1001]" ref={prevElRef}>
-          <ArrowLeftCTA
+          <ArrowLeft
             className="text-brown-2 fill-current"
             size={36}
           />

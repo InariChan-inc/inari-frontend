@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react"
-import { BaseCTA } from "../interfaces"
+import { BaseCTA } from "../../interfaces"
 
-const  SearchRoundedCTA: FunctionComponent<BaseCTA> = ({
+const  SearchRounded: FunctionComponent<BaseCTA> = ({
   className = '',
   size = 24,
 }) => (
@@ -28,4 +28,4 @@ const  SearchRoundedCTA: FunctionComponent<BaseCTA> = ({
   </svg>
 );
 
-export default SearchRoundedCTA;
+export default SearchRounded;

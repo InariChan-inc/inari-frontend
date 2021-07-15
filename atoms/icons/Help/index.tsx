@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react"
-import { BaseCTA } from "../interfaces"
+import { BaseCTA } from "../../interfaces"
 
 
-const HelpCTA: FunctionComponent<BaseCTA> = ({
+const Help: FunctionComponent<BaseCTA> = ({
     className = '',
     size = 24,
 }) => (
@@ -18,4 +18,4 @@ const HelpCTA: FunctionComponent<BaseCTA> = ({
     </svg>
 );
 
-export default HelpCTA;
+export default Help;

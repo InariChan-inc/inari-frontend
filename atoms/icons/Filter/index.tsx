@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
-import { BaseCTA } from '../interfaces';
+import { BaseCTA } from '../../interfaces';
 
-const FilterCTA: FunctionComponent<BaseCTA> = ({
+const Filter: FunctionComponent<BaseCTA> = ({
   className = '',
   size = 24,
 }) => (
@@ -18,4 +18,4 @@ const FilterCTA: FunctionComponent<BaseCTA> = ({
 );
 
 
-export default FilterCTA;
+export default Filter;

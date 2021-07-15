@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react"
-import { BaseCTA } from "../interfaces"
+import { BaseCTA } from "../../interfaces"
 
 
-const InfoCTA: FunctionComponent<BaseCTA> = ({
+const Info: FunctionComponent<BaseCTA> = ({
   className = '',
   size = 24,
 }) => (
@@ -19,4 +19,4 @@ const InfoCTA: FunctionComponent<BaseCTA> = ({
 );
 
 
-export default InfoCTA;
+export default Info;
