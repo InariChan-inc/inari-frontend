@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { FunctionComponent } from "react";
-import { Person, Button } from '../../../atoms';
+import { Person } from '../../../atoms/icons';
+import { Button } from '../../../molecules';
 import { Button as Text } from '../../../typography';
 
 interface AuthorizationProps {
