@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
-import { BaseCTA } from "../../interfaces";
+import { BaseIconProps } from "../../interfaces";
 
-interface SunProps extends BaseCTA {
+interface SunProps extends BaseIconProps {
   onClick?: () => void,
 }
 

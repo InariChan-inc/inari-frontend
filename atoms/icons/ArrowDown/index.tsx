@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react";
-import { BaseCTA } from "../../interfaces";
+import { BaseIconProps } from "../../interfaces";
 
 
-const ArrowDown: FunctionComponent<BaseCTA> = ({
+const ArrowDown: FunctionComponent<BaseIconProps> = ({
   className = '',
   size = 24,
 }) => (

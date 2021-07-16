@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
-import { BaseCTA } from "../../interfaces";
+import { BaseIconProps } from "../../interfaces";
 
-const Search: FunctionComponent<BaseCTA> = ({
+const Search: FunctionComponent<BaseIconProps> = ({
   className = '',
   size = 24,
 }) => (
