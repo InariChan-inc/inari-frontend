@@ -15,7 +15,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = props => (
   <Formik
     initialValues={{ search: '' }}
     onSubmit={({ search }) => {
-      console.log('SEARCH:', search)
+      console.log('SEARCH:', search.trim())
     }}
   >
     {({
