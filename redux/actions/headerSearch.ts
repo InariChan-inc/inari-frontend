@@ -2,4 +2,4 @@ import {
   headerSearchSlice
 } from '../slices';
 
-export const { toggleFocus } = headerSearchSlice.actions;
+export const { setFocus } = headerSearchSlice.actions;

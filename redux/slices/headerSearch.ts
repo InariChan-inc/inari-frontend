@@ -17,8 +17,8 @@ const headerSearchSlice = createSlice({
   name: 'headerSearch',
   initialState,
   reducers: {
-    toggleFocus: (state: IHeaderSearch) => {
-      state.isFocused = !state.isFocused
+    setFocus: (state: IHeaderSearch, {payload}: PayloadAction<boolean>) => {
+      state.isFocused = payload;
     }
   }
 });
