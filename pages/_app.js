@@ -2,6 +2,7 @@ import 'tailwindcss/tailwind.css';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
+import 'animate.css';
 import Head from 'next/head';
 
 import SwiperCore, {
