@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 
 const colors = {
-    brown: 'text-brown',
+    'brown-2': 'text-brown-2',
     white: 'text-white',
     black: 'text-black',
 }

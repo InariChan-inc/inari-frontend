@@ -1,4 +1,4 @@
-export interface BaseCTA {
+export interface BaseIconProps {
     className?: string,
     size?: number
 }

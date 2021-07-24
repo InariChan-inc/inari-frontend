@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react";
-import { BaseCTA } from "../../interfaces";
+import { BaseIconProps } from "../../interfaces";
 
 
-const Cooperation: FunctionComponent<BaseCTA> = ({
+const Cooperation: FunctionComponent<BaseIconProps> = ({
   className = '',
   size = 24,
 }) => (

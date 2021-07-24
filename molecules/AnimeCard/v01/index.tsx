@@ -7,7 +7,7 @@ import {
 
 import {
   truncateByWords
-} from '../../../utils/truncate';
+} from '../../../utils';
 
 export interface AnimeCardProps {
     title?: string,
