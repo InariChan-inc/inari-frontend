@@ -1,6 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { IUser } from '../slices/user';
-import { userSlice } from "../slices";
 
 const selectSelf = ({user}: {user: IUser}) => user;
 
