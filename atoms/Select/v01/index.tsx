@@ -12,6 +12,7 @@ import {
   ArrowDown,
   ArrowUp,
 } from '../../../atoms/icons';
+import { useField } from "formik";
 
 
 
@@ -21,26 +22,27 @@ interface OptionProps {
 }
 
 interface SelectProps {
-  state: [string | number, Dispatch<string | number>],
+  name: string,
   label: string,
   options: OptionProps[],
+  onChange?: () => void,
 }
 
 const Select: FunctionComponent<SelectProps> = ({
   label,
-  state: [value, setValue],
+  name,
   options = [],
+  onChange = () => {}
 }) => {
+  const [field, meta, helpers] = useField<OptionProps>(name);
+
+  const { setValue } = helpers;
+  
+
   const rootRef = useRef<HTMLDivElement>(null);
   const optionsRootRef = useRef<HTMLDivElement>(null);
 
   const [open, setOpen] = useState(false);
-
-
-  const handleChange = (id: number | string) => () => {
-    setValue(id);
-    setOpen(false);
-  };
 
   const handleClick = (event: MouseEvent) => {
     const targetNode = event.target as Node;
@@ -71,7 +73,7 @@ const Select: FunctionComponent<SelectProps> = ({
           className="mr-8"
         >
           {
-            options.find(({id}) => id === value)?.value || label
+            field.value.value
           }
         </Button>
         {
@@ -87,11 +89,18 @@ const Select: FunctionComponent<SelectProps> = ({
         className={`rounded-2xl absolute py-4 px-6 translate-y-full bottom-0 left-0 right-0 border border-yellow-1 bg-white ${open ? 'block' : 'hidden'}`}
       >
         {
-          [{id: undefined, value: label}].concat(options).filter(({id}) => id !== value).map(({id, value}) => (
+          [meta.initialValue].concat(options).filter(({id}) => id !== field.value.id).map(({id, value}, index) => (
             <div 
-              key={id} 
+              key={index} 
               className="mb-2 border-b border-gray-3 p-1 last-of-type:border-none last-of-type:m-0 flex items-center"
-              onClick={handleChange(id)}
+              onClick={() => {
+                setValue({
+                  id,
+                  value
+                });
+                setOpen(false);
+                onChange();
+              }}
             >
               {value}
             </div>
