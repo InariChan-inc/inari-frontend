@@ -43,7 +43,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
               value={search}
               placeholder={placeholder}
               onChange={(event) => {
-                if (/^[A-Z\d\sАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ.,!?"'\/$]*$/gi.test(event.target.value) || event.target.value === '') {
+                if (/^[A-Z\d\sАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯЫЭЪ.,!:?"'\/$]*$/gi.test(event.target.value) || event.target.value === '') {
                   handleChange(event)
                   debouncedSubmitForm()
                 }
