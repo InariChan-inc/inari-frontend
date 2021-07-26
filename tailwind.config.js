@@ -47,6 +47,14 @@ module.exports = {
         '1': '#7F5D57',
         '2': '#301818',
       },
+      red: {
+        '1': '#E71A1A',
+        '2': '#B00020',
+      },
+      green: {
+        '1': '#21A300',
+        '2': '#166701',
+      },
     },
 
     fontFamily: {
@@ -77,7 +85,9 @@ module.exports = {
       },
 
       boxShadow: {
-        'anime-card': '0 4px 16px 0 #FEDF9A'
+        'anime-card': '0 4px 16px 0 #FEDF9A',
+        'form-light': '0 4px 8px 0 #FFEFCD',
+        'form-dark': '0 4px 8px -5px #FFEFCD',
       }
     },
   },
