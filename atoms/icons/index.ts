@@ -14,6 +14,7 @@ import Filter from "./Filter";
 import Email from "./Email";
 import ErrorIcon from "./Error";
 import Check from "./Check";
+import Key from './Key';
 
 export {
     Search,
@@ -32,4 +33,5 @@ export {
     Email,
     ErrorIcon,
     Check,
+    Key,
 };
