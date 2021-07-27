@@ -22,8 +22,6 @@ const REQUEST = gql`
   }
 `;
 
-import { GlobalLayout } from '../layouts';
-
 export default function Home() {
 
   // const {loading, error, data} = useQuery(REQUEST);
@@ -33,12 +31,11 @@ export default function Home() {
   // }
 
   return (
-    <div>
+    <div className="py-8 px-[60px]">
       <Head>
-        <title>Inari</title>
+        <title>Inari - Головна</title>
       </Head>
 
-      <GlobalLayout>
         <ImageSlider />
         <AnimeSlider
           className="my-16"
@@ -54,15 +51,12 @@ export default function Home() {
           slidesPerColumn={2}
         />
         <div className="w-full flex justify-center">
-          <Button 
-            bg="brown" 
-            color="white" 
+          <Button
             className="px-7 py-3"
           >
             Більше аніме
           </Button>
         </div>
-      </GlobalLayout>
     </div>
   )
 }
