@@ -15,6 +15,7 @@ import {
 
 
 export interface InputProps {
+  className?: string,
   disabled?: boolean,
   Icon?: JSXElementConstructor<{ className: string }>
   label: string,
@@ -25,6 +26,7 @@ export interface InputProps {
 }
 
 const Input: FunctionComponent<InputProps> = ({
+  className = '',
   disabled,
   Icon,
   label,
@@ -49,7 +51,7 @@ const Input: FunctionComponent<InputProps> = ({
   
   return (
     <div 
-      className={`relative min-w-[200px] rounded-full ${focused ? 'shadow-form-light' : ''}`} 
+      className={`relative min-w-[200px] rounded-full ${focused ? 'shadow-form-light' : ''} ${className}`} 
       onClick={() => inputRef.current?.focus()}
     >
       {
@@ -101,8 +103,8 @@ const Input: FunctionComponent<InputProps> = ({
                     ${!disabled && !meta.error ? 'hover:border-yellow-6' : ''}`}
         >
           <legend 
-            className={`transition-all duration-300 block select-none pointer-events-none font-montserrat font-light italic text-14 leading-none text-transparent 
-                            ${focused || !!field.value || (disabled !== undefined && !disabled) ? 'px-1 w-[100px]' : 'w-0'}`}
+            className={`transition-all duration-200 block select-none pointer-events-none font-montserrat font-light italic text-14 leading-none text-transparent 
+                            ${focused || !!field.value || (disabled !== undefined && !disabled) ? 'px-1 max-w-full' : 'max-w-0'}`}
           >
             <span>
               {label}
