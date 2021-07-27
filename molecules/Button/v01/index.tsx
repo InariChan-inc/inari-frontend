@@ -2,27 +2,18 @@ import { CSSProperties } from "react";
 import { FunctionComponent, JSXElementConstructor } from "react";
 import { Button as Text, ButtonTextColors } from '../../../typography';
 
-/**
- * Object with classes for button background
- * Add new background here and specify its tailwind classes
- */
-const backgrounds = {
-  brown: 'bg-brown-2 hover:bg-black',
+const types = {
+  1: 'text-white disabled:text-yellow-5 duration-300 disabled:cursor-not-allowed bg-brown-2 hover:bg-brown-1 disabled:bg-yellow-2',
 }
-
-/**
- * Default classes
- */
-const DEFAULT = 'flex items-center px-6 py-3 rounded-full text-white duration-700';
-
 interface ButtonProps {
     onClick?: () => void,
+    type?: keyof typeof types,
+    buttonType?: 'button' | 'submit' | 'reset',
     children?: string,
     icon?: JSX.Element,
     style?: CSSProperties,
     className?: string,
-    bg: keyof typeof backgrounds,
-    color?: ButtonTextColors,
+    disabled?: boolean
 }
 
 const Button: FunctionComponent<ButtonProps> = ({
@@ -31,22 +22,23 @@ const Button: FunctionComponent<ButtonProps> = ({
     icon,
     style,
     className = '',
-    bg,
-    color = 'black',
+    disabled,
+    type = 1,
+    buttonType = 'button',
 }) => {
-  const resClassName = [DEFAULT, className, backgrounds[bg]].join(' ');
 
   return (
     <button 
-      className={resClassName}
+      type={buttonType}
+      disabled={disabled}
+      className={`flex items-center px-6 py-3 rounded-full ${types[type]} ${className}`}
       style={style}
       onClick={onClick}
     >
       {icon}
-      <div className="pl-2">
+      <div className={`${icon ? 'pl-2' : ''}`}>
         <Text 
           type={1}
-          color={color}
         >
           {children}
         </Text>
