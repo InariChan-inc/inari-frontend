@@ -21,6 +21,7 @@ export interface InputProps {
   name: string,
   type?: string,
   validating?: boolean,
+  isValidating?: boolean,
 }
 
 const Input: FunctionComponent<InputProps> = ({
@@ -30,6 +31,7 @@ const Input: FunctionComponent<InputProps> = ({
   name,
   type = "text",
   validating,
+  isValidating,
 }) => {
   const [focused, setFocused] = useState(false);
 
@@ -39,8 +41,10 @@ const Input: FunctionComponent<InputProps> = ({
 
   useEffect(() => {
     if (field.value) {
-      helpers.setTouched(false);
+      helpers.setTouched(true);
     }
+
+    return () => helpers.setTouched(false);
   }, [field.value]);
   
   return (
@@ -56,7 +60,7 @@ const Input: FunctionComponent<InputProps> = ({
       }
       
       {
-        validating && field.value && meta.touched ? meta.error ? (
+        validating && !isValidating && meta.touched ? meta.error ? (
           <ErrorIcon className="text-red-1 fill-current absolute -translate-y-1/2 right-6 top-1/2" />
         ) : (
           <Check className="text-green-1 fill-current absolute -translate-y-1/2 right-6 top-1/2" />
@@ -64,9 +68,11 @@ const Input: FunctionComponent<InputProps> = ({
       }
       
 
-      <label className={`z-10 select-none pointer-events-none bg-current duration-300 absolute -translate-y-1/2 font-montserrat font-light italic text-14 tracking-3p leading-none 
-                        ${focused || !!field.value ? 'top-0 left-8' : `top-1/2 ${Icon ? 'left-16' : 'left-6'}`} 
-                        ${disabled ? 'text-yellow-5 cursor-not-allowed' : `cursor-text ${validating && field.value && meta.touched? meta.error ? 'text-red-2' : 'text-green-2' : 'text-yellow-6'}`} `}>
+      <label 
+        className={`z-10 select-none pointer-events-none bg-current duration-300 absolute -translate-y-1/2 font-montserrat font-light italic text-14 tracking-3p leading-none 
+                  ${focused || !!field.value ? 'top-0 left-8' : `top-1/2 ${Icon ? 'left-16' : 'left-6'}`} 
+                  ${disabled ? 'text-yellow-5 cursor-not-allowed' : `cursor-text ${validating && !isValidating && meta.touched ? meta.error ? 'text-red-2' : 'text-green-2' : 'text-yellow-6'}`} `}
+      >
         {label}
       </label>
       <div className="relative w-full h-full">
@@ -77,7 +83,7 @@ const Input: FunctionComponent<InputProps> = ({
           disabled={disabled}
           className={`px-6 py-4 outline-none font-montserrat font-medium italic text-16 rounded-full 
                     ${disabled ? 'bg-yellow-1 cursor-not-allowed' : 'bg-transparent'} ${Icon ? 'pl-16' : ''} 
-                    ${validating && field.value && meta.touched && meta.error ? 'text-red-2' : ''} 
+                    ${validating && !isValidating && meta.touched && meta.error ? 'text-red-2' : ''} 
                     ${validating ? 'pr-16' : ''}`}
           onFocus={() => setFocused(true)}
           onBlur={(event) => {
@@ -89,11 +95,13 @@ const Input: FunctionComponent<InputProps> = ({
             field.onChange(event);
           }}
         />
-        <fieldset className={`select-none pointer-events-none absolute left-0 right-0 bottom-0 top-[-6px] px-7 border 
-                            ${validating && field.value && meta.touched ? meta.error ? 'border-red-2' : 'border-green-2' : 'border-yellow-4'} rounded-full 
-                            ${!disabled && !meta.error ? 'hover:border-yellow-6' : ''}`}
+        <fieldset 
+          className={`select-none pointer-events-none absolute left-0 right-0 bottom-0 top-[-6px] px-7 border 
+                    ${validating && !isValidating && meta.touched ? meta.error ? 'border-red-2' : 'border-green-2' : 'border-yellow-4'} rounded-full 
+                    ${!disabled && !meta.error ? 'hover:border-yellow-6' : ''}`}
         >
-          <legend className={`transition-all duration-300 block select-none pointer-events-none font-montserrat font-light italic text-14 leading-none text-transparent 
+          <legend 
+            className={`transition-all duration-300 block select-none pointer-events-none font-montserrat font-light italic text-14 leading-none text-transparent 
                             ${focused || !!field.value || (disabled !== undefined && !disabled) ? 'px-1 w-[100px]' : 'w-0'}`}
           >
             <span>
