@@ -64,7 +64,7 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
         {/**
           * COMPONENT ENTRY 
           */}
-        <main className="mt-[80px] py-8 px-[60px] overflow-hidden">
+        <main className="mt-[80px]">
           {children}
         </main>
       </div>
@@ -76,10 +76,6 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
         html {
           scrollbar-color: ${tailwind.theme.colors.brown[2]} ${tailwind.theme.colors.yellow[5]} ;
           scrollbar-width: 10px;
-        }
-
-        body {
-          ${isSearchFocused ? 'overflow: hidden; padding-right: 10px;' : ''}
         }
 
         /* width */
