@@ -15,6 +15,7 @@ import Email from "./Email";
 import ErrorIcon from "./Error";
 import Check from "./Check";
 import Key from './Key';
+import Visibility from "./Visibility";
 
 export {
     Search,
@@ -34,4 +35,5 @@ export {
     ErrorIcon,
     Check,
     Key,
+    Visibility,
 };
