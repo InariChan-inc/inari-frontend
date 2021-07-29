@@ -42,7 +42,6 @@ const Menu: FunctionComponent<MenuProps> = ({
               to={page}
               Icon={Icon}
               text={text}
-              color="brown"
               isActive={router.asPath === '/' + page}
             />
           ))

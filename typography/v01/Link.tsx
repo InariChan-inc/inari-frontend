@@ -1,11 +1,23 @@
+import { ReactNode } from "react";
 import { FunctionComponent } from "react";
 
-interface LinkProps {
-    children: string,
+const linkTypes = {
+    1: 'font-montserrat font-bold text-18 tracking-normal leading-140p underline',
+    2: 'font-montserrat font-bold text-14 tracking-normal leading-140p underline'
 }
 
-const Link: FunctionComponent<LinkProps> = ({children}) => (
-    <span className="font-montserrat font-bold text-18 tracking-normal leading-140p underline">{children}</span>
+interface LinkProps {
+  type: keyof typeof linkTypes,
+  children: ReactNode,
+  className?: string,
+}
+
+const Link: FunctionComponent<LinkProps> = ({
+  type,
+  children,
+  className = '',
+}) => (
+  <span className={`${linkTypes[type]} ${className}`}>{children}</span>
 )
 
 export default Link;
