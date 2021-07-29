@@ -35,39 +35,49 @@ export default function SignIn() {
         className="text-brown-2 mb-6"
         type={2}
       >
-        З поверненням!
+        Раді тебе бачити!
       </Headline>
       <Headline
         className="text-brown-2"
         type={4}
       >
-        Введіть дані, щоб увійти :)
+        Введіть дані для реєстрації :)
       </Headline>
       <Formik
         initialValues={{
-          login: '',
+          name: '',
+          email: '',
           password: '',
         }}
         initialErrors={{
-          login: '',
+          name: '',
+          email: '',
           password: '',
         }}
         validateOnChange={true}
         validate={async ({
-          login,
+          name,
+          email,
           password
         }) => {
           const errors = {
-            login: '',
+            name: '',
+            email: '',
             password: '',
           }
 
-          if (!login) {
-            errors.login = EMPTY_ERROR;
+          if (!name) {
+            errors.name = EMPTY_ERROR;
           }
-          
-          if (!password) {
-            errors.password = EMPTY_ERROR;
+
+          if (!email) {
+            errors.email = EMPTY_ERROR;
+          } else if (email === 'manvi@ukr.net') {
+            errors.email = EXISTS;
+          }
+
+          if (!/(?=.*[A-Z])(?=.[\d]).{6,}/.test(password)) {
+            errors.password = NOT_MATCHED;
           }
 
           return new Promise(res => setTimeout(res, 1000)).then(() => errors)
@@ -87,12 +97,39 @@ export default function SignIn() {
             <div className="flex flex-col justify-center items-center mt-12 mb-16 w-[350px]">
               <Input
                 isValidating={isValidating}
-                error={touched.login && !!errors.login}
+                error={touched.name && !!errors.name}
                 className="mb-4"
-                label="Логін"
-                name="login"
+                label="Нікнейм"
+                name="name"
                 Icon={Person}
-                helper={touched.login && errors.login === EMPTY_ERROR ? "Логін не може бути нічим" : undefined}
+                helper={touched.name && errors.name === EMPTY_ERROR ? "Ім'я не може бути нічим" : undefined}
+              />
+              <Input
+                isValidating={isValidating}
+                error={touched.email && !!errors.email}
+                className="mb-4"
+                label="Імейл"
+                name="email"
+                type="email"
+                Icon={Email}
+                helper={touched.email ? errors.email === EMPTY_ERROR ? "Імейл не можe бути нічим" : errors.email === EXISTS ? (
+                  <>
+                    {'Ой. цей імейл уже зареєстровано. Ви можете '} 
+                    <LinkText 
+                      className="text-black" 
+                      type={2}
+                    >
+                      <Link href="/signin">увійти</Link>
+                    </LinkText>
+                    {' або '}
+                    <LinkText
+                      className="text-black"
+                      type={2}
+                    >
+                      <Link href="/reset-password">скинути пароль</Link>
+                    </LinkText>
+                  </>
+                ) : undefined : undefined}
               />
               <Input
                 isValidating={isValidating}
@@ -102,7 +139,7 @@ export default function SignIn() {
                 name="password"
                 type="password"
                 Icon={Key}
-                helper={touched.password ? errors.password === EMPTY_ERROR ? "Пароль не може бути нічим" : undefined : undefined}
+                helper="Пароль повинен містити мінімум 6 символів, містити в собі одну велику літеру і цифру."
               />
               <Button
                 className="mb-6"
@@ -126,31 +163,12 @@ export default function SignIn() {
           )
         }}
       </Formik>
-      <section className="flex mb-4">
-        <Body 
-          type={4}
-          className="text-yellow-6 mr-1"
-        >
-          Не маєш акаунту?
-        </Body>
-
-        <Body
-          type={5}
-          className="text-brown-2"
-        >
-          <LinkText
-            className="text-black"
-            type={2}>
-          <Link href="/signin">Увійти :)</Link>
-          </LinkText>
-        </Body>
-      </section>
       <section className="flex">
         <Body 
           type={4}
           className="text-yellow-6 mr-1"
         >
-          Не пам'ятаєш пароль?
+          Вже маєш акаунт?
         </Body>
 
         <Body
@@ -160,7 +178,7 @@ export default function SignIn() {
           <LinkText
             className="text-black"
             type={2}>
-          <Link href="/signin">Скинути пароль</Link>
+          <Link href="/signin">Увійди :)</Link>
           </LinkText>
         </Body>
       </section>
