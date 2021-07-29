@@ -3,6 +3,7 @@ import MenuItem from "./MenuItem";
 import AnimeCard from "./AnimeCard";
 import Button from './Button';
 import Input from "./Input";
+import Checkbox from "./Checkbox";
 
 export {
     SearchInput,
@@ -10,4 +11,5 @@ export {
     AnimeCard,
     Button,
     Input,
+    Checkbox,
 };
