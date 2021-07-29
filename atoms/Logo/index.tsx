@@ -2,10 +2,10 @@ import {
   FunctionComponent, 
   CSSProperties,
 } from "react";
-import { BaseCTA } from "../interfaces";
+import { BaseIconProps } from "../interfaces";
 
 
-interface LogoProps extends BaseCTA {
+interface LogoProps extends BaseIconProps {
   style?: CSSProperties,
 }
 

@@ -15,10 +15,8 @@ const Authorization: FunctionComponent<AuthorizationProps> = ({
 
   return (
   <div className="flex items-center">
-      <Button 
+      <Button
         icon={<Person className="fill-current relative" />}
-        bg="brown"
-        color="white"
         className="z-10"
         style={{
           height: 54,

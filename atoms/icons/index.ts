@@ -11,6 +11,11 @@ import ArrowRight from "./ArrowRight";
 import ArrowDown from "./ArrowDown";
 import ArrowUp from "./ArrowUp";
 import Filter from "./Filter";
+import Email from "./Email";
+import ErrorIcon from "./Error";
+import Check from "./Check";
+import Key from './Key';
+import Visibility from "./Visibility";
 
 export {
     Search,
@@ -26,4 +31,9 @@ export {
     ArrowDown,
     ArrowUp,
     Filter,
+    Email,
+    ErrorIcon,
+    Check,
+    Key,
+    Visibility,
 };
