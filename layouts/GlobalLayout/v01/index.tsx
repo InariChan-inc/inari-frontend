@@ -15,15 +15,11 @@ import {
   Menu,
 } from '../../../components';
 
-
 import tailwind from '../../../tailwind.config';
 
-interface GlobalLayoutProps {
-    children: any
-}
 
-const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
-    children
+const GlobalLayout: FunctionComponent = ({
+    children,
 }) => {
   const isSearchFocused = useSelector(isFocused);
 
@@ -64,7 +60,7 @@ const GlobalLayout: FunctionComponent<GlobalLayoutProps> = ({
         {/**
           * COMPONENT ENTRY 
           */}
-        <main className="mt-[80px]">
+        <main className="mt-[80px]" style={{ minHeight: 'calc(100vh - 80px)' }}>
           {children}
         </main>
       </div>
