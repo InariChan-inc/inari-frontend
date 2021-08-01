@@ -1,5 +1,9 @@
 import Head from 'next/head';
-import { Formik } from 'formik';
+import {
+  useEffect,
+  useRef,
+} from 'react';
+import { Formik, FormikErrors, FormikValues } from 'formik';
 import {
   Headline,
   Body,
@@ -17,18 +21,39 @@ import {
 } from '../molecules';
 import { AuthorizationLayout } from '../layouts';
 
+import {
+  EMAIL_REGEX,
+  NICKNAME_REGEX,
+  PASSWORD_REGEX,
+} from '../common/regex';
 
-const EMPTY_ERROR = 'EMPTY';
-const EXISTS = 'EXISTS';
-const NOT_MATCHED = 'NOT MATCHED';
+import {
+  EMPTY_ERROR,
+  NOT_MATCHED_ERROR,
+} from '../common/errors';
 
 
 export default function SignIn() {
 
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const enterClick: (this: Document, event: KeyboardEvent) => void = event => {
+      if (event.key == 'Enter') {
+        submitButtonRef.current.click();
+      }
+    }
+
+    document.addEventListener('keydown', enterClick)
+    return () => {
+      document.removeEventListener('keydown', enterClick);
+    };
+  }, []);
+
   return (
     <AuthorizationLayout>
       <Head>
-        <title>Inari - Реєстрація</title>
+        <title>Inari - Вхід</title>
       </Head>
 
       <Headline 
@@ -52,22 +77,24 @@ export default function SignIn() {
           login: '',
           password: '',
         }}
+       
         validateOnChange={true}
-        validate={async ({
+        validate={({
           login,
           password
         }) => {
-          const errors = {
-            login: '',
-            password: '',
-          }
+          const errors: FormikErrors<FormikValues> = {};
 
           if (!login) {
             errors.login = EMPTY_ERROR;
+          } else if (!EMAIL_REGEX.test(login) && !NICKNAME_REGEX.test(login)) {
+            errors.login = NOT_MATCHED_ERROR;
           }
           
           if (!password) {
             errors.password = EMPTY_ERROR;
+          } else if (!PASSWORD_REGEX.test(password)) {
+            errors.password = NOT_MATCHED_ERROR;
           }
 
           return new Promise(res => setTimeout(res, 1000)).then(() => errors)
@@ -81,6 +108,8 @@ export default function SignIn() {
           touched,
           handleSubmit,
           isValidating,
+          isSubmitting,
+          isValid
         }) => {
 
           return (
@@ -92,7 +121,10 @@ export default function SignIn() {
                 label="Логін"
                 name="login"
                 Icon={Person}
-                helper={touched.login && errors.login === EMPTY_ERROR ? "Логін не може бути нічим" : undefined}
+                helper={touched.login ? 
+                  errors.login === EMPTY_ERROR ? 'Логін не може бути нічим' : 
+                  errors.login === NOT_MATCHED_ERROR ? 'Це не схоже ані на нік, ані на емейл.' : 
+                  undefined : 'Подайте нік або емейл :)'}
               />
               <Input
                 isValidating={isValidating}
@@ -102,67 +134,53 @@ export default function SignIn() {
                 name="password"
                 type="password"
                 Icon={Key}
-                helper={touched.password ? errors.password === EMPTY_ERROR ? "Пароль не може бути нічим" : undefined : undefined}
+                helper={touched.password ? 
+                  errors.password === EMPTY_ERROR ? "Пароль не може бути нічим" : 
+                  errors.password === NOT_MATCHED_ERROR ? 'Це не схоже на пароль.' :
+                  undefined : undefined}
               />
               <Button
+                ref={submitButtonRef}
                 className="mb-6"
                 buttonType="submit"
                 onClick={handleSubmit}
+                disabled={isSubmitting || isValidating || !isValid}
               >
-                Зареєструватися
+                Увійти
               </Button>
-              <Body
-                className="text-yellow-6 text-center"
-                type={6}
-              >
-                Реєструючись, ви погоджуєтеся з{' '}
-                <LinkText
-                  className="text-black block"
-                  type={2}>
-                    <Link href="/rules">правилами платформи</Link>
-                </LinkText>
-              </Body>
             </div>
           )
         }}
       </Formik>
-      <section className="flex mb-4">
+      <section className="flex items-center mb-4">
         <Body 
-          type={4}
+          type={6}
           className="text-yellow-6 mr-1"
         >
           Не маєш акаунту?
         </Body>
 
-        <Body
-          type={5}
-          className="text-brown-2"
+        <LinkText
+          className="text-black"
+          type={2}
         >
-          <LinkText
-            className="text-black"
-            type={2}>
-          <Link href="/signin">Увійти :)</Link>
-          </LinkText>
-        </Body>
+          <Link href="/signin">Зареєструйся :)</Link>
+        </LinkText>
       </section>
-      <section className="flex">
+      <section className="flex items-center">
         <Body 
-          type={4}
+          type={6}
           className="text-yellow-6 mr-1"
         >
           Не пам'ятаєш пароль?
         </Body>
 
-        <Body
-          type={5}
-          className="text-brown-2"
+        <LinkText
+          className="text-black"
+          type={2}
         >
-          <LinkText
-            className="text-black"
-            type={2}>
           <Link href="/signin">Скинути пароль</Link>
-          </LinkText>
-        </Body>
+        </LinkText>
       </section>
     </AuthorizationLayout>
   );

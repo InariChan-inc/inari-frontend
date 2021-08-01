@@ -150,15 +150,9 @@ const Input: FunctionComponent<InputProps> = ({
       {
         helper ? (
           <div className={`select-none px-6 py-2 ${error !== undefined && meta.touched && !isThisInputBeingValidated ? error ? 'text-red-2' : 'text-green-2' : 'text-yellow-6'}`}>
-            {
-              typeof helper === 'string' ? (
-                <Body
-                  type={11}
-                >
-                  {helper}
-                </Body>
-              ) : helper
-            }
+            <Body type={11}>
+              {helper}
+            </Body>
           </div>
         ) : null
       }
