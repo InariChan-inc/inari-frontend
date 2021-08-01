@@ -1,1 +1,2 @@
 export const truncateByWords: (text: string, wordsLimit: number) => string = (text, wordsLimit) => text.split(' ').length <= wordsLimit ? text : text.split(' ').slice(0, wordsLimit).join(' ') + '...';
+export const sleep: (callback: () => any, timeout: number) => Promise<any> = (callback, timeout) => new Promise(res => setTimeout(res, timeout)).then(callback)
