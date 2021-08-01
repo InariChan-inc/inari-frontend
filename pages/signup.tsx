@@ -1,5 +1,9 @@
 import Head from 'next/head';
-import { Formik } from 'formik';
+import {
+  useEffect,
+  useRef
+} from 'react';
+import { Formik, FormikErrors, FormikValues } from 'formik';
 import {
   Headline,
   Body,
@@ -17,13 +21,34 @@ import {
 } from '../molecules';
 import { AuthorizationLayout } from '../layouts';
 
+import {
+  EMAIL_REGEX,
+  PASSWORD_REGEX,
+  NICKNAME_REGEX,
+} from '../common/regex';
 
-const EMPTY_ERROR = 'EMPTY';
-const EXISTS = 'EXISTS';
-const NOT_MATCHED = 'NOT MATCHED';
-
+import {
+  EMPTY_ERROR,
+  EXISTS_ERROR,
+  NOT_MATCHED_ERROR,
+} from '../common/errors';
 
 export default function SignIn() {
+
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const enterClick: (this: Document, event: KeyboardEvent) => void = event => {
+      if (event.key == 'Enter') {
+        submitButtonRef.current.click();
+      }
+    }
+
+    document.addEventListener('keydown', enterClick)
+    return () => {
+      document.removeEventListener('keydown', enterClick);
+    };
+  }, []);
 
   return (
     <AuthorizationLayout>
@@ -60,38 +85,41 @@ export default function SignIn() {
           email,
           password
         }) => {
-          const errors = {
-            name: '',
-            email: '',
-            password: '',
-          }
+          const errors: FormikErrors<FormikValues> = {};
 
           if (!name) {
             errors.name = EMPTY_ERROR;
+          } else if (!NICKNAME_REGEX.test(name)) {
+            errors.name = NOT_MATCHED_ERROR;
           }
 
           if (!email) {
             errors.email = EMPTY_ERROR;
-          } else if (email === 'manvi@ukr.net') {
-            errors.email = EXISTS;
+          } else if (!EMAIL_REGEX.test(email)) {
+            errors.email = NOT_MATCHED_ERROR;
           }
 
-          if (!/(?=.*[A-Z])(?=.[\d]).{6,}/.test(password)) {
-            errors.password = NOT_MATCHED;
+          if (!PASSWORD_REGEX.test(password)) {
+            errors.password = NOT_MATCHED_ERROR;
           }
 
           return new Promise(res => setTimeout(res, 1000)).then(() => errors)
         }}
-        onSubmit={(values) => {
+        onSubmit={(values, actions) => {
           console.log('SUBMIT', values)
         }}
       >
         {({
           errors,
           touched,
+          submitForm,
           handleSubmit,
           isValidating,
+          isSubmitting,
+          isValid
         }) => {
+
+          console.log(isSubmitting, isValidating, !!errors.email, !!errors.name, !!errors.password)
 
           return (
             <div className="flex flex-col justify-center items-center mt-12 mb-16 w-[350px]">
@@ -102,34 +130,41 @@ export default function SignIn() {
                 label="Нікнейм"
                 name="name"
                 Icon={Person}
-                helper={touched.name && errors.name === EMPTY_ERROR ? "Ім'я не може бути нічим" : undefined}
+                helper={touched.name ? 
+                  errors.name === EMPTY_ERROR ? "Нік не може бути нічим :)" :
+                  errors.name === NOT_MATCHED_ERROR ? "Нік має мати принаймні 5 символів і може мати лише цифри та латинські літери." :
+                  undefined : undefined}
               />
               <Input
                 isValidating={isValidating}
                 error={touched.email && !!errors.email}
                 className="mb-4"
-                label="Імейл"
+                label="Емейл"
                 name="email"
                 type="email"
                 Icon={Email}
-                helper={touched.email ? errors.email === EMPTY_ERROR ? "Імейл не можe бути нічим" : errors.email === EXISTS ? (
-                  <>
-                    {'Ой. цей імейл уже зареєстровано. Ви можете '} 
-                    <LinkText 
-                      className="text-black" 
-                      type={2}
-                    >
-                      <Link href="/signin">увійти</Link>
-                    </LinkText>
-                    {' або '}
-                    <LinkText
-                      className="text-black"
-                      type={2}
-                    >
-                      <Link href="/reset-password">скинути пароль</Link>
-                    </LinkText>
-                  </>
-                ) : undefined : undefined}
+                helper={touched.email ? 
+                  errors.email === EMPTY_ERROR ? "Імейл не можe бути нічим :)" : 
+                  errors.email === NOT_MATCHED_ERROR ? "Це не схоже на емейл :)" : 
+                  errors.email === EXISTS_ERROR ? (
+                    <>
+                      Ой. цей імейл уже зареєстровано. Ви можете{' '}
+                      <LinkText 
+                        className="text-black" 
+                        type={2}
+                      >
+                        <Link href="/signin">увійти</Link>
+                      </LinkText>
+                      {' або '}
+                      <LinkText
+                        className="text-black"
+                        type={2}
+                      >
+                        <Link href="/reset-password">скинути пароль</Link>
+                      </LinkText>
+                      .
+                    </>
+                  ) : undefined : undefined}
               />
               <Input
                 isValidating={isValidating}
@@ -142,45 +177,44 @@ export default function SignIn() {
                 helper="Пароль повинен містити мінімум 6 символів, містити в собі одну велику літеру і цифру."
               />
               <Button
+                ref={submitButtonRef}
                 className="mb-6"
-                buttonType="submit"
                 onClick={handleSubmit}
+                disabled={isSubmitting || isValidating || !isValid}
               >
                 Зареєструватися
               </Button>
               <Body
-                className="text-yellow-6 text-center"
+                className="text-yellow-6 text-center whitespace-pre-line"
                 type={6}
               >
-                Реєструючись, ви погоджуєтеся з{' '}
+                Реєструючись, ви погоджуєтеся з{'\n'}
                 <LinkText
-                  className="text-black block"
-                  type={2}>
-                    <Link href="/rules">правилами платформи</Link>
+                  className="text-black"
+                  type={2}
+                >
+                  <Link href="/rules">правилами платформи</Link>
                 </LinkText>
+                .
               </Body>
             </div>
           )
         }}
       </Formik>
-      <section className="flex">
+      <section className="flex items-center">
         <Body 
-          type={4}
+          type={6}
           className="text-yellow-6 mr-1"
         >
           Вже маєш акаунт?
         </Body>
 
-        <Body
-          type={5}
-          className="text-brown-2"
+        <LinkText
+          className="text-black"
+          type={2}
         >
-          <LinkText
-            className="text-black"
-            type={2}>
           <Link href="/signin">Увійди :)</Link>
-          </LinkText>
-        </Body>
+        </LinkText>
       </section>
     </AuthorizationLayout>
   );
