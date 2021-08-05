@@ -22,8 +22,8 @@ export type GeneralToken = Token & RefreshToken;
 const initialState: GeneralToken = {
   token: '',
   tokenExp: 0,
-  refreshToken: localStorage?.getItem(REFRESH_TOKEN_ITEM) || '',
-  refreshTokenExp: Number(localStorage?.getItem(REFRESH_TOKEN_EXP_ITEM)) || 0
+  refreshToken: process.browser ? localStorage.getItem(REFRESH_TOKEN_ITEM) || '' : '',
+  refreshTokenExp: process.browser ? Number(localStorage?.getItem(REFRESH_TOKEN_EXP_ITEM)) || 0 : 0
 };
 
 const tokenSlice = createSlice({

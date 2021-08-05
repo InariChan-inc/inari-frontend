@@ -1,37 +1,30 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-enum Theme {
+export enum Theme {
     LIGHT_THEME,
     BLACK_THEME
 }
 
-interface Role {
+export interface Role {
     id: number,
     name: string,
     key: string,
     permissions: string[],
 }
 export interface IUser {
-    id: number,
     name: string,
     email: string,
     theme: Theme,
-    avatarUrl: string,
-    role: Role,
+    // avatarUrl: string,
+    roleData: Role | null,
 }
 
 const initialState: IUser = {
-    id: undefined,
     name: '',
     email: '',
-    avatarUrl: '',
+    // avatarUrl: '',
     theme: Theme.LIGHT_THEME,
-    role: {
-        id: undefined,
-        name: '',
-        key: '',
-        permissions: []
-    },
+    roleData: null,
 }
 
 const userSlice = createSlice({
