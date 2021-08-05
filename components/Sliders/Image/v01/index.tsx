@@ -1,7 +1,5 @@
 import { 
   FunctionComponent,
-  RefObject,
-  useState,
   useRef,
 } from "react";
 
@@ -19,14 +17,15 @@ import tailwind from '../../../../tailwind.config';
 
 interface ImageSliderProps {
     className?: string,
+    urls?: string[],
 }
 
 const DEFAULT = 'pt-[68px] overflow-hidden ';
 
 const ImageSlider: FunctionComponent<ImageSliderProps> = ({
     className = '',
+    urls = [],
 }) => {
-
   const nextElRef = useRef(null);
   const prevElRef = useRef(null);
 
@@ -60,11 +59,19 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
           swiper.params.pagination.el = paginationElRef.current;
         }}      
       >
-        <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">1</SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">2</SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">3</SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">4</SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center text-48 text-white bg-gray-0 rounded-[5px]">5</SwiperSlide>
+        {urls.map((url, index) => (
+          <SwiperSlide
+            key={index}
+            className="rounded-[5px] select-none" 
+          >
+            <div
+              className="w-full h-full bg-cover bg-center"
+              style={{
+                backgroundImage: `url('${url}')`
+              }}
+            />
+          </SwiperSlide>
+        ))}
         <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-0 z-[1001]" ref={nextElRef}>
           <ArrowRight
             className="text-brown-2 fill-current"

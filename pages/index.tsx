@@ -14,21 +14,17 @@ import {
   gql,
 } from '@apollo/client';
 
-const REQUEST = gql`
-  query {
-    userProfile {
-      email, name
-    }
-  }
-`;
-
 export default function Home() {
 
-  // const {loading, error, data} = useQuery(REQUEST);
-
-  // if (!loading) {
-  //   console.log(data.userProfile);
-  // }
+  const {data} = useQuery<{baners: {image: {path: string}}[]}>(gql`
+    {
+      baners {
+        image {
+          path
+        }
+      }
+    }
+  `);
 
   return (
     <div className="py-8 px-[60px]">
@@ -36,7 +32,9 @@ export default function Home() {
         <title>Inari - Головна</title>
       </Head>
 
-        <ImageSlider />
+        <ImageSlider
+          urls={data && data.baners.map(item => `${process.env.HOST}/${item.image.path}`)}
+        />
         <AnimeSlider
           className="my-16"
           title="Останні додані аніме"
