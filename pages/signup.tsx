@@ -1,9 +1,21 @@
 import Head from 'next/head';
-import {
+import { useRouter } from 'next/router';
+import {  
   useEffect,
   useRef
 } from 'react';
-import { Formik, FormikErrors, FormikValues } from 'formik';
+import { useDispatch } from 'react-redux';
+import { gql } from '@apollo/client';
+import {
+  Formik, 
+  FormikErrors, 
+  FormikValues
+} from 'formik';
+import { setUser } from '../redux/actions/user';
+import {
+  setToken,
+  setRefreshToken
+} from '../redux/actions/token';
 import {
   Headline,
   Body,
@@ -20,20 +32,26 @@ import {
   Button,
 } from '../molecules';
 import { AuthorizationLayout } from '../layouts';
-
+import ApolloClient from '../common/graphql/client';
+import { IRegistrationUser } from '../common/graphql/interfaces';
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
   NICKNAME_REGEX,
 } from '../common/regex';
-
 import {
   EMPTY_ERROR,
   EXISTS_ERROR,
   NOT_MATCHED_ERROR,
 } from '../common/errors';
+import { sleep } from '../utils';
+
 
 export default function SignIn() {
+
+  const router = useRouter();
+
+  const dispatch = useDispatch();
 
   const submitButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -77,7 +95,7 @@ export default function SignIn() {
         initialErrors={{
           name: '',
           email: '',
-          password: '',
+          password: ''
         }}
         validateOnChange={true}
         validate={async ({
@@ -103,24 +121,95 @@ export default function SignIn() {
             errors.password = NOT_MATCHED_ERROR;
           }
 
-          return new Promise(res => setTimeout(res, 1000)).then(() => errors)
+          return sleep(() => errors, 1000);
         }}
-        onSubmit={(values, actions) => {
-          console.log('SUBMIT', values)
+        onSubmit={({name, email, password}, actions) => {
+
+          ApolloClient.query({
+              query: gql`
+              {
+                existUserName(name: "${name}"),
+                existUserEmail(email: "${email}")
+              }
+            `}
+          ).then(({ 
+              data: {
+                existUserEmail,
+                existUserName
+              } 
+            }) => {
+              if (existUserEmail || existUserName) {
+                if (existUserEmail) {
+                  actions.setFieldError('email', EXISTS_ERROR);
+                }
+
+                if (existUserName) {
+                  actions.setFieldError('name', EXISTS_ERROR);
+                }
+              } else {
+                ApolloClient.mutate({
+                  mutation: gql`
+                    mutation {
+                      registartionUser(
+                        data: { 
+                          name: "${name}", 
+                          email: "${email}", 
+                          password: "${password}" 
+                        }
+                      ) {
+                        userData {
+                          name
+                          email
+                          theme
+                          roleData {
+                            name
+                            key
+                            permissions
+                          }
+                        }
+                        tokenData {
+                          token
+                          tokenExp
+                          refreshToken
+                          refreshTokenExp
+                        }
+                      }
+                    }
+                  `
+                }).then(({
+                  data: {
+                    registartionUser: {
+                      userData,
+                      tokenData
+                    }
+                  }
+                }: IRegistrationUser) => {
+                  dispatch(setUser(userData));
+                  dispatch(setToken({
+                    token: tokenData.token,
+                    tokenExp: tokenData.tokenExp
+                  }));
+                  dispatch(setRefreshToken({
+                    refreshToken: tokenData.refreshToken,
+                    refreshTokenExp: tokenData.refreshTokenExp
+                  }));
+                  router.push('/');
+                })
+              }
+              actions.setSubmitting(false);
+              
+          });
+
         }}
       >
         {({
           errors,
           touched,
-          submitForm,
           handleSubmit,
           isValidating,
           isSubmitting,
           isValid
         }) => {
-
-          console.log(isSubmitting, isValidating, !!errors.email, !!errors.name, !!errors.password)
-
           return (
             <div className="flex flex-col justify-center items-center mt-12 mb-16 w-[350px]">
               <Input
@@ -131,8 +220,9 @@ export default function SignIn() {
                 name="name"
                 Icon={Person}
                 helper={touched.name ? 
-                  errors.name === EMPTY_ERROR ? "Нік не може бути нічим :)" :
-                  errors.name === NOT_MATCHED_ERROR ? "Нік має мати принаймні 5 символів і може мати лише цифри та латинські літери." :
+                  errors.name === EMPTY_ERROR ? 'Нік не може бути нічим :)' :
+                  errors.name === NOT_MATCHED_ERROR ? 'Нік має мати принаймні 5 символів і може мати лише цифри та латинські літери.' :
+                  errors.name === EXISTS_ERROR ? 'Цей нікнейм вже існує':
                   undefined : undefined}
               />
               <Input
@@ -155,13 +245,13 @@ export default function SignIn() {
                       >
                         <Link href="/signin">увійти</Link>
                       </LinkText>
-                      {' або '}
+                      {/* {' або '}
                       <LinkText
                         className="text-black"
                         type={2}
                       >
                         <Link href="/reset-password">скинути пароль</Link>
-                      </LinkText>
+                      </LinkText> */}
                       .
                     </>
                   ) : undefined : undefined}
@@ -180,7 +270,7 @@ export default function SignIn() {
                 ref={submitButtonRef}
                 className="mb-6"
                 onClick={handleSubmit}
-                disabled={isSubmitting || isValidating || !isValid}
+                disabled={isSubmitting || !isValid}
               >
                 Зареєструватися
               </Button>

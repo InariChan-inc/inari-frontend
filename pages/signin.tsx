@@ -1,9 +1,18 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import {
   useEffect,
   useRef,
+  useState,
 } from 'react';
-import { Formik, FormikErrors, FormikValues } from 'formik';
+import { useDispatch } from 'react-redux';
+import { gql } from '@apollo/client';
+import { Formik } from 'formik';
+import { setUser } from '../redux/actions/user';
+import {
+  setToken,
+  setRefreshToken
+} from '../redux/actions/token';
 import {
   Headline,
   Body,
@@ -11,9 +20,9 @@ import {
 } from '../typography';
 import { Link } from '../atoms';
 import {
-  Person,
   Email,
   Key,
+  ErrorIcon
 } from '../atoms/icons';
 import {
   Input,
@@ -21,21 +30,18 @@ import {
 } from '../molecules';
 import { AuthorizationLayout } from '../layouts';
 
-import {
-  EMAIL_REGEX,
-  NICKNAME_REGEX,
-  PASSWORD_REGEX,
-} from '../common/regex';
-
-import {
-  EMPTY_ERROR,
-  NOT_MATCHED_ERROR,
-} from '../common/errors';
+import ApolloClient from '../common/graphql/client';
+import { ILoginUser } from '../common/graphql/interfaces';
 
 
 export default function SignIn() {
+  const router = useRouter();
 
   const submitButtonRef = useRef<HTMLButtonElement>(null);
+
+  const [userError, setUserError] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const enterClick: (this: Document, event: KeyboardEvent) => void = event => {
@@ -56,95 +62,128 @@ export default function SignIn() {
         <title>Inari - Вхід</title>
       </Head>
 
-      <Headline 
-        className="text-brown-2 mb-6"
-        type={2}
-      >
-        З поверненням!
-      </Headline>
-      <Headline
-        className="text-brown-2"
-        type={4}
-      >
-        Введіть дані, щоб увійти :)
-      </Headline>
+      {
+        userError ? (
+          <div className="flex justify-center items-start mt-12 mb-16 w-[350px]">
+            <div className="mr-[24px]">
+              <ErrorIcon
+                className="text-red-2 fill-current"
+                size={36}
+              />
+            </div>
+            <div className="text-red-2">
+              <Headline
+                className="mb-5"
+                type={2}
+              >
+                Йой! Помилка!
+              </Headline>
+              <Body type={11}>
+                Некоректний логін або пароль. Будь ласка, перевірте коректність заповнених даних та спробуйте ще раз!
+              </Body>
+            </div>
+          </div>
+        ) : (
+          <>
+            <Headline 
+              className="text-brown-2 mb-6"
+              type={2}
+            >
+              З поверненням!
+            </Headline>
+            <Headline
+              className="text-brown-2"
+              type={4}
+            >
+              Введіть дані, щоб увійти :)
+            </Headline>
+          </>
+        )
+      }
+
       <Formik
         initialValues={{
           login: '',
           password: '',
         }}
-        initialErrors={{
-          login: '',
-          password: '',
-        }}
-       
-        validateOnChange={true}
-        validate={({
-          login,
-          password
-        }) => {
-          const errors: FormikErrors<FormikValues> = {};
+        onSubmit={({login, password}) => {
+          ApolloClient.mutate({
+            mutation: gql`
+              mutation {
+                loginUser(data: {
+                  email: "${login}",
+                  password: "${password}"
+                }) {
+                  userData {
+                    name
+                    email
+                    theme
+                    roleData {
+                      name
+                      key
+                      permissions
+                    }
+                  }
+                  tokenData {
+                    token
+                    tokenExp
+                    refreshToken
+                    refreshTokenExp
+                  }
+                }
+              }
+            `
+          }).then(({
+            data: {
+              loginUser: {
+                userData,
+                tokenData
+              }
+            }
+          }: ILoginUser) => {
+            dispatch(setUser(userData));
+            dispatch(setToken({
+              token: tokenData.token,
+              tokenExp: tokenData.tokenExp
+            }));
+            dispatch(setRefreshToken({
+              refreshToken: tokenData.refreshToken,
+              refreshTokenExp: tokenData.refreshTokenExp
+            }));
 
-          if (!login) {
-            errors.login = EMPTY_ERROR;
-          } else if (!EMAIL_REGEX.test(login) && !NICKNAME_REGEX.test(login)) {
-            errors.login = NOT_MATCHED_ERROR;
-          }
-          
-          if (!password) {
-            errors.password = EMPTY_ERROR;
-          } else if (!PASSWORD_REGEX.test(password)) {
-            errors.password = NOT_MATCHED_ERROR;
-          }
-
-          return new Promise(res => setTimeout(res, 1000)).then(() => errors)
-        }}
-        onSubmit={(values) => {
-          console.log('SUBMIT', values)
+            router.push('/');
+          }).catch((error: Error) => {
+            if (error.message) {
+              setUserError(true);
+            }
+          })
         }}
       >
         {({
-          errors,
-          touched,
           handleSubmit,
-          isValidating,
-          isSubmitting,
-          isValid
         }) => {
 
           return (
             <div className="flex flex-col justify-center items-center mt-12 mb-16 w-[350px]">
               <Input
-                isValidating={isValidating}
-                error={touched.login && !!errors.login}
                 className="mb-4"
-                label="Логін"
+                label="Емейл"
+                type="email"
                 name="login"
-                Icon={Person}
-                helper={touched.login ? 
-                  errors.login === EMPTY_ERROR ? 'Логін не може бути нічим' : 
-                  errors.login === NOT_MATCHED_ERROR ? 'Це не схоже ані на нік, ані на емейл.' : 
-                  undefined : 'Подайте нік або емейл :)'}
+                Icon={Email}
               />
               <Input
-                isValidating={isValidating}
-                error={touched.password && !!errors.password}
                 className="mb-12"
                 label="Пароль"
                 name="password"
                 type="password"
                 Icon={Key}
-                helper={touched.password ? 
-                  errors.password === EMPTY_ERROR ? "Пароль не може бути нічим" : 
-                  errors.password === NOT_MATCHED_ERROR ? 'Це не схоже на пароль.' :
-                  undefined : undefined}
               />
               <Button
                 ref={submitButtonRef}
                 className="mb-6"
                 buttonType="submit"
                 onClick={handleSubmit}
-                disabled={isSubmitting || isValidating || !isValid}
               >
                 Увійти
               </Button>
@@ -164,10 +203,10 @@ export default function SignIn() {
           className="text-black"
           type={2}
         >
-          <Link href="/signin">Зареєструйся :)</Link>
+          <Link href="/signup">Зареєструйся :)</Link>
         </LinkText>
       </section>
-      <section className="flex items-center">
+      {/* <section className="flex items-center">
         <Body 
           type={6}
           className="text-yellow-6 mr-1"
@@ -181,7 +220,7 @@ export default function SignIn() {
         >
           <Link href="/signin">Скинути пароль</Link>
         </LinkText>
-      </section>
+      </section> */}
     </AuthorizationLayout>
   );
 }

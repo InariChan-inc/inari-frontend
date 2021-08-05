@@ -1,30 +1,38 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface IPermission {
-    key: string,
-    resolves: string[],
+export enum Theme {
+    LIGHT_THEME,
+    BLACK_THEME
 }
 
+export interface Role {
+    id: number,
+    name: string,
+    key: string,
+    permissions: string[],
+}
 export interface IUser {
     name: string,
     email: string,
-    avatarUrl: string,
-    permissions: IPermission[],
+    theme: Theme,
+    // avatarUrl: string,
+    roleData: Role | null,
 }
 
 const initialState: IUser = {
     name: '',
     email: '',
-    avatarUrl: '',
-    permissions: [],
+    // avatarUrl: '',
+    theme: Theme.LIGHT_THEME,
+    roleData: null,
 }
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser: (state: IUser, {payload}: PayloadAction<IUser>) => payload,
-        clearUser: (state: IUser) => initialState,
+        setUser: (_, {payload}: PayloadAction<IUser>) => payload,
+        clearUser: _ => initialState,
     }
 });
 

@@ -4,7 +4,6 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'animate.css';
 import Head from 'next/head';
-
 import SwiperCore, {
   Navigation,
   Pagination,
@@ -15,13 +14,11 @@ import { ApolloProvider } from "@apollo/client";
 import { Provider as ReduxProvider } from 'react-redux';
 
 import { GlobalLayout } from '../layouts';
-
+import client from '../common/graphql/client';
+import store from '../redux';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
-
-import client from '../common/graphql/client';
-import store from '../redux';
 
 function App({ Component, pageProps }) {
   return (
