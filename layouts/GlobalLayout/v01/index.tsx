@@ -1,7 +1,4 @@
 import { FunctionComponent } from "react";
-import { useSelector } from "react-redux";
-import { isFocused } from "../../../redux/selectors/headerSearch";
-
 import {
   SearchRounded, 
   Cooperation,
@@ -9,7 +6,6 @@ import {
   Help,
   Info,
 } from '../../../atoms/icons';
-
 import { 
   Header, 
   Menu,
@@ -21,8 +17,6 @@ import tailwind from '../../../tailwind.config';
 const GlobalLayout: FunctionComponent = ({
     children,
 }) => {
-  const isSearchFocused = useSelector(isFocused);
-
   return (
     <div className="flex w-full">
       <Menu
