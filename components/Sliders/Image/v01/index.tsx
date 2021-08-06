@@ -65,7 +65,7 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
             className="rounded-[5px] select-none" 
           >
             <div
-              className="w-full h-full bg-cover bg-center"
+              className="w-full h-full bg-cover bg-center rounded-[5px]"
               style={{
                 backgroundImage: `url('${url}')`
               }}
