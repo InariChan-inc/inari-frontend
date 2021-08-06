@@ -150,7 +150,7 @@ export default function SignIn() {
                 ApolloClient.mutate({
                   mutation: gql`
                     mutation {
-                      registartionUser(
+                      registrationUser (
                         data: { 
                           name: "${name}", 
                           email: "${email}", 
@@ -178,7 +178,7 @@ export default function SignIn() {
                   `
                 }).then(({
                   data: {
-                    registartionUser: {
+                    registrationUser: {
                       userData,
                       tokenData
                     }

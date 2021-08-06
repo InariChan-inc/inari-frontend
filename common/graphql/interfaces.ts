@@ -8,7 +8,7 @@ export interface UserWithTokenData {
 
 export interface IRegistrationUser {
   data: {
-    registartionUser: UserWithTokenData
+    registrationUser: UserWithTokenData
   }
 }
 
