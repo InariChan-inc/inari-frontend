@@ -6,18 +6,12 @@ import {
   REFRESH_TOKEN_EXP_ITEM,
   REFRESH_TOKEN_ITEM
 } from '../localStorageItems';
+import { 
+  Token,
+  RefreshToken,
+  GeneralToken
+} from "../../common/graphql/interfaces";
 
-interface Token {
-  token: string,
-  tokenExp: number
-}
-
-interface RefreshToken {
-  refreshToken: string,
-  refreshTokenExp: number
-}
-
-export type GeneralToken = Token & RefreshToken;
 
 const initialState: GeneralToken = {
   token: '',
