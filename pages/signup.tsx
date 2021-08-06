@@ -150,7 +150,7 @@ export default function SignIn() {
                 ApolloClient.mutate({
                   mutation: gql`
                     mutation {
-                      registartionUser(
+                      registrationUser (
                         data: { 
                           name: "${name}", 
                           email: "${email}", 
@@ -178,7 +178,7 @@ export default function SignIn() {
                   `
                 }).then(({
                   data: {
-                    registartionUser: {
+                    registrationUser: {
                       userData,
                       tokenData
                     }
@@ -229,13 +229,13 @@ export default function SignIn() {
                 isValidating={isValidating}
                 error={touched.email && !!errors.email}
                 className="mb-4"
-                label="Емейл"
+                label="Імейл"
                 name="email"
                 type="email"
                 Icon={Email}
                 helper={touched.email ? 
                   errors.email === EMPTY_ERROR ? "Імейл не можe бути нічим :)" : 
-                  errors.email === NOT_MATCHED_ERROR ? "Це не схоже на емейл :)" : 
+                  errors.email === NOT_MATCHED_ERROR ? "Це не схоже на імейл :)" : 
                   errors.email === EXISTS_ERROR ? (
                     <>
                       Ой. цей імейл уже зареєстровано. Ви можете{' '}
@@ -264,7 +264,7 @@ export default function SignIn() {
                 name="password"
                 type="password"
                 Icon={Key}
-                helper="Пароль повинен містити мінімум 6 символів, містити в собі одну велику літеру і цифру."
+                helper="Пароль повинен містити мінімум 6 символів, одну велику літеру і цифру."
               />
               <Button
                 ref={submitButtonRef}

@@ -167,7 +167,7 @@ export default function SignIn() {
             <div className="flex flex-col justify-center items-center mt-12 mb-16 w-[350px]">
               <Input
                 className="mb-4"
-                label="Емейл"
+                label="Імейл"
                 type="email"
                 name="login"
                 Icon={Email}
