@@ -16,6 +16,8 @@ import ErrorIcon from "./Error";
 import Check from "./Check";
 import Key from './Key';
 import Visibility from "./Visibility";
+import Copyright from "./Copyright";
+import LogOut from "./LogOut";
 
 export {
     Search,
@@ -36,4 +38,6 @@ export {
     Check,
     Key,
     Visibility,
+    Copyright,
+    LogOut,
 };
