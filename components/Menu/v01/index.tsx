@@ -1,8 +1,16 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FunctionComponent, JSXElementConstructor } from "react";
+import {
+  FunctionComponent,
+  JSXElementConstructor
+} from "react";
 import { Logo } from '../../../atoms';
-import { MenuItem } from '../../../molecules';
+import { Copyright } from '../../../atoms/icons';
+import {
+  MenuItem,
+  ScrollUpButton,
+} from '../../../molecules';
+import { Body } from '../../../typography';
 
 
 interface MenuProps {
@@ -46,6 +54,22 @@ const Menu: FunctionComponent<MenuProps> = ({
             />
           ))
         }
+      </div>
+      <ScrollUpButton />
+
+      <div className="flex flex-col items-center">
+        <Copyright
+          className="text-yellow-5 fill-current mb-1"
+          size={18}
+        />
+        <Body
+          className="text-yellow-5 whitespace-pre-line text-center"
+          type={6}
+        >
+          {
+            '' + new Date().getFullYear() + '\n"Inari"'
+          }
+        </Body>
       </div>
     </nav>
   );

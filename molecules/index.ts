@@ -4,6 +4,7 @@ import AnimeCard from "./AnimeCard";
 import Button from './Button';
 import Input from "./Input";
 import Checkbox from "./Checkbox";
+import ScrollUpButton from "./ScrollUpButton";
 
 export {
     SearchInput,
@@ -12,4 +13,5 @@ export {
     Button,
     Input,
     Checkbox,
+    ScrollUpButton,
 };
