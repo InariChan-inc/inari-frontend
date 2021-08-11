@@ -61,3 +61,9 @@ export interface RefreshToken {
 }
 
 export type GeneralToken = Token & RefreshToken;
+
+export interface IRefreshToken {
+  data: {
+    refreshToken: GeneralToken
+  }
+}
