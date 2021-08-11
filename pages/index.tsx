@@ -14,6 +14,10 @@ import {
   gql,
 } from '@apollo/client';
 
+import {
+  Link
+} from '../atoms';
+
 export default function Home() {
 
   const {data} = useQuery<{baners: {image: {path: string}}[]}>(gql`
@@ -37,23 +41,25 @@ export default function Home() {
         />
         <AnimeSlider
           className="my-16"
-          title="Останні додані аніме"
-        />
-        <AnimeSlider
-          className="my-16"
           title="Топ місяця"
         />
         <AnimeSlider
           className="my-16"
-          title="Всі аніме"
+          title="Нещодавно оновлені"
+        />
+        <AnimeSlider
+          className="my-16"
+          title="Останні додані"
           slidesPerColumn={2}
         />
         <div className="w-full flex justify-center">
-          <Button
-            className="px-7 py-3"
-          >
-            Більше аніме
-          </Button>
+          <Link href="search">
+            <Button
+              className="px-7 py-3"
+            >
+              Перейти до пошуку
+            </Button>
+          </Link>
         </div>
     </div>
   )
