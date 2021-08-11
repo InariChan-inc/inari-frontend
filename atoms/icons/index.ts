@@ -18,6 +18,10 @@ import Key from './Key';
 import Visibility from "./Visibility";
 import Copyright from "./Copyright";
 import LogOut from "./LogOut";
+import People from "./People";
+import PieChart from "./PieChart";
+import Settings from "./Settings";
+import AccountCircle from "./AccountCircle";
 
 export {
     Search,
@@ -40,4 +44,8 @@ export {
     Visibility,
     Copyright,
     LogOut,
+    People,
+    PieChart,
+    Settings,
+    AccountCircle,
 };
