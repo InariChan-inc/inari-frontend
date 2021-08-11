@@ -5,7 +5,7 @@ import {
 import {
   REFRESH_TOKEN_EXP_ITEM,
   REFRESH_TOKEN_ITEM
-} from '../localStorageItems';
+} from '../../common/localStorageItems';
 import { 
   Token,
   RefreshToken,
