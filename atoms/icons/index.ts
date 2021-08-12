@@ -22,6 +22,7 @@ import People from "./People";
 import PieChart from "./PieChart";
 import Settings from "./Settings";
 import AccountCircle from "./AccountCircle";
+import Bookmark from "./Bookmark";
 
 export {
     Search,
@@ -48,4 +49,5 @@ export {
     PieChart,
     Settings,
     AccountCircle,
+    Bookmark
 };

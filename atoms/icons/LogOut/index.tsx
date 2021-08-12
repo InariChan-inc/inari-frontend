@@ -1,12 +1,18 @@
 import { FunctionComponent } from "react";
 import { BaseIconProps } from '../../interfaces';
 
-const LogOut: FunctionComponent<BaseIconProps> = ({
+interface LogOutIconProps extends BaseIconProps {
+  onClick?: () => void,
+}
+
+const LogOut: FunctionComponent<LogOutIconProps> = ({
   className = '',
   size = 24,
+  onClick = () => {},
 }) => (
   <svg
     className={className}
+    onClick={onClick}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
