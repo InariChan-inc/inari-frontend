@@ -17,7 +17,7 @@ import {
   REFRESH_TOKEN_ITEM
 } from '../localStorageItems';
 
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 
 const httpLink = new HttpLink({
   uri: process.env.URI,
@@ -26,7 +26,6 @@ const httpLink = new HttpLink({
   
 const authLink = setContext(async (_, { headers }) => {
   // router for redirecting if request is failing
-  const router = useRouter();
 
   // get the authentication token from redux
   let {
@@ -39,41 +38,44 @@ const authLink = setContext(async (_, { headers }) => {
   } = store.getState();
 
   // if token is expired
-  if (tokenExp <= Date.now() + 5000) {
-    // and refresh token is also expired
-    if (refreshTokenExp <= Date.now() + 5000) {
-      try {
-        // send request for refreshing tokens data
-        const {
-          data: {
+  if (token !== '') {
+    if (tokenExp <= Date.now() + 5000) {
+      // and refresh token is also expired
+      if (refreshTokenExp <= Date.now() + 5000) {
+        try {
+          // send request for refreshing tokens data
+          const {
+            data: {
+              token: recievedToken,
+              tokenExp: recivedTokenExp,
+              refreshToken: recievedRefreshToken,
+              refreshTokenExp: recievedRefreshTokenExp
+            }
+          } = await refreshTokenCall(refreshToken);
+          
+          // change actual token to new one
+          token = recievedToken;
+
+          // and save recieved data in redux
+          store.dispatch(setAll({
             token: recievedToken,
             tokenExp: recivedTokenExp,
             refreshToken: recievedRefreshToken,
             refreshTokenExp: recievedRefreshTokenExp
-          }
-        } = await refreshTokenCall(refreshToken);
-        
-        // change actual token to new one
-        token = recievedToken;
+          }));
 
-        // and save recieved data in redux
-        store.dispatch(setAll({
-          token: recievedToken,
-          tokenExp: recivedTokenExp,
-          refreshToken: recievedRefreshToken,
-          refreshTokenExp: recievedRefreshTokenExp
-        }));
-
-      } catch(e) {
-        console.error(e);
+        } catch(e) {
+          console.error(e);
+        }
+      } else {
+          console.log('DELETE')
+          //otherwise, delete all data about tokens
+          store.dispatch(deleteAll())
+          localStorage.setItem(REFRESH_TOKEN_ITEM, '');
+          localStorage.setItem(REFRESH_TOKEN_EXP_ITEM, '');
+          //and redirect to sign in page
+          Router.push('signin');
       }
-    } else {
-        //otherwise, delete all data about tokens
-        store.dispatch(deleteAll())
-        localStorage.setItem(REFRESH_TOKEN_ITEM, '');
-        localStorage.setItem(REFRESH_TOKEN_EXP_ITEM, '');
-        //and redirect to sign in page
-        router.push('/signin');
     }
   }
 
@@ -81,7 +83,7 @@ const authLink = setContext(async (_, { headers }) => {
   return {
       headers: {
         ...headers,
-        authorization: `Bearer ${token}`,
+        authorization: token !== '' ? `Bearer ${token}` : '',
       }
   }
 });
