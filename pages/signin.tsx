@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 import {
   useEffect,
   useRef,
@@ -35,7 +35,7 @@ import { ILoginUser } from '../common/graphql/interfaces';
 
 
 export default function SignIn() {
-  const router = useRouter();
+  // const router = useRouter();
 
   const submitButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -151,8 +151,9 @@ export default function SignIn() {
               refreshTokenExp: tokenData.refreshTokenExp
             }));
 
-            router.push('/');
+            Router.push('/');
           }).catch((error: Error) => {
+            console.log(error);
             if (error.message) {
               setUserError(true);
             }
