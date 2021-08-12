@@ -26,7 +26,7 @@ const Avatar: FunctionComponent<AvatarProps> = ({
   >
     {!imageUrl ? (
       <Body
-        className="w-full h-full flex justify-center items-center"
+        className="w-full h-full flex justify-center items-center text-white"
         type={2}
       >
         {getFirstLetters(name, 2).toUpperCase()}
