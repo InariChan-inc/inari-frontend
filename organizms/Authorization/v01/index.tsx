@@ -16,7 +16,7 @@ const Authorization: FunctionComponent<AuthorizationProps> = ({
   const router = useRouter();
 
   return (
-    <div id="AUTHORIZATION" className="flex items-center h-full">
+    <div className="flex items-center h-full">
       <Sun 
         size={36}
         className="text-brown-2 dark:text-white fill-current cursor-pointer mr-8" 

@@ -68,7 +68,7 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
   })
 
   return (
-    <div id="ACCOUNT_CONTROL" className="flex items-center" onBlur={() => console.log('BLUR')}>
+    <div className="flex items-center">
       <div
         ref={rootRef}
         className={`${defaultClassName} ${open ? 'border-yellow-1 bg-yellow-7' : 'border-transparent'}`}
