@@ -224,6 +224,7 @@ export default function SignIn() {
                   errors.name === NOT_MATCHED_ERROR ? 'Нік має мати принаймні 5 символів і може мати лише цифри та латинські літери.' :
                   errors.name === EXISTS_ERROR ? 'Цей нікнейм вже існує':
                   undefined : undefined}
+                focusedOnStart
               />
               <Input
                 isValidating={isValidating}

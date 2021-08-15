@@ -27,6 +27,7 @@ export interface InputProps {
   error?: boolean,
   helper?: ReactNode,
   isValidating?: boolean,
+  focusedOnStart?: boolean,
 }
 
 const Input: FunctionComponent<InputProps> = ({
@@ -39,7 +40,9 @@ const Input: FunctionComponent<InputProps> = ({
   error,
   helper,
   isValidating,
+  focusedOnStart
 }) => {
+
   const commonIconClassNames = 'fill-current absolute -translate-y-1/2 top-1/2';
   const rightIconPositionClassName = type === 'password' ? 'right-14' : 'right-6';
 
@@ -52,6 +55,12 @@ const Input: FunctionComponent<InputProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [isThisInputBeingValidated, setIsThisInputBeingValidated] = useState(false);
+
+  useEffect(() => {
+    if (focusedOnStart) {
+      inputRef.current.focus();
+    }
+  }, [])
 
   useEffect(() => {
     if (!isValidating) {

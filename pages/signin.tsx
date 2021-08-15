@@ -172,6 +172,7 @@ export default function SignIn() {
                 type="email"
                 name="login"
                 Icon={Email}
+                focusedOnStart
               />
               <Input
                 className="mb-12"
