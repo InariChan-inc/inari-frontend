@@ -71,9 +71,6 @@ function App({ Component, pageProps }) {
       const now = Date.now();
       console.log('Ne fartanulo :(')
       console.log('token', token);
-      console.log('tokenExp', tokenExp);
-      console.log('now', now);
-      console.log(tokenExp < now);
     }
   }, []);
 
