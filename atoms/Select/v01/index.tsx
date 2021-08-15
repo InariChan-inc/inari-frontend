@@ -68,8 +68,7 @@ const Select: FunctionComponent<SelectProps> = ({
     <div ref={rootRef} className="relative cursor-pointer py-4 px-6 rounded-full border border-yellow-1" style={{userSelect: 'none'}}>
       <div className="w-full flex justify-between items-center">
         <Button 
-          type={3} 
-          color="brown-2"
+          type={3}
           className="mr-8"
         >
           {

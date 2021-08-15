@@ -16,6 +16,13 @@ import ErrorIcon from "./Error";
 import Check from "./Check";
 import Key from './Key';
 import Visibility from "./Visibility";
+import Copyright from "./Copyright";
+import LogOut from "./LogOut";
+import People from "./People";
+import PieChart from "./PieChart";
+import Settings from "./Settings";
+import AccountCircle from "./AccountCircle";
+import Bookmark from "./Bookmark";
 
 export {
     Search,
@@ -36,4 +43,11 @@ export {
     Check,
     Key,
     Visibility,
+    Copyright,
+    LogOut,
+    People,
+    PieChart,
+    Settings,
+    AccountCircle,
+    Bookmark
 };

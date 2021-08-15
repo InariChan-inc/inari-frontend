@@ -1,11 +1,13 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { IUser } from '../slices/user';
+import { UserData } from '../../common/graphql/interfaces';
+import { initialState } from '../slices/user';
 
-const selectSelf = ({user}: {user: IUser}) => user;
+const selectSelf = ({user}: {user: UserData}) => user;
 
 export const getUser = createSelector(selectSelf, state => state);
 export const getName = createSelector(selectSelf, state => state.name);
 export const getEmail = createSelector(selectSelf, state => state.email);
-export const getAvatarUrl = createSelector(selectSelf, state => state.avatarUrl);
-export const getRole = createSelector(selectSelf, state => state.role);
+export const getAvatar = createSelector(selectSelf, state => state.avatar);
+export const getRole = createSelector(selectSelf, state => state.roleData);
+export const isUserEmpty = createSelector(selectSelf, state => JSON.stringify(state) === JSON.stringify(initialState));
 

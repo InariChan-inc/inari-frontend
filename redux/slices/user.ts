@@ -5,7 +5,7 @@ import {
 } from '../../common/graphql/interfaces';
 
 
-const initialState: UserData = {
+export const initialState: UserData = {
     name: '',
     email: '',
     avatar: null,

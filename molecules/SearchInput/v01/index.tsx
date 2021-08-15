@@ -33,30 +33,32 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
       const dispatch = useDispatch();
 
       return(
-        <div className="bg-yellow-1 py-2 px-11 rounded-tl-full rounded-br-full w-1/2 h-full flex items-center relative z-[9999]">
-          <label className="flex flex-1 items-center">
-            <Search className="text-brown-2 fill-current mr-3 cursor-pointer" />
-            <input
-              className="flex-1 outline-none bg-transparent font-montserrat placeholder-shown:font-light font-medium text-brown-2 italic text-14 tracking-3p leading-none placeholder-yellow-6"
-              name="search"
-              type="text"
-              value={search}
-              placeholder={placeholder}
-              onChange={(event) => {
-                if (/^[A-Z\d\sАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯЫЭЪ.,!:?"'\/$]*$/gi.test(event.target.value) || event.target.value === '') {
-                  handleChange(event)
-                  debouncedSubmitForm()
-                }
-              }}
-              onFocus={() => dispatch(setFocus(true))}
-              onBlur={() => dispatch(setFocus(false))}
-              onKeyDown={event => {
-                if (event.key === 'Enter') {
-                  onSubmit(search)
-                }
-              }}
-            />
-          </label>
+        <div className="py-6 w-1/2">
+          <div className="bg-yellow-1 py-2 px-11 rounded-tl-full rounded-br-full w-full h-full flex items-center relative z-[9999]">
+            <label className="flex flex-1 items-center">
+              <Search className="text-brown-2 fill-current mr-3 cursor-pointer" />
+              <input
+                className="flex-1 outline-none bg-transparent font-montserrat placeholder-shown:font-light font-medium text-brown-2 italic text-14 tracking-3p leading-none placeholder-yellow-6"
+                name="search"
+                type="text"
+                value={search}
+                placeholder={placeholder}
+                onChange={(event) => {
+                  if (/^[A-Z\d\sАБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯЫЭЪ.,!:?"'\/$]*$/gi.test(event.target.value) || event.target.value === '') {
+                    handleChange(event)
+                    debouncedSubmitForm()
+                  }
+                }}
+                onFocus={() => dispatch(setFocus(true))}
+                onBlur={() => dispatch(setFocus(false))}
+                onKeyDown={event => {
+                  if (event.key === 'Enter') {
+                    onSubmit(search)
+                  }
+                }}
+              />
+            </label>
+          </div>
         </div>
       );
     }}

@@ -33,6 +33,10 @@ export interface UserData {
   roleData?: RoleData,
 }
 
+export interface IProfile {
+  profile: UserData
+}
+
 export interface UserWithTokenData {
   userData: UserData,
   tokenData: GeneralToken
@@ -61,3 +65,7 @@ export interface RefreshToken {
 }
 
 export type GeneralToken = Token & RefreshToken;
+
+export interface IRefreshToken {
+  refreshToken: GeneralToken
+}
