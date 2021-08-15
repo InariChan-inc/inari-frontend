@@ -13,8 +13,10 @@ import {
 } from '../../redux/actions/token';
 
 import {
+  TOKEN_ITEM,
+  TOKEN_EXP_ITEM,
   REFRESH_TOKEN_EXP_ITEM,
-  REFRESH_TOKEN_ITEM
+  REFRESH_TOKEN_ITEM,
 } from '../localStorageItems';
 
 import Router from 'next/router';
@@ -39,17 +41,21 @@ const authLink = setContext(async (_, { headers }) => {
 
   // if token is expired
   if (token !== '') {
-    if (tokenExp <= Date.now() + 5000) {
-      // and refresh token is also expired
-      if (refreshTokenExp <= Date.now() + 5000) {
+    if (tokenExp <= Date.now()) {
+      console.log('token is expired')
+      // and refresh token is alive
+      if (refreshTokenExp > Date.now()) {
+        console.log('refresh token is alive');
         try {
           // send request for refreshing tokens data
           const {
             data: {
-              token: recievedToken,
-              tokenExp: recivedTokenExp,
-              refreshToken: recievedRefreshToken,
-              refreshTokenExp: recievedRefreshTokenExp
+              refreshToken: {
+                token: recievedToken,
+                tokenExp: recivedTokenExp,
+                refreshToken: recievedRefreshToken,
+                refreshTokenExp: recievedRefreshTokenExp
+              }
             }
           } = await refreshTokenCall(refreshToken);
           
@@ -64,6 +70,11 @@ const authLink = setContext(async (_, { headers }) => {
             refreshTokenExp: recievedRefreshTokenExp
           }));
 
+          localStorage?.setItem(TOKEN_ITEM, recievedToken);
+          localStorage?.setItem(TOKEN_EXP_ITEM, String(recivedTokenExp));
+          localStorage?.setItem(REFRESH_TOKEN_ITEM, recievedRefreshToken);
+          localStorage?.setItem(REFRESH_TOKEN_EXP_ITEM, String(recievedRefreshTokenExp));
+
         } catch(e) {
           console.error(e);
         }
@@ -74,7 +85,8 @@ const authLink = setContext(async (_, { headers }) => {
           localStorage.setItem(REFRESH_TOKEN_ITEM, '');
           localStorage.setItem(REFRESH_TOKEN_EXP_ITEM, '');
           //and redirect to sign in page
-          Router.push('signin');
+          console.log('IMHERE')
+         
       }
     }
   }

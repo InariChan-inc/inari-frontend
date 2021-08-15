@@ -2,9 +2,8 @@ import {
   ApolloClient,
   InMemoryCache,
   gql,
-  FetchResult,
 } from '@apollo/client';
-import { GeneralToken } from './interfaces';
+import { IRefreshToken } from './interfaces';
 
 const tokenClient = new ApolloClient({
   uri: process.env.URI,
@@ -12,7 +11,7 @@ const tokenClient = new ApolloClient({
 });
 
 export const refreshToken = (tokenRefresh: string) => {
-  return tokenClient.mutate<GeneralToken>({
+  return tokenClient.mutate<IRefreshToken>({
     mutation: gql`
       mutation {
         refreshToken(tokenRefresh: "${tokenRefresh}") {
