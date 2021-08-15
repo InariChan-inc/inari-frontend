@@ -23,21 +23,21 @@ const menuItems: MenuItem[] = [
     Icon: AccountCircle,
     path: '/profile'
   },
-  {
-    title: 'Друзі',
-    Icon: People,
-    path: '/friends'
-  },
-  {
-    title: 'Статистика',
-    Icon: PieChart,
-    path: '/statistics'
-  },
-  {
-    title: 'Закладки',
-    Icon: Bookmark,
-    path: '/bookmarks'
-  },
+  // {
+  //   title: 'Друзі',
+  //   Icon: People,
+  //   path: '/friends'
+  // },
+  // {
+  //   title: 'Статистика',
+  //   Icon: PieChart,
+  //   path: '/statistics'
+  // },
+  // {
+  //   title: 'Закладки',
+  //   Icon: Bookmark,
+  //   path: '/bookmarks'
+  // },
   {
     title: 'Налаштування',
     Icon: Settings,
