@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { FunctionComponent, JSXElementConstructor } from "react";
 import { 
   Button,
-  ButtonTextColors,
 } from '../../../typography';
 
 interface MenuItemProps {
