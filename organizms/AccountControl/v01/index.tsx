@@ -40,6 +40,8 @@ export interface AccountControlProps {
 
 }
 
+const defaultClassName = 'relative w-[300px] flex justify-end items-center h-full px-6 py-4 mr-8 cursor-pointer border hover:bg-yellow-7 hover:border-yellow-1';
+
 const AccountControl: FunctionComponent<AccountControlProps> = ({
 
 }) => {
@@ -66,29 +68,29 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
   })
 
   return (
-    <div className="flex items-center" onBlur={() => console.log('BLUR')}>
+    <div id="ACCOUNT_CONTROL" className="flex items-center" onBlur={() => console.log('BLUR')}>
       <div
         ref={rootRef}
-        className={`relative max-w-[300px] flex justify-end items-center h-full px-6 py-4 mr-8 cursor-pointer border hover:bg-yellow-7 hover:border-yellow-1 ${open ? 'border-yellow-1 bg-yellow-7' : 'border-transparent'}`}
+        className={`${defaultClassName} ${open ? 'border-yellow-1 bg-yellow-7' : 'border-transparent'}`}
       >
         <div className="flex flex-col justify-center items-end">
           <Body
             className="text-brown-2"
             type={5}
           >
-            {truncateBySymbols(name !== '' ? name : 'Very cool nickname', 16)}
+            {truncateBySymbols(name, 16)}
           </Body>
           <Body
             className="text-brown-2"
             type={8}
           >
-            {role ? role.name : 'Admin'}
+            {role ? role.name : ''}
           </Body>
         </div>
         <Avatar
           className="w-12 h-12 ml-4 mr-2"
-          name={name !== '' ? name : 'Very cool nickname'}
-          color={getHSL()}
+          name={name}
+          color={color.current}
         />
 
         {
@@ -102,7 +104,7 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
 
         <div
           ref={menuRootRef}
-          className={`absolute min-w-[300px] border border-yellow-1 bg-white translate-y-full bottom-0 right-0 py-4 ${open ? 'block' : 'hidden'}`}
+          className={`absolute min-w-[300px] border border-yellow-1 bg-white translate-y-full bottom-0 right-[-1px] py-4 ${open ? 'block' : 'hidden'}`}
         >
           {
             menuItems.map(({
