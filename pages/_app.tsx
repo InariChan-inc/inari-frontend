@@ -4,23 +4,80 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'animate.css';
 import Head from 'next/head';
+import { useEffect } from 'react';
+
 import SwiperCore, {
   Navigation,
   Pagination,
   Autoplay,
 } from 'swiper/core';
 
-import { ApolloProvider } from "@apollo/client";
-import { Provider as ReduxProvider } from 'react-redux';
+import {
+  ApolloProvider,
+  gql,
+} from "@apollo/client";
+import {
+  Provider as ReduxProvider
+} from 'react-redux';
 
 import { GlobalLayout } from '../layouts';
 import client from '../common/graphql/client';
 import store from '../redux';
+import {
+  setUser
+} from '../redux/actions/user';
+
+import { IProfile } from '../common/graphql/interfaces';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 
 function App({ Component, pageProps }) {
+
+  useEffect(() => {
+
+    const {
+      token,
+      tokenExp
+    } = store.getState().token;
+
+    if (token && tokenExp > Date.now()) {
+      client.query<IProfile>({
+        query: gql`
+          {
+            profile {
+              name
+              aboutMe
+              email
+              theme
+              avatar {
+                name
+                type
+                path
+                pathResized
+                isTmp
+              }
+              roleData {
+                name
+                key
+                permissions
+              }
+            }
+          }
+        `
+      }).then(({ data: { profile } }) => {
+        store.dispatch(setUser(profile));
+      }).catch(error => console.error(error))
+    } else {
+      const now = Date.now();
+      console.log('Ne fartanulo :(')
+      console.log('token', token);
+      console.log('tokenExp', tokenExp);
+      console.log('now', now);
+      console.log(tokenExp < now);
+    }
+  }, []);
+
   return (
     <ApolloProvider client={client}>
       <ReduxProvider store={store}>
