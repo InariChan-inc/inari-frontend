@@ -37,11 +37,10 @@ function App({ Component, pageProps }) {
   useEffect(() => {
 
     const {
-      token,
-      tokenExp
+      token
     } = store.getState().token;
 
-    if (token && tokenExp > Date.now()) {
+    if (token) {
       client.query<IProfile>({
         query: gql`
           {
