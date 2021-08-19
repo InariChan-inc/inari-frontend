@@ -1,4 +1,5 @@
 module.exports = {
-    HOST: 'https://dev.inariua.fun',
-    URI:  'https://dev.inariua.fun/graphql'
+    HOST: 'http://localhost:3000',
+    URI:  'http://localhost:8083/graphql',
+    INARIBEHOST: 'https://dev.inariua.fun/',
 }

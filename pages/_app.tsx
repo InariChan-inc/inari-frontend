@@ -22,6 +22,7 @@ import {
 
 import { GlobalLayout } from '../layouts';
 import client from '../common/graphql/client';
+import guest from '../common/graphql/guest';
 import store from '../redux';
 import {
   setUser
@@ -75,7 +76,7 @@ function App({ Component, pageProps }) {
   }, []);
 
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={guest}>
       <ReduxProvider store={store}>
         {/* Default settings: icon, fonts, etc. */}
         <Head>

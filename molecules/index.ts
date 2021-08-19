@@ -1,6 +1,6 @@
 import SearchInput from "./SearchInput";
 import MenuItem from "./MenuItem";
-import AnimeCard from "./AnimeCard";
+import AnimeCard, { AnimeCardProps } from "./AnimeCard";
 import Button from './Button';
 import Input from "./Input";
 import Checkbox from "./Checkbox";
@@ -13,5 +13,8 @@ export {
     Button,
     Input,
     Checkbox,
-    ScrollUpButton,
+    ScrollUpButton
+};
+export type { 
+    AnimeCardProps, 
 };

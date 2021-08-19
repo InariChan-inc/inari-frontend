@@ -69,3 +69,24 @@ export type GeneralToken = Token & RefreshToken;
 export interface IRefreshToken {
   refreshToken: GeneralToken
 }
+
+export enum AnimeFormat {
+  TV = 'TV',
+  FILM = 'FILM',
+  ONA = 'ONA',
+  OVA = 'OVA',
+  SPLESH = 'SPLESH'
+}
+
+export enum AnimeSeason {
+  SUMMER = 'SUMMER',
+  FALL = 'FALL',
+  SPRING = 'SPRING',
+  WINTER = 'WINTER',
+  NO_SEASON = 'NO_SEASON'
+}
+
+export interface Poster {
+  path?: string,
+  pathResized?: string
+}
