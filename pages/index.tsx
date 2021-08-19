@@ -109,7 +109,7 @@ export default function Home() {
         
 
         {
-          !topAnimeMonthLoading && !topAnimeMonthError && topAnimeMonthData ? (
+          !topAnimeMonthLoading && !topAnimeMonthError && topAnimeMonthData && topAnimeMonthData.topAnimeMonth.length ? (
             <AnimeSlider
               className="my-16"
               title="Топ місяця"
@@ -119,7 +119,7 @@ export default function Home() {
         }       
         
         {
-          !lastUpdatedAnimeLoading && !lastUpdatedAnimeError && lastUpdatedAnimeData ? (
+          !lastUpdatedAnimeLoading && !lastUpdatedAnimeError && lastUpdatedAnimeData && lastUpdatedAnimeData.lastUpdatedAnime.length ? (
             <AnimeSlider
               className="my-16"
               title="Нещодавно оновлені"
@@ -129,7 +129,7 @@ export default function Home() {
         }
 
         {
-          !lastAddedAnimeLoading && !lastAddedAnimeError && lastUpdatedAnimeData ? (
+          !lastAddedAnimeLoading && !lastAddedAnimeError && lastUpdatedAnimeData && lastAddedAnimeData.lastAddedAnime.length ? (
             <AnimeSlider
               className="my-16"
               title="Останні додані"
