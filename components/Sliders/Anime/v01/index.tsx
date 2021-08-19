@@ -13,17 +13,10 @@ import {
   ArrowRight,
 } from '../../../../atoms/icons';
 
-import {
-  AnimeCard,
-} from '../../../../molecules';
+import { AnimeCard, AnimeCardProps } from '../../../../molecules';
 
-import {
-  Headline,
-} from '../../../../typography';
+import { Headline } from '../../../../typography';
 
-import {
-  AnimeCardProps,
-} from '../../../../molecules/AnimeCard';
 
 interface AnimeSliderProps {
   className?: string,
@@ -37,6 +30,7 @@ const DEFAULT = 'relative pt-[68px] overflow-hidden ';
 const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
   className = '',
   title,
+  animes,
   slidesPerColumn = 1,
 }) => {
   const nextElRef = useRef(null);
@@ -92,11 +86,11 @@ const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
         }}      
       >
         {
-          new Array(100).fill(0).map((_, index) => (
+          animes ? animes.map((anime, index) => (
             <SwiperSlide className="pb-4" key={index}>
-              <AnimeCard />
+              <AnimeCard key={anime.id} {...anime}/>
             </SwiperSlide>
-          ))
+          )) : null
         }
         <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-0 z-[1001]" ref={nextElRef}>
           <ArrowRight
