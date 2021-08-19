@@ -131,7 +131,7 @@ export default function Home() {
         {
           !lastAddedAnimeLoading && !lastAddedAnimeError && lastUpdatedAnimeData && lastAddedAnimeData.lastAddedAnime.length ? (
             <AnimeSlider
-              className="my-16"
+              className="mt-16"
               title="Останні додані"
               slidesPerColumn={2}
               animes={lastAddedAnimeData.lastAddedAnime}
@@ -139,7 +139,7 @@ export default function Home() {
           ) : null
         }
 
-       <div className="w-full flex justify-center">
+       <div className="w-full flex justify-center mt-16">
           <Link href="search">
             <Button className="px-7 py-3">
               Перейти до пошуку
