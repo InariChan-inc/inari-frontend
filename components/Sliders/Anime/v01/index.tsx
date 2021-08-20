@@ -39,45 +39,14 @@ const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
   return (
     <div className={DEFAULT + className}>
       <Swiper
-        className="w-full"
+        slidesPerView={'auto'}
+        slidesPerColumn={slidesPerColumn}
+        slidesPerColumnFill="row"
+        spaceBetween={30}
         navigation={{
           nextEl: nextElRef.current,
           prevEl: prevElRef.current,
         }}
-        freeMode
-        breakpoints={{
-          "640": {
-            slidesPerView: 1,
-            spaceBetween: 32,
-            slidesPerColumn,
-            slidesPerColumnFill: "row",
-          },
-          "830": {
-            slidesPerView: 2,
-            spaceBetween: 32,
-            slidesPerColumn,
-            slidesPerColumnFill: "row",
-          },
-          "1150": {
-            slidesPerView: 3,
-            spaceBetween: 32,
-            slidesPerColumn,
-            slidesPerColumnFill: "row",
-          },
-          "1480": {
-            slidesPerView: 4,
-            spaceBetween: 32,
-            slidesPerColumn,
-            slidesPerColumnFill: "row",
-          },
-          "1770": {
-            slidesPerView: 5,
-            spaceBetween: 32,
-            slidesPerColumn,
-            slidesPerColumnFill: "row",
-          }
-        }}
-        
         onBeforeInit={swiper => {
           //@ts-ignore
           swiper.params.navigation.nextEl = nextElRef.current;
@@ -87,8 +56,8 @@ const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
       >
         {
           animes ? animes.map((anime, index) => (
-            <SwiperSlide className="pb-4" key={index}>
-              <AnimeCard key={anime.id} {...anime}/>
+            <SwiperSlide className="pb-4" style={{ width: 'auto' }} key={index}>
+              <AnimeCard {...anime}/>
             </SwiperSlide>
           )) : null
         }
