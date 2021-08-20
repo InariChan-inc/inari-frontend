@@ -26,6 +26,7 @@ export default function Home() {
     gql`
       {
         topAnimeMonth {
+          id
           name
           poster {
             path
@@ -46,6 +47,7 @@ export default function Home() {
     gql`
       {
         lastUpdatedAnime {
+          id
           name
           poster {
             path
@@ -66,6 +68,7 @@ export default function Home() {
     gql`
       {
         lastAddedAnime {
+          id
           name
           poster {
             path
