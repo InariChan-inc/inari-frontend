@@ -183,7 +183,7 @@ export default function SignIn() {
               />
               <Button
                 ref={submitButtonRef}
-                className="mb-6"
+                className="mb-6 py-4 px-8 rounded-[30px]"
                 buttonType="submit"
                 onClick={handleSubmit}
               >

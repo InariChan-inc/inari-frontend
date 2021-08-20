@@ -144,7 +144,7 @@ export default function Home() {
 
        <div className="w-full flex justify-center mt-16">
           <Link href="search">
-            <Button className="px-7 py-3">
+            <Button className="px-[30px] py-[15px] rounded-[50px]">
               Перейти до пошуку
             </Button>
           </Link>

@@ -29,7 +29,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     ref={ref}
     type={buttonType}
     disabled={disabled}
-    className={`flex items-center px-6 py-3 rounded-full ${types[type]} ${className}`}
+    className={`flex items-center ${types[type]} ${className}`}
     style={style}
     onClick={onClick}
   >
