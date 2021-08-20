@@ -25,21 +25,14 @@ const Authorization: FunctionComponent<AuthorizationProps> = ({
       <div className="flex items-center">
         <Button
           icon={<Person className="fill-current relative" />}
-          className="z-10"
-          style={{
-            height: 54,
-          }}
+          className="z-10 px-[20px] py-[12px] rounded-[40px]"
           onClick={() => router.push('signin')}
         >
             Увійти
         </Button>
       
         <button 
-          className="bg-yellow-1 py-2 pl-16 pr-8 rounded-r-full"
-          style={{
-            height: 50,
-            marginLeft: -38,
-          }}
+          className="bg-yellow-1 py-[10px] px-6 rounded-r-[40px] ml-[-14px]"
           onClick={() => router.push('signup')}
           >
             <Text type={1}>
