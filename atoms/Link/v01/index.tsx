@@ -3,15 +3,17 @@ import NextLink, { LinkProps as NextLinkProps } from 'next/link';
 
 interface LinkProps extends NextLinkProps {
   title?: string,
+  className?: string,
 }
 
 const Link: FunctionComponent<LinkProps> = ({
   children = '',
   title = '',
+  className = '',
   ...props
 }) => (
   <NextLink {...props}>
-    <a title={title}>{children}</a>
+    <a className={className} title={title}>{children}</a>
   </NextLink>
 );
 

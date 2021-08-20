@@ -1,7 +1,8 @@
 import {
   FunctionComponent,
   useState,
-  useEffect
+  useEffect,
+  useRef
 } from "react";
 
 import { ArrowUp } from "../../../atoms/icons";
@@ -9,15 +10,17 @@ import { ArrowUp } from "../../../atoms/icons";
 const ScrollUpButton: FunctionComponent = () => {
   const [isVisible, setIsVisible] = useState(false)
 
+  const mainElRef = useRef(process.browser ? document.getElementById('main') : null);
+
   const onScroll = () => {
-    if (process.browser) {
-      setIsVisible(window.scrollY > 200);
+    if (process.browser && mainElRef.current) {
+      setIsVisible(mainElRef.current.scrollTop > 200);
     }
   };
 
   const onClick = () => {
-    if (process.browser && isVisible) {
-      window.scrollTo({
+    if (process.browser && isVisible && mainElRef.current) {
+      mainElRef.current.scrollTo({
         left: 0,
         top: 0,
         behavior: 'smooth'
@@ -26,12 +29,16 @@ const ScrollUpButton: FunctionComponent = () => {
   }
 
   useEffect(() => {
-    document.addEventListener('scroll', onScroll);
+    if (mainElRef.current) {
+      mainElRef.current.addEventListener('scroll', onScroll);
+    }
 
     return () => {
-      document.removeEventListener('scroll', onScroll);
-    };
-  }, []);
+      if (mainElRef.current) {
+        mainElRef.current.removeEventListener('scroll', onScroll);
+      }
+    }
+  }, [mainElRef.current]);
 
   return (
     <div

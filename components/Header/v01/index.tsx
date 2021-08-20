@@ -34,7 +34,7 @@ const Header: FunctionComponent<HeaderProps> = ({
 
   return (
     <div
-      className={`fixed top-0 right-0 left-[132px] z-[5001] h-20 flex items-center justify-between px-[60px] bg-white border-b border-yellow-1 before:absolute before:top-0 before:left-[-1px] before:bottom-0 before:w-[1px] before:bg-white`}>
+      className={`fixed top-0 right-0 left-[132px] z-[5001] h-[72px] flex items-center justify-between px-[60px] bg-white before:absolute before:top-0 before:left-[-1px] before:bottom-0 before:w-[1px] before:bg-white`}>
         <SearchInput 
             placeholder="Шукаю аніме..."
             onSearch={searchValue => console.log('SEARCH: ', searchValue)}

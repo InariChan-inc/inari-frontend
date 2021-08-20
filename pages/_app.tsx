@@ -68,10 +68,6 @@ function App({ Component, pageProps }) {
       }).then(({ data: { profile } }) => {
         store.dispatch(setUser(profile));
       }).catch(error => console.error(error))
-    } else {
-      const now = Date.now();
-      console.log('Ne fartanulo :(')
-      console.log('token', token);
     }
   }, []);
 

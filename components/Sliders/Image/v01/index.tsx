@@ -67,7 +67,7 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
             <div
               className="w-full h-full bg-cover bg-center rounded-[5px]"
               style={{
-                backgroundImage: `url('${url}')`
+                backgroundImage: `url('${process.env.INARIBEHOST}${url}')`
               }}
             />
           </SwiperSlide>

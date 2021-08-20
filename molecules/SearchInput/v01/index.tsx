@@ -33,7 +33,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
       const dispatch = useDispatch();
 
       return(
-        <div className="py-6 w-1/2">
+        <div className="py-[14px] w-1/2">
           <div className="bg-yellow-1 py-2 px-11 rounded-tl-full rounded-br-full w-full h-full flex items-center relative z-[9999]">
             <label className="flex flex-1 items-center">
               <Search className="text-brown-2 fill-current mr-3 cursor-pointer" />

@@ -5,7 +5,7 @@ interface SubtitleProps {
 }
 
 const Subtitle: FunctionComponent<SubtitleProps> = ({children}) => (
-    <h3 className="font-montserrat font-medium text-18 tracking-1p leading-140p">{children}</h3>
+    <h3 className="font-montserrat font-medium text-16 tracking-[0.1px] leading-140p">{children}</h3>
 )
 
 

@@ -1,5 +1,7 @@
 import { FunctionComponent } from "react";
 
+import { Link } from '../../../atoms';
+
 import {
   AnimeFormat,
   Poster
@@ -24,40 +26,44 @@ export interface AnimeCardProps {
   countEpisodes?: number,
 }
 
-const AnimeCard: FunctionComponent<AnimeCardProps> = ({
+const AnimeCard: FunctionComponent<AnimeCardProps & {className? : string}> = ({
     id,
     name,
     poster,
     format,
     currentCountEpisodes,
-    countEpisodes
+    countEpisodes,
+    className = ''
 }) => (
-  <div className="w-[306px] pl-5 flex justify-end">
-    <div className="relative cursor-pointer flex flex-col w-[285px] border-[1px] border-yellow-6 hover:border-brown-2 rounded-[3px] hover:shadow-anime-card">
+  <Link
+    href={`anime/${id}`}
+    className={`w-[255px] h-[420px] pl-5 flex justify-end ${className}`}
+  >
+    <div className="relative cursor-pointer flex flex-col w-[240px] border border-yellow-6 hover:border-brown-2 rounded-[3px] hover:shadow-anime-card">
       <div
-        className="w-full h-[400px] bg-cover bg-no-repeat" 
+        className="w-full h-[340px] bg-cover bg-no-repeat" 
         style={{
           backgroundImage: `url(${process.env.INARIBEHOST}${poster.path.split(' ').join('%20')})`,
         }}
       />
-      <div className="flex-1 min-h-[90px] w-full px-8 py-5 flex justify-center text-center">
+      <div className="flex-1 max-h-[80px] w-full px-8 py-5 flex justify-center text-center">
         <Subtitle>
-          {name}
+          {truncateByWords(name, 7)}
         </Subtitle>
       </div>
       {
-        !!currentCountEpisodes && !!countEpisodes ? (
-        <div className="cursor-pointer p-2 rounded-sm bg-brown-2 text-white absolute top-[18px] -left-5">
+        format ? (
+        <div className="cursor-pointer p-2 rounded-sm bg-brown-2 text-white absolute top-[15px] left-[-15px]">
          <Body type={3}>
             {
-              !!currentCountEpisodes && !!countEpisodes ? currentCountEpisodes + '/' + countEpisodes : !!currentCountEpisodes && currentCountEpisodes
+              format === AnimeFormat.TV ? !!currentCountEpisodes && !!countEpisodes ? currentCountEpisodes + '/' + countEpisodes : !!currentCountEpisodes && currentCountEpisodes : format
             }
           </Body>
         </div>
         ) : null
       }
     </div>
-  </div>
+  </Link>
 );
 
 
