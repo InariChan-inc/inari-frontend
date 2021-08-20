@@ -28,7 +28,7 @@ const Menu: FunctionComponent<MenuProps> = ({
   const router = useRouter();
 
   return (
-    <nav className="flex flex-col items-center h-screen m-0 fixed top-0 left-0 bottom-0 border-r border-yellow-1" style={{ width: 132 }}>
+    <nav className="flex flex-col items-center h-screen m-0 fixed top-0 left-0 bottom-0" style={{ width: 132 }}>
       <Link href="/">
         <div
           className="relative cursor-pointer w-full flex justify-center"

@@ -40,7 +40,7 @@ export interface AccountControlProps {
 
 }
 
-const defaultClassName = 'relative w-[300px] flex justify-end items-center h-full px-6 py-4 mr-8 cursor-pointer border hover:bg-yellow-7 hover:border-yellow-1';
+const defaultClassName = 'relative w-[300px] flex justify-end items-center h-full px-6 mr-8 cursor-pointer border-r border-l hover:bg-yellow-7 hover:border-yellow-1';
 
 const AccountControl: FunctionComponent<AccountControlProps> = ({
 
@@ -68,7 +68,7 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
   })
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center h-full">
       <div
         ref={rootRef}
         className={`${defaultClassName} ${open ? 'border-yellow-1 bg-yellow-7' : 'border-transparent'}`}
@@ -104,7 +104,7 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
 
         <div
           ref={menuRootRef}
-          className={`absolute min-w-[300px] border border-yellow-1 bg-white translate-y-full bottom-0 right-[-1px] py-4 ${open ? 'block' : 'hidden'}`}
+          className={`absolute min-w-[300px] border border-yellow-1 bg-white translate-y-full bottom-0 right-[-1px] ${open ? 'block' : 'hidden'}`}
         >
           {
             menuItems.map(({
@@ -112,11 +112,9 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
               path,
               title
             }) => (
-              <Link href={path}>
-                <div className="w-full px-8 py-4 flex items-center border border-transparent hover:bg-yellow-7 hover:border-yellow-1">
+              <Link className={"w-full px-8 py-4 flex items-center border-t border-b first-of-type:border-t-0 last-of-type:border-b-0 border-transparent hover:bg-yellow-7 hover:border-yellow-1"} href={path}>
                   <Icon className="mr-6" />
                   <ButtonText type={4}>{title}</ButtonText>
-                </div>
               </Link>
             ))
           }
