@@ -102,7 +102,7 @@ export default function Home() {
         {
           !bannerLoading && !bannerError && bannerData && bannerData.baners.length ? (
             <ImageSlider
-              urls={bannerData.baners.map(item => `${process.env.HOST}/${item.image.path}`)}
+              urls={bannerData.baners.map(item => item.image.path)}
             />
           ) : null
         }
