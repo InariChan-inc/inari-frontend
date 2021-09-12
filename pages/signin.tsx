@@ -162,6 +162,10 @@ export default function SignIn() {
       >
         {({
           handleSubmit,
+          values: {
+            login,
+            password
+          }
         }) => {
 
           return (
@@ -186,6 +190,7 @@ export default function SignIn() {
                 className="mb-6 py-4 px-8 rounded-[30px]"
                 buttonType="submit"
                 onClick={handleSubmit}
+                disabled={!login || !password}
               >
                 Увійти
               </Button>

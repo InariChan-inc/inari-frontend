@@ -220,8 +220,8 @@ export default function SignIn() {
                 name="name"
                 Icon={Person}
                 helper={touched.name ? 
-                  errors.name === EMPTY_ERROR ? 'Нік не може бути нічим :)' :
-                  errors.name === NOT_MATCHED_ERROR ? 'Нік має мати принаймні 5 символів і може мати лише цифри та латинські літери.' :
+                  errors.name === EMPTY_ERROR ? 'Поле не може бути пустим :)' :
+                  errors.name === NOT_MATCHED_ERROR ? 'Нік має мати бути латиницею, містити принаймні 5 символів та може включати цифри.' :
                   errors.name === EXISTS_ERROR ? 'Цей нікнейм вже існує':
                   undefined : undefined}
                 focusedOnStart
@@ -235,7 +235,7 @@ export default function SignIn() {
                 type="email"
                 Icon={Email}
                 helper={touched.email ? 
-                  errors.email === EMPTY_ERROR ? "Імейл не можe бути нічим :)" : 
+                  errors.email === EMPTY_ERROR ? "Поле не може бути пустим :)" : 
                   errors.email === NOT_MATCHED_ERROR ? "Це не схоже на імейл :)" : 
                   errors.email === EXISTS_ERROR ? (
                     <>
