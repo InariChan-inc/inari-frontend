@@ -8,7 +8,7 @@ const mq = facepaint([
   '@media(min-width: 1120px)'
 ]);
 
-const pseudo = facepaint([':hover', ':active', ':focus']);
+const pseudo = facepaint([':hover', ':disabled', ':active', ':focus']);
 
 const theme = {
     font,
