@@ -1,38 +1,34 @@
 import { FunctionComponent } from "react";
-import { Body } from "../../../typography";
-import { getFirstLetters } from "../../../utils";
+import { getFirstLetters } from "@utils";
+import {
+  AvatarContainer,
+  Abbreviation,
+} from './styles';
 
 export interface AvatarProps {
   imageUrl?: string,
   name?: string,
   color?: string,
-  className?: string,
 }
 
 const Avatar: FunctionComponent<AvatarProps> = ({
   imageUrl,
   name = '',
   color,
-  className = '',
 }) => (
-  <div 
-    className={`rounded-full select-none ${className}`}
-    style={{
-      backgroundColor: color,
-      backgroundImage: `url(${imageUrl})`,
-      backgroundPosition: 'center',
-      backgroundSize: 'cover'
-    }}
+  <AvatarContainer
+    backgroundImage={imageUrl}
+    backgroundColor={color}
   >
     {!imageUrl ? (
-      <Body
-        className="w-full h-full flex justify-center items-center text-white"
+      <Abbreviation
+        color="white"
         type={2}
       >
         {getFirstLetters(name, 2).toUpperCase()}
-      </Body>
+      </Abbreviation>
     ) : null}
-  </div>
+  </AvatarContainer>
 );
 
 
