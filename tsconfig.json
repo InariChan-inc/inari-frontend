@@ -1,5 +1,26 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@atoms": ["atoms"],
+      "@atoms/*": ["atoms/*"],
+      "@common": ["common"],
+      "@common/*": ["common/*"],
+      "@components": ["components"],
+      "@components/*": ["components/*"],
+      "@icons": ["atoms/icons"],
+      "@icons/*": ["atoms/icons/*"],
+      "@layouts": ["layouts"],
+      "@layouts/*": ["layouts/*"],
+      "@molecules": ["molecules"],
+      "@molecules/*": ["molecules/*"],
+      "@redux": ["redux"],
+      "@redux/*": ["@redux/*"],
+      "@theme": ["theme"],
+      "@theme/*": ["theme/*"],
+      "@typography": ["typography"],
+      "@typography/*": ["typography/*"],
+    },
     "target": "es5",
     "lib": [
       "dom",
