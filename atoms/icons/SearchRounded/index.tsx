@@ -2,7 +2,7 @@ import { FunctionComponent } from "react"
 import { BaseIconProps } from "../../interfaces"
 
 const  SearchRounded: FunctionComponent<BaseIconProps> = ({
-  color = 'white',
+  color = 'black',
   size = 24,
 }) => (
   <svg

@@ -6,7 +6,7 @@ interface SunProps extends BaseIconProps {
 }
 
 const Sun: FunctionComponent<SunProps> = ({
-    color = 'white',
+    color = 'black',
     onClick,
     size = 24,
 }) => (

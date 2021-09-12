@@ -2,13 +2,13 @@ import { FunctionComponent } from "react";
 import { BaseIconProps } from '../../interfaces';
 
 const Bookmark: FunctionComponent<BaseIconProps> = ({
-  color = 'white',
+  color = 'black',
   size = 24,
 }) => (
   <svg
     style={{
       color,
-      fill: 'currentcolor',
+      fill: 'currentcolor'
     }}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
