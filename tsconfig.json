@@ -20,6 +20,8 @@
       "@theme/*": ["theme/*"],
       "@typography": ["typography"],
       "@typography/*": ["typography/*"],
+      "@utils": ["utils"],
+      "@utils/*": ["utils/*"],
     },
     "target": "es5",
     "lib": [
