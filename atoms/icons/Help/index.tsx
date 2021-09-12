@@ -3,7 +3,7 @@ import { BaseIconProps } from "../../interfaces"
 
 
 const Help: FunctionComponent<BaseIconProps> = ({
-    color = 'black',
+    color,
     size = 24,
 }) => (
     <svg

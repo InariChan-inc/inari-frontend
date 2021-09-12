@@ -6,7 +6,7 @@ interface LogOutIconProps extends BaseIconProps {
 }
 
 const LogOut: FunctionComponent<LogOutIconProps> = ({
-  color = 'black',
+  color,
   size = 24,
   onClick = () => {},
 }) => (

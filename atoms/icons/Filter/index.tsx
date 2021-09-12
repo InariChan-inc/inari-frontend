@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { BaseIconProps } from '../../interfaces';
 
 const Filter: FunctionComponent<BaseIconProps> = ({
-  color = 'black',
+  color,
   size = 24,
 }) => (
   <svg

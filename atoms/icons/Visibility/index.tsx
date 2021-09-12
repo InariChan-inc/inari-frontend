@@ -8,7 +8,7 @@ interface VisibilityProps extends BaseIconProps {
 }
 
 const Visibility: FunctionComponent<VisibilityProps> = ({
-  color = 'black',
+  color,
   size = 24,
   visible = false,
   onClick = () => {},
