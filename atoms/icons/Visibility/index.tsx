@@ -8,14 +8,17 @@ interface VisibilityProps extends BaseIconProps {
 }
 
 const Visibility: FunctionComponent<VisibilityProps> = ({
-  className = '',
+  color = 'white',
   size = 24,
   visible = false,
   onClick = () => {},
 }) => (
   <svg
     onClick={event => onClick(event)}
-    className={className}
+    style={{
+      color,
+      fill: 'currentcolor',
+    }}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}

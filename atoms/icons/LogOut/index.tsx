@@ -6,12 +6,15 @@ interface LogOutIconProps extends BaseIconProps {
 }
 
 const LogOut: FunctionComponent<LogOutIconProps> = ({
-  className = '',
+  color = 'white',
   size = 24,
   onClick = () => {},
 }) => (
   <svg
-    className={className}
+    style={{
+      color,
+      fill: 'currentcolor',
+    }}
     onClick={onClick}
     xmlns="http://www.w3.org/2000/svg"
     width={size}

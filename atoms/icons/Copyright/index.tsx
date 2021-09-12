@@ -3,12 +3,15 @@ import { BaseIconProps } from '../../interfaces';
 
 
 const Copyright: FunctionComponent<BaseIconProps> = ({
-  className = '',
+  color = 'white',
   size = 24
 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className={className}
+    style={{
+      color,
+      fill: 'currentcolor',
+    }}
     width={size}
     height={size}
     viewBox="0 0 24 24"

@@ -1,4 +1,6 @@
+import { TColors } from "@theme/colors";
+
 export interface BaseIconProps {
-    className?: string,
+    color?: TColors,
     size?: number
 }
