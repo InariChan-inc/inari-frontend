@@ -54,7 +54,7 @@ const GlobalLayout: FunctionComponent = ({
         {/**
           * COMPONENT ENTRY 
           */}
-        <main id="main" className="overflow-y-auto mt-[72px] border-l border-t rounded-tl-[10px] border-yellow-1" style={{ height: 'calc(100vh - 80px)' }}>
+        <main id="main" className="overflow-y-auto mt-[72px] border-l border-t rounded-tl-[10px] border-yellow-1" style={{ height: 'calc(100vh - 79px)' }}>
           {children}
         </main>
       </div>

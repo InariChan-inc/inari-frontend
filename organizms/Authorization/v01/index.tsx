@@ -32,7 +32,7 @@ const Authorization: FunctionComponent<AuthorizationProps> = ({
         </Button>
       
         <button 
-          className="bg-yellow-1 py-[10px] px-6 rounded-r-[40px] ml-[-14px]"
+          className="bg-yellow-1 hover:bg-yellow-2 duration-300 py-[10px] px-6 rounded-r-[40px] ml-[-14px]"
           onClick={() => router.push('signup')}
           >
             <Text type={1}>
