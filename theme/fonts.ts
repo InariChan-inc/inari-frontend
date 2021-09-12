@@ -1,6 +1,6 @@
 const font = {
     family: {
-        montserrat: '"Montserrat", sans serif'
+        montserrat: '"Montserrat", sans-serif'
     },
     weight: {
         thin: 100,
