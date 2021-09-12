@@ -1,26 +1,47 @@
-import { FunctionComponent } from "react";
+import styled from "styled-components";
+import {
+  ITypographyStyles,
+  TTypedTypographyComponent
+} from "./types";
+import { getStyles } from "./utils";
 
 
-const buttonStyles = {
-  1: 'font-montserrat font-medium text-16 tracking-[0.5px]',
-  2: 'font-montserrat font-bold text-13 tracking-[0.4px] leading-[130%]',
-  3: 'font-montserrat text-16 tracking-[0.5px]',
-  4: 'font-montserrat font-semibold text-18'
-}
+export type TButtonTypes = 1 | 2 | 3 | 4;
 
-interface ButtonProps {
-  type: keyof typeof buttonStyles,
-  children: string,
-  className?: string,
-}
+const buttonStyles: Record<TButtonTypes, ITypographyStyles> = {
+  1: {
+    fontFamily: 'montserrat',
+    fontWeight: 'medium',
+    fontSize: 16,
+    letterSpacing: 0.5,
+    lineHeight: 1,
+  },
+  2: {
+    fontFamily: 'montserrat',
+    fontWeight: 'bold',
+    fontSize: 13,
+    letterSpacing: 0.4,
+    lineHeight: '130%',
+  },
+  3: {
+    fontFamily: 'montserrat',
+    fontWeight: 'regular',
+    fontSize: 16,
+    letterSpacing: 0.1,
+    lineHeight: 1,
+  },
+  4: {
+    fontFamily: 'montserrat',
+    fontWeight: 'semibold',
+    fontSize: 16,
+    letterSpacing: 0,
+    lineHeight: 1,
+  },
+};
 
-const Button: FunctionComponent<ButtonProps> = ({
-  type, 
-  children,
-  className = ''
-}) => (
-  <span className={`${buttonStyles[type]} ${className}`}>{children}</span>
-);
+const Button = styled.span<TTypedTypographyComponent<TButtonTypes>>`
+  ${props => getStyles(buttonStyles[props.type], props)}
+`;
 
 
 export default Button;
