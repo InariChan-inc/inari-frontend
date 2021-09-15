@@ -6,6 +6,7 @@ import {
 } from "react";
 
 import { ArrowUp } from "../../../atoms/icons";
+import { CircleButton } from "./styles";
 
 const ScrollUpButton: FunctionComponent = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -41,12 +42,12 @@ const ScrollUpButton: FunctionComponent = () => {
   }, [mainElRef.current]);
 
   return (
-    <div
+    <CircleButton
       onClick={onClick}
-      className={`rounded-full w-[50px] h-[50px] bg-brown-2 flex justify-center items-center mt-16 mb-8 transition-opacity ${isVisible ? 'opacity-100 cursor-pointer' : 'opacity-0 cursor-default'}`}
+      isVisible={isVisible}
     >
-      <ArrowUp className="text-yellow-1 fill-current" />
-    </div>
+      <ArrowUp color="yellow-1" />
+    </CircleButton>
   );
 };
 
