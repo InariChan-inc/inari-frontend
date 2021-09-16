@@ -1,77 +1,67 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import {
-  FunctionComponent,
-  JSXElementConstructor
-} from "react";
-import { Logo } from '../../../atoms';
-import { Copyright } from '../../../atoms/icons';
+import { FunctionComponent } from "react";
+import { Logo, Link } from '@atoms';
+import { Copyright } from '@icons';
 import {
   MenuItem,
   ScrollUpButton,
-} from '../../../molecules';
-import { Body } from '../../../typography';
+} from '@molecules';
+import { MenuItemProps } from '@molecules/MenuItem';
+import { Body } from '@typography';
+import {
+  CopyrightContainer,
+  CopyrightText,
+  LogoWrapper,
+  MenuContainer,
+  MenuItemsContainer,
+} from './styles';
 
 
 interface MenuProps {
-    menuItems: {
-      page: string,
-      Icon: JSXElementConstructor<{ className: string, size: number }>,
-      text: string,
-    }[],
+    menuItems: Pick<MenuItemProps, 'to' | 'Icon' | 'text'>[],
 }
 
-const Menu: FunctionComponent<MenuProps> = ({
-  menuItems
-}) => {
-
+const Menu: FunctionComponent<MenuProps> = ({ menuItems }) => {
   const router = useRouter();
 
   return (
-    <nav className="flex flex-col items-center h-screen m-0 fixed top-0 left-0 bottom-0" style={{ width: 132 }}>
+    <MenuContainer>
       <Link href="/">
-        <div
-          className="relative cursor-pointer w-full flex justify-center"
-          style={{
-            marginTop: 10,
-            marginBottom: 10,
-          }}
-        >
-          <Logo
-            size={60}
-          />
-        </div>
+        <LogoWrapper>
+          <Logo size={60} />
+        </LogoWrapper>
       </Link>
-      <div className="flex flex-col items-center">
+      <MenuItemsContainer>
         {
-          menuItems.map(({Icon, page, text}, index) => (
+          menuItems.map(({Icon, to, text}, index) => (
             <MenuItem
               key={index}
-              to={page}
+              to={to}
               Icon={Icon}
               text={text}
-              isActive={router.asPath === '/' + page}
+              isActive={router.asPath === '/' + to}
             />
           ))
         }
-      </div>
+      </MenuItemsContainer>
       <ScrollUpButton />
 
-      <div className="flex flex-col items-center">
+      <CopyrightContainer>
         <Copyright
-          className="text-yellow-5 fill-current mb-1"
+          color="yellow-5"
           size={18}
+          style={{ marginBottom: 4 }}
         />
-        <Body
-          className="text-yellow-5 whitespace-pre-line text-center"
+        <CopyrightText
           type={6}
+          color="yellow-5"
         >
           {
             '' + new Date().getFullYear() + '\n"Inari"'
           }
-        </Body>
-      </div>
-    </nav>
+        </CopyrightText>
+      </CopyrightContainer>
+    </MenuContainer>
   );
 };
 
