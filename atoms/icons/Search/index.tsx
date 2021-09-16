@@ -1,15 +1,14 @@
 import { FunctionComponent } from "react";
 import { BaseIconProps } from "../../interfaces";
+import { getStyles } from "../utils";
+
 
 const Search: FunctionComponent<BaseIconProps> = ({
   color,
   size = 24,
 }) => (
   <svg 
-    style={{
-      color,
-      fill: 'currentcolor',
-    }} 
+    style={getStyles(color)} 
     xmlns="http://www.w3.org/2000/svg" 
     height={`${size}px`} 
     width={`${size}px`} 

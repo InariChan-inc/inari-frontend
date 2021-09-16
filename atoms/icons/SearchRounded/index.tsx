@@ -1,5 +1,7 @@
 import { FunctionComponent } from "react"
 import { BaseIconProps } from "../../interfaces"
+import { getStyles } from "../utils";
+
 
 const  SearchRounded: FunctionComponent<BaseIconProps> = ({
   color,
@@ -12,10 +14,7 @@ const  SearchRounded: FunctionComponent<BaseIconProps> = ({
     y={0}
     viewBox="0 0 36 36"
     xmlSpace="preserve"
-    style={{
-      color,
-      fill: 'currentcolor',
-    }}
+    style={getStyles(color)}
     width={size}
     height={size}
   >

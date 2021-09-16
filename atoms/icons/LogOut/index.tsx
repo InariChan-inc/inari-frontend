@@ -1,5 +1,7 @@
 import { FunctionComponent } from "react";
 import { BaseIconProps } from '../../interfaces';
+import { getStyles } from "../utils";
+
 
 interface LogOutIconProps extends BaseIconProps {
   onClick?: () => void,
@@ -11,10 +13,7 @@ const LogOut: FunctionComponent<LogOutIconProps> = ({
   onClick = () => {},
 }) => (
   <svg
-    style={{
-      color,
-      fill: 'currentcolor',
-    }}
+    style={getStyles(color)}
     onClick={onClick}
     xmlns="http://www.w3.org/2000/svg"
     width={size}

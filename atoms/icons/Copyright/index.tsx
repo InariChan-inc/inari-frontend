@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
 import { BaseIconProps } from '../../interfaces';
+import { getStyles } from "../utils";
 
 
 const Copyright: FunctionComponent<BaseIconProps> = ({
@@ -8,10 +9,7 @@ const Copyright: FunctionComponent<BaseIconProps> = ({
 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    style={{
-      color,
-      fill: 'currentcolor',
-    }}
+    style={getStyles(color)}
     width={size}
     height={size}
     viewBox="0 0 24 24"
