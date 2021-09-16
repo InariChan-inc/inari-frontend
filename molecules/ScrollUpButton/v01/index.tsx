@@ -5,7 +5,7 @@ import {
   useRef
 } from "react";
 
-import { ArrowUp } from "../../../atoms/icons";
+import { ArrowUp } from "@atoms/icons";
 import { CircleButton } from "./styles";
 
 const ScrollUpButton: FunctionComponent = () => {
