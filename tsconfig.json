@@ -22,6 +22,8 @@
       "@typography/*": ["typography/*"],
       "@utils": ["utils"],
       "@utils/*": ["utils/*"],
+      "@hooks": ["hooks"],
+      "@hooks/*": ["hooks/*"],
     },
     "target": "es5",
     "lib": [
