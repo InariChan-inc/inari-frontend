@@ -20,12 +20,15 @@ const Authorization: FunctionComponent<AuthorizationProps> = () => {
 
   return (
     <AuthorizationContainer>
-      <Sun 
+      {/* <Sun 
         size={36}
-        style={{ marginRight: 32 }}
+        style={{
+          marginRight: 32,
+          cursor: 'pointer',
+        }}
         color="brown-2" 
         onClick={() => console.log('Theme switched!')}
-      />
+      /> */}
       <ButtonWrapper>
         <Button
           Icon={Person}
