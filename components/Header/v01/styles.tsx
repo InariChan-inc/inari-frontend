@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
-
+import values from "@common/values";
 
 export const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   right: 0;
-  left: 132px;
+  left: ${values.menuWidth}px;
   display: flex;
   justify-content: space-between;
   align-items: center;
