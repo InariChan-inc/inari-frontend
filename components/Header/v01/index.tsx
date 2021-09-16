@@ -3,10 +3,10 @@ import {
   useCallback
 } from "react";
 import { useSelector } from "react-redux";
-import { isFocused } from "../../../redux/selectors/headerSearch";
-import { isUserLoggedIn } from "../../../redux/selectors/token";
-import { isUserEmpty } from "../../../redux/selectors/user";
-import { SearchInput } from '../../../molecules';
+import { isFocused } from "redux/selectors/headerSearch";
+import { isUserLoggedIn } from "redux/selectors/token";
+import { isUserEmpty } from "redux/selectors/user";
+import { SearchInput } from 'molecules';
 import {
   Authorization,
   AccountControl
@@ -18,11 +18,9 @@ import {
 } from './styles';
 
 
-interface HeaderProps {
-}
+interface HeaderProps {}
 
-const Header: FunctionComponent<HeaderProps> = ({
-}) => {
+const Header: FunctionComponent<HeaderProps> = () => {
 
   const router = useRouter();
 
