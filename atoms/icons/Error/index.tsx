@@ -5,10 +5,11 @@ import { getStyles } from "../utils";
 
 const ErrorIcon: FunctionComponent<BaseIconProps> = ({
   color,
-  size = 24
+  size = 24,
+  style,
 }) => (
   <svg
-    style={getStyles(color)}
+    style={{...style, ...getStyles(color)}}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}

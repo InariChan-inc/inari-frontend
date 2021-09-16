@@ -11,9 +11,10 @@ const Sun: FunctionComponent<SunProps> = ({
     color,
     onClick,
     size = 24,
+  style,
 }) => (
   <svg 
-    style={getStyles(color)}
+    style={{...style, ...getStyles(color)}}
     xmlns="http://www.w3.org/2000/svg" 
     height={size} 
     viewBox="0 0 24 24" 

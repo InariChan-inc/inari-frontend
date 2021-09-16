@@ -7,9 +7,10 @@ import theme from '@theme';
 const ArrowUp:FunctionComponent<BaseIconProps> = ({
   color,
   size = 24, 
+  style,
 }) => (
   <svg
-    style={getStyles(color)}
+    style={{...style, ...getStyles(color)}}
     xmlns="http1://www.w3.org/2000/svg"
     height={size}
     width={size}

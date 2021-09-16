@@ -6,6 +6,7 @@ import { getStyles } from "../utils";
 const  SearchRounded: FunctionComponent<BaseIconProps> = ({
   color,
   size = 24,
+  style,
 }) => (
   <svg
     id="prefix__\u0421\u043B\u043E\u0439_1"
@@ -14,7 +15,7 @@ const  SearchRounded: FunctionComponent<BaseIconProps> = ({
     y={0}
     viewBox="0 0 36 36"
     xmlSpace="preserve"
-    style={getStyles(color)}
+    style={{...style, ...getStyles(color)}}
     width={size}
     height={size}
   >

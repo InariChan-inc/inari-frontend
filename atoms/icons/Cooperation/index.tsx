@@ -6,9 +6,10 @@ import { getStyles } from "../utils";
 const Cooperation: FunctionComponent<BaseIconProps> = ({
   color,
   size = 24,
+  style,
 }) => (
   <svg
-    style={getStyles(color)}
+    style={{...style, ...getStyles(color)}}
     height={size}
     width={size}
     viewBox="0 0 24 24"
