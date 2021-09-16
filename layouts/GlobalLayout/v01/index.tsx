@@ -22,27 +22,27 @@ const GlobalLayout: FunctionComponent = ({
       <Menu
         menuItems={[
           {
-            page: 'search',
+            to: 'search',
             Icon: SearchRounded,
             text: 'Пошук',
           },
           {
-            page: 'cooperation',
+            to: 'cooperation',
             Icon: Cooperation,
             text: 'Співпраця',
           },
           {
-            page: 'help',
+            to: 'help',
             Icon: Help,
             text: 'Технічна допомога',
           },
           {
-            page: 'support',
+            to: 'support',
             Icon: Support,
             text: 'Підтримати' + '\n' + 'нас',
           },
           {
-            page: 'info',
+            to: 'info',
             Icon: Info,
             text: 'Право-\nвласникам',
           }
