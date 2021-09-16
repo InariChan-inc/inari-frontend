@@ -4,7 +4,7 @@ import { Button } from '@typography';
 import { MenuItemContainer } from './styles';
 import { BaseIconProps } from '@atoms/interfaces';
 
-interface MenuItemProps {
+export interface MenuItemProps {
     to: string,
     Icon: JSXElementConstructor<BaseIconProps>,
     text: string,
