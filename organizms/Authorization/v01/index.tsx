@@ -1,46 +1,47 @@
 import { useRouter } from 'next/router';
 import { FunctionComponent } from "react";
-import { Person } from '../../../atoms/icons';
-import { Button } from '../../../molecules';
-import { Button as Text } from '../../../typography';
+import {
+  Person,
+  Sun,
+} from '@icons';
+import { Button } from '@molecules';
+import { Button as Text } from '@typography';
+import {
+  AuthorizationContainer,
+  ButtonWrapper,
+  SignUpButton,
+} from './styles';
 
-import { Sun } from '../../../atoms/icons';
+interface AuthorizationProps {}
 
-interface AuthorizationProps {
-}
-
-const Authorization: FunctionComponent<AuthorizationProps> = ({
-
-}) => {
+const Authorization: FunctionComponent<AuthorizationProps> = () => {
 
   const router = useRouter();
 
   return (
-    <div className="flex items-center h-full">
+    <AuthorizationContainer>
       <Sun 
         size={36}
-        className="text-brown-2 dark:text-white fill-current cursor-pointer mr-8" 
+        style={{ marginRight: 32 }}
+        color="brown-2" 
         onClick={() => console.log('Theme switched!')}
       />
-      <div className="flex items-center">
+      <ButtonWrapper>
         <Button
-          icon={<Person className="fill-current relative" />}
-          className="z-10 px-[20px] py-[12px] rounded-[40px]"
+          Icon={Person}
+          style={{ zIndex: 10 }}
           onClick={() => router.push('signin')}
         >
             Увійти
         </Button>
       
-        <button 
-          className="bg-yellow-1 hover:bg-yellow-2 duration-300 py-[10px] px-6 rounded-r-[40px] ml-[-14px]"
-          onClick={() => router.push('signup')}
-          >
+        <SignUpButton onClick={() => router.push('signup')}>
             <Text type={1}>
               Реєстрація
             </Text>
-        </button>    
-      </div>
-    </div>
+        </SignUpButton>    
+      </ButtonWrapper>
+    </AuthorizationContainer>
   );
 };
 
