@@ -2,28 +2,24 @@ import {
   FunctionComponent,
   useRef,
 } from "react";
-
 import {
   Swiper,
   SwiperSlide,
 } from 'swiper/react';
-
 import {
   ArrowLeft,
   ArrowRight,
 } from '@icons';
-
 import {
   AnimeCard,
   AnimeCardProps 
 } from '@molecules';
-import { Headline } from '@typography';
+import { Title } from './styles';
 import {
-  AnimeContainer,
+  SliderContainer,
   LeftControl,
   RightControl,
-  Title,
-} from './styles';
+} from '../../styles';
 
 
 interface AnimeSliderProps {
@@ -43,7 +39,7 @@ const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
   const prevElRef = useRef(null);
 
   return (
-    <AnimeContainer style={style}>
+    <SliderContainer style={style}>
       <Swiper
         slidesPerView={'auto'}
         slidesPerColumn={slidesPerColumn}
@@ -73,12 +69,12 @@ const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
             </SwiperSlide>
           )) : null
         }
-        <LeftControl ref={nextElRef}>
+        <RightControl ref={nextElRef}>
           <ArrowRight size={36} />
-        </LeftControl>
-        <RightControl ref={prevElRef}>
+        </RightControl>
+        <LeftControl ref={prevElRef}>
           <ArrowLeft size={36} />
-        </RightControl>        
+        </LeftControl>        
       </Swiper>
       {
         title ? (
@@ -87,7 +83,7 @@ const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
           </Title>
         ) : null
       }
-    </AnimeContainer>
+    </SliderContainer>
   );
 }
 

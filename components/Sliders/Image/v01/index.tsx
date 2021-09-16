@@ -1,6 +1,7 @@
 import { 
   FunctionComponent,
   useRef,
+  CSSProperties,
 } from "react";
 
 import {
@@ -11,20 +12,27 @@ import {
 import {
   ArrowLeft,
   ArrowRight
-} from '../../../../atoms/icons';
+} from '@icons';
 
-import tailwind from '../../../../tailwind.config';
+import {
+  SliderContainer,
+  LeftControl,
+  RightControl,
+} from '../../styles';
+
+import {
+  Image,
+  Pagination,
+} from './styles';
 
 interface ImageSliderProps {
-    className?: string,
     urls?: string[],
+    style?: CSSProperties,
 }
 
-const DEFAULT = 'pt-[68px] overflow-hidden ';
-
 const ImageSlider: FunctionComponent<ImageSliderProps> = ({
-    className = '',
     urls = [],
+    style,
 }) => {
   const nextElRef = useRef(null);
   const prevElRef = useRef(null);
@@ -32,9 +40,12 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
   const paginationElRef = useRef(null); 
 
   return (
-    <div className={DEFAULT + className}>
+    <SliderContainer style={style}>
       <Swiper
-        className="w-full h-[455px]"
+        style={{
+          width: '100%',
+          height: 455,
+        }}
         loop
         autoplay={{
           delay: 3000,
@@ -62,62 +73,23 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
         {urls.map((url, index) => (
           <SwiperSlide
             key={index}
-            className="rounded-[5px] select-none" 
+            style={{
+              borderRadius: 5,
+              userSelect: 'none',
+            }}
           >
-            <div
-              className="w-full h-full bg-cover bg-center rounded-[5px]"
-              style={{
-                backgroundImage: `url('${process.env.INARIBEHOST}${url}')`
-              }}
-            />
+            <Image url={url} />
           </SwiperSlide>
         ))}
-        <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-0 z-[1001]" ref={nextElRef}>
-          <ArrowRight
-            className="text-brown-2 fill-current"
-            size={36}
-          />
-          
-        </div>
-        <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-[68px] z-[1001]" ref={prevElRef}>
-          <ArrowLeft
-            className="text-brown-2 fill-current"
-            size={36}
-          />
-        </div>
-        <div className="absolute left-0 top-[-59px] h-[18px] z-[1000]" ref={paginationElRef} />
-        <style jsx global>{`
-            .swiper-button-disabled {
-              cursor: default;
-            }
-
-            .swiper-button-disabled > svg {
-              fill: ${tailwind.theme.colors.yellow[2]};
-            }
-
-            .swiper-container {
-              overflow: visible;
-            }
-
-            .swiper-pagination-bullet {
-              width: 15px;
-              height: 15px;
-              background-color: transparent;
-              border: 3px solid ${tailwind.theme.colors.yellow[1]};
-              opacity: 1;
-            }
-
-            .swiper-pagination-bullet-active {
-              background-color: ${tailwind.theme.colors.yellow[1]};
-            }
-
-            .swiper-pagination-clickable > .swiper-pagination-bullet-active {
-              cursor: default;
-            }
-
-          `}</style>
+        <RightControl ref={nextElRef}>
+          <ArrowRight size={36} />
+        </RightControl>
+        <LeftControl ref={prevElRef}>
+          <ArrowLeft size={36} />
+        </LeftControl>
+        <Pagination ref={paginationElRef} />
       </Swiper>
-    </div>
+    </SliderContainer>
   );
 };
 
