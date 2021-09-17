@@ -30,17 +30,8 @@ const linkStyles: Record<TLinkTypes, ITypographyStyles> = {
   },
 };
 
-const StyledLinkText = styled.span<TTypedTypographyComponent<TLinkTypes>>`
+const Link = styled.span<TTypedTypographyComponent<TLinkTypes>>`
   ${props => getStyles(linkStyles[props.type], props)}
 `;
-
-const Link: FC<TTypedTypographyComponent<TLinkTypes> & { href: string }> = ({
-  href,
-  ...props
-}) => (
-  <a href={href}>
-    <StyledLinkText {...props} />
-  </a>
-);
 
 export default Link;
