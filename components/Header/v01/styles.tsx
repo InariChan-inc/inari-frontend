@@ -9,7 +9,7 @@ export const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 72px;
+  height: ${values.headerHeight}px;
   padding: 0 60px;
   background-color: ${props => props.theme.colors.white};
   z-index: 5001;
