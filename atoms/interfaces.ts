@@ -1,4 +1,8 @@
+import { CSSProperties } from 'react';
+import { TColors } from "@theme/colors";
+
 export interface BaseIconProps {
-    className?: string,
-    size?: number
+    color?: TColors,
+    size?: number,
+    style?: CSSProperties;
 }

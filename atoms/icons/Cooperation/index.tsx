@@ -1,13 +1,15 @@
 import { FunctionComponent } from "react";
 import { BaseIconProps } from "../../interfaces";
+import { getStyles } from "../utils";
 
 
 const Cooperation: FunctionComponent<BaseIconProps> = ({
-  className = '',
+  color,
   size = 24,
+  style,
 }) => (
   <svg
-    className={className}
+    style={{...style, ...getStyles(color)}}
     height={size}
     width={size}
     viewBox="0 0 24 24"

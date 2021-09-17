@@ -7,29 +7,33 @@ import {
   useSelector,
   useDispatch
 } from 'react-redux';
-import { clearUser } from '../../../redux/actions/user';
-import { deleteAll } from '../../../redux/actions/token';
-import { truncateBySymbols } from '../../../utils';
+import { clearUser } from 'redux/actions/user';
+import { deleteAll } from 'redux/actions/token';
+import { truncateBySymbols } from '@utils';
 import {
   getName,
   getRole,
   getAvatar
-} from '../../../redux/selectors/user';
+} from 'redux/selectors/user';
 import {
   ArrowUp,
   ArrowDown,
   LogOut
-} from '../../../atoms/icons';
-import {
-  Avatar,
-  Link
-} from '../../../atoms';
+} from '@icons';
 import {
   Body,
   Button as ButtonText
-} from '../../../typography';
-import useDropMenuOutsideClick from '../../../hooks/useDropMenuOutsideClick';
+} from '@typography';
+import useDropMenuOutsideClick from '@hooks/useDropMenuOutsideClick';
 import menuItems from './menuItems';
+import {
+  AccountControlContainer,
+  AccountMenu,
+  ControlsWrapper,
+  NameWrapper,
+  StyledAvatar,
+  MenuLink,
+} from './styles';
 
 const getRandom: (min: number, max: number) => number = (min, max) => Math.floor(Math.random()*(max - min)) + min;
 
@@ -68,43 +72,39 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
   })
 
   return (
-    <div className="flex items-center h-full">
-      <div
+    <AccountControlContainer>
+      <ControlsWrapper
         ref={rootRef}
-        className={`${defaultClassName} ${open ? 'border-yellow-1 bg-yellow-7' : 'border-transparent'}`}
+        open={open}
       >
-        <div className="flex flex-col justify-center items-end">
+        <NameWrapper>
           <Body
-            className="text-brown-2"
+            color="brown-2"
             type={5}
           >
             {truncateBySymbols(name, 16)}
           </Body>
           <Body
-            className="text-brown-2"
+            color="brown-2"
             type={8}
           >
             {role ? role.name : ''}
           </Body>
-        </div>
-        <Avatar
-          className="w-12 h-12 ml-4 mr-2"
+        </NameWrapper>
+        <StyledAvatar
           name={name}
           color={color.current}
         />
-
         {
           open ? (
-            <ArrowUp className="text-brown-2 fill-current" />
+            <ArrowUp color="brown-2" />
           ) : (
-            <ArrowDown className="text-brown-2 fill-current" />
+            <ArrowDown color="brown-2" />
           )
-        }
-        
-
-        <div
+        }     
+        <AccountMenu
           ref={menuRootRef}
-          className={`absolute min-w-[300px] border border-yellow-1 bg-white translate-y-full bottom-0 right-[-1px] ${open ? 'block' : 'hidden'}`}
+          open={open}
         >
           {
             menuItems.map(({
@@ -112,23 +112,24 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
               path,
               title
             }) => (
-              <Link className={"w-full px-8 py-4 flex items-center border-t border-b first-of-type:border-t-0 last-of-type:border-b-0 border-transparent hover:bg-yellow-7 hover:border-yellow-1"} href={path}>
-                  <Icon className="mr-6" />
+              <MenuLink href={path}>
+                  <Icon style={{ marginRight: 24 }} />
                   <ButtonText type={4}>{title}</ButtonText>
-              </Link>
+              </MenuLink>
             ))
           }
-        </div>
-      </div>
+        </AccountMenu>
+      </ControlsWrapper>
       <LogOut
-        className="text-brown-2 fill-current cursor-pointer"
+        color="brown-2"
+        style={{ cursor: 'pointer' }}
         size={32}
         onClick={() => {
           dispatch(clearUser());
           dispatch(deleteAll());
         }}
       />
-    </div>
+    </AccountControlContainer>
   );
 };
 

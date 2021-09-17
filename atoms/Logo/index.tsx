@@ -10,14 +10,17 @@ interface LogoProps extends BaseIconProps {
 }
 
 const Logo: FunctionComponent<LogoProps> = ({
-  className = '',
+  color = 'white',
   size = 24,
   style = {},
 }) => {
   return (
     <svg
-      className={className}
-      style={style}
+      style={{
+        color,
+        fill: 'currentcolor',
+        ...style,
+      }}
       viewBox="0 0 256 256"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"

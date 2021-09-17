@@ -2,42 +2,44 @@ import {
   FunctionComponent,
   useRef,
 } from "react";
-
 import {
   Swiper,
   SwiperSlide,
 } from 'swiper/react';
-
 import {
   ArrowLeft,
   ArrowRight,
-} from '../../../../atoms/icons';
-
-import { AnimeCard, AnimeCardProps } from '../../../../molecules';
-
-import { Headline } from '../../../../typography';
+} from '@icons';
+import {
+  AnimeCard,
+  AnimeCardProps 
+} from '@molecules';
+import { Title } from './styles';
+import {
+  SliderContainer,
+  LeftControl,
+  RightControl,
+} from '../../styles';
 
 
 interface AnimeSliderProps {
-  className?: string,
   title? : string,
   animes?: AnimeCardProps[],
-  slidesPerColumn?: number 
+  slidesPerColumn?: number,
+  style?: React.CSSProperties,
 }
 
-const DEFAULT = 'relative pt-[68px] overflow-hidden ';
-
 const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
-  className = '',
   title,
   animes,
   slidesPerColumn = 1,
+  style,
 }) => {
   const nextElRef = useRef(null);
   const prevElRef = useRef(null);
 
   return (
-    <div className={DEFAULT + className}>
+    <SliderContainer style={style}>
       <Swiper
         slidesPerView={'auto'}
         slidesPerColumn={slidesPerColumn}
@@ -56,35 +58,32 @@ const AnimeSlider: FunctionComponent<AnimeSliderProps> = ({
       >
         {
           animes ? animes.map((anime, index) => (
-            <SwiperSlide className="pb-4" style={{ width: 'auto' }} key={index}>
+            <SwiperSlide
+              key={index}
+              style={{
+                width: 'auto',
+                paddingBottom: 16
+              }}
+            >
               <AnimeCard {...anime}/>
             </SwiperSlide>
           )) : null
         }
-        <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-0 z-[1001]" ref={nextElRef}>
-          <ArrowRight
-            className="text-brown-2 fill-current"
-            size={36}
-          />
-          
-        </div>
-        <div className="cursor-pointer w-9 h-9 absolute top-[-68px] right-[68px] z-[1001]" ref={prevElRef}>
-          <ArrowLeft
-            className="text-brown-2 fill-current"
-            size={36}
-          />
-        </div>        
+        <RightControl ref={nextElRef}>
+          <ArrowRight size={36} />
+        </RightControl>
+        <LeftControl ref={prevElRef}>
+          <ArrowLeft size={36} />
+        </LeftControl>        
       </Swiper>
       {
         title ? (
-          <div className="absolute top-0">
-            <Headline type={2}>
-              {title}
-            </Headline>
-          </div>
+          <Title type={2}>
+            {title}
+          </Title>
         ) : null
       }
-    </div>
+    </SliderContainer>
   );
 }
 

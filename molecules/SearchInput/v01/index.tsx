@@ -1,12 +1,19 @@
-import { FunctionComponent, useCallback } from 'react';
-import { Search } from '../../../atoms/icons';
 import {
-  Formik, FormikErrors
-} from 'formik';
-import { useDispatch } from 'react-redux';
-import { setFocus } from '../../../redux/actions/headerSearch';
-
+  FunctionComponent,
+  useCallback
+} from 'react';
 import _ from 'lodash';
+import { Formik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { setFocus } from 'redux/actions/headerSearch';
+import {
+  FieldWrapper,
+  SearchInputContainer,
+  Label,
+  StyledSearchIcon,
+  StyledInput,
+} from './styles';
+
 
 interface SearchInputProps {
     placeholder: string,
@@ -33,12 +40,11 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
       const dispatch = useDispatch();
 
       return(
-        <div className="py-[14px] w-1/2">
-          <div className="bg-yellow-1 py-2 px-11 rounded-tl-full rounded-br-full w-full h-full flex items-center relative z-[9999]">
-            <label className="flex flex-1 items-center">
-              <Search className="text-brown-2 fill-current mr-3 cursor-pointer" />
-              <input
-                className="flex-1 outline-none bg-transparent font-montserrat placeholder-shown:font-light font-medium text-brown-2 italic text-14 tracking-3p leading-none placeholder-yellow-6"
+        <SearchInputContainer>
+          <FieldWrapper>
+            <Label>
+              <StyledSearchIcon />
+              <StyledInput
                 name="search"
                 type="text"
                 value={search}
@@ -57,9 +63,9 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
                   }
                 }}
               />
-            </label>
-          </div>
-        </div>
+            </Label>
+          </FieldWrapper>
+        </SearchInputContainer>
       );
     }}
   </Formik>

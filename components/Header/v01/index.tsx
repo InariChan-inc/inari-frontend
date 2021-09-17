@@ -3,21 +3,24 @@ import {
   useCallback
 } from "react";
 import { useSelector } from "react-redux";
-import { isFocused } from "../../../redux/selectors/headerSearch";
-import { isUserLoggedIn } from "../../../redux/selectors/token";
-import { isUserEmpty } from "../../../redux/selectors/user";
-import { SearchInput } from '../../../molecules';
+import { isFocused } from "redux/selectors/headerSearch";
+import { isUserLoggedIn } from "redux/selectors/token";
+import { isUserEmpty } from "redux/selectors/user";
+import { SearchInput } from 'molecules';
 import {
   Authorization,
   AccountControl
 } from '../../../organizms';
 import { useRouter } from "next/router";
+import {
+  BlackScreen,
+  HeaderContainer,
+} from './styles';
 
-interface HeaderProps {
-}
 
-const Header: FunctionComponent<HeaderProps> = ({
-}) => {
+interface HeaderProps {}
+
+const Header: FunctionComponent<HeaderProps> = () => {
 
   const router = useRouter();
 
@@ -33,18 +36,15 @@ const Header: FunctionComponent<HeaderProps> = ({
 
 
   return (
-    <div
-      className={`fixed top-0 right-0 left-[132px] z-[5001] h-[72px] flex items-center justify-between px-[60px] bg-white before:absolute before:top-0 before:left-[-1px] before:bottom-0 before:w-[1px] before:bg-white`}>
+    <HeaderContainer>
         <SearchInput 
             placeholder="Шукаю аніме..."
             onSearch={searchValue => console.log('SEARCH: ', searchValue)}
             onSubmit={searchValue => console.log('SUBMITTED: ', searchValue)}
-        />
-        
+        />  
         <UserComponent />
-        
-        <div className={`duration-300 fixed z-[9998] top-0 left-0 right-0 bottom-0 bg-black opacity-60 ${isSearchFocused ? 'visible' : 'opacity-0 invisible'}`} />
-    </div>
+        <BlackScreen open={isSearchFocused} />
+    </HeaderContainer>
   );
 };
 

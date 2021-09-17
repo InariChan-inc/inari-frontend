@@ -1,29 +1,49 @@
-import { FunctionComponent } from 'react';
+import styled from "styled-components";
+import { ITypographyStyles, TTypedTypographyComponent } from "./types";
+import { getStyles } from "./utils";
 
 
-const HeaderComponents = {
-    1: ({children, className = ''}) => <h1 className={`font-montserrat font-bold text-[44px] ${className}`}>{children}</h1>,
-    2: ({children, className = ''}) => <h2 className={`font-montserrat font-bold text-[32px] ${className}`}>{children}</h2>,
-    3: ({children, className = ''}) => <h3 className={`font-montserrat font-bold text-24 ${className}`}>{children}</h3>,
-    4: ({children, className = ''}) => <h4 className={`font-montserrat font-bold text-18 ${className}`}>{children}</h4>,
+export type THeadlineTypes = 1 | 2 | 3 | 4;
+
+const headlineStyles: Record<THeadlineTypes, ITypographyStyles> = {
+  1: {
+    as: 'h1',
+    fontFamily: 'montserrat',
+    fontWeight: 'bold',
+    fontSize: 44,
+    letterSpacing: 0,
+    lineHeight: 1,
+  },
+  2: {
+    as: 'h2',
+    fontFamily: 'montserrat',
+    fontWeight: 'bold',
+    fontSize: 32,
+    letterSpacing: 0,
+    lineHeight: 1,
+  },
+  3: {
+    as: 'h3',
+    fontFamily: 'montserrat',
+    fontWeight: 'bold',
+    fontSize: 24,
+    letterSpacing: 0,
+    lineHeight: 1,
+  },
+  4: {
+    as: 'h4',
+    fontFamily: 'montserrat',
+    fontWeight: 'bold',
+    fontSize: 18,
+    letterSpacing: 0,
+    lineHeight: 1,
+  },
 };
 
-interface HeadlineProps {
-    className?: string
-    type: keyof typeof HeaderComponents,
-    children: string,
-}
+
+const Headline = styled.h1<TTypedTypographyComponent<THeadlineTypes>>`
+  ${props => getStyles(headlineStyles[props.type], props)}
+`;
 
 
-const Headline: FunctionComponent<HeadlineProps> = ({
-  className = '',
-  type, 
-  children,
-}) => {
-  const HeaderComponent = HeaderComponents[type];
-
-  return <HeaderComponent className={className}>{children}</HeaderComponent>
-};
-
-
-export default Headline
+export default Headline;

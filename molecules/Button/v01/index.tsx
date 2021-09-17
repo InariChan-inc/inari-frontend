@@ -1,46 +1,44 @@
 import React, { CSSProperties } from "react";
-import { Button as Text } from '../../../typography';
-
-const types = {
-  1: 'text-white disabled:text-yellow-5 duration-300 disabled:cursor-not-allowed bg-brown-2 hover:bg-brown-1 disabled:bg-yellow-2',
-}
+import {
+  ButtonTypes,
+  StyledButton,
+  Text,
+} from './styles';
 interface ButtonProps {
     onClick?: () => void,
-    type?: keyof typeof types,
+    type?: ButtonTypes,
     buttonType?: 'button' | 'submit' | 'reset',
     children?: string,
-    icon?: JSX.Element,
+    Icon?: React.JSXElementConstructor<{}>,
     style?: CSSProperties,
-    className?: string,
     disabled?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   onClick,
   children = '',
-  icon,
-  style,
-  className = '',
+  Icon,
   disabled,
   type = 1,
   buttonType = 'button',
+  style = {},
 }, ref) => (
-  <button
+  <StyledButton
+    styleType={type}
     ref={ref}
     type={buttonType}
     disabled={disabled}
-    className={`flex items-center ${types[type]} ${className}`}
-    style={style}
     onClick={onClick}
+    style={style}
   >
-    {icon}
+    {Icon ? <Icon /> : null}
     <Text
-      className={`${icon ? 'pl-2' : ''}`}
+      isIcon={!!Icon}
       type={1}
     >
       {children}
     </Text>
-  </button>
+  </StyledButton>
 ));
 
 

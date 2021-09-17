@@ -1,5 +1,6 @@
 import { FunctionComponent, MouseEvent as ReactMouseEvent } from "react";
 import { BaseIconProps } from '../../interfaces';
+import { getStyles } from "../utils";
 
 
 interface VisibilityProps extends BaseIconProps {
@@ -8,14 +9,15 @@ interface VisibilityProps extends BaseIconProps {
 }
 
 const Visibility: FunctionComponent<VisibilityProps> = ({
-  className = '',
+  color,
   size = 24,
+  style,
   visible = false,
   onClick = () => {},
 }) => (
   <svg
     onClick={event => onClick(event)}
-    className={className}
+    style={{...style, ...getStyles(color)}}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}

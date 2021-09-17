@@ -1,17 +1,20 @@
 import { FunctionComponent } from "react";
 import { BaseIconProps } from "../../interfaces";
+import { getStyles } from "../utils";
+
 
 interface SunProps extends BaseIconProps {
   onClick?: () => void,
 }
 
 const Sun: FunctionComponent<SunProps> = ({
-    className = '',
+    color,
     onClick,
     size = 24,
+  style,
 }) => (
   <svg 
-    className={className}
+    style={{...style, ...getStyles(color)}}
     xmlns="http://www.w3.org/2000/svg" 
     height={size} 
     viewBox="0 0 24 24" 

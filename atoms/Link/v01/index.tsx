@@ -1,19 +1,27 @@
-import { FunctionComponent } from 'react';
+import {
+  FunctionComponent,
+  CSSProperties,
+} from 'react';
 import NextLink, { LinkProps as NextLinkProps } from 'next/link';
 
 interface LinkProps extends NextLinkProps {
   title?: string,
-  className?: string,
+  style?: CSSProperties,
 }
 
 const Link: FunctionComponent<LinkProps> = ({
   children = '',
   title = '',
-  className = '',
+  style,
   ...props
 }) => (
   <NextLink {...props}>
-    <a className={className} title={title}>{children}</a>
+    <a
+      title={title}
+      style={style}
+    >
+      {children}
+    </a>
   </NextLink>
 );
 
