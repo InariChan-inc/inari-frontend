@@ -1,20 +1,32 @@
-import Head from 'next/head';
+import styled from 'styled-components';
 import {
   ImageSlider,
   AnimeSlider,
-} from '../components';
+} from '@components';
 import {
   Button,
   AnimeCardProps
-} from '../molecules';
+} from '@molecules';
 import {
   useQuery,
   gql,
 } from '@apollo/client';
 import {
-  Link
-} from '../atoms';
+  Link,
+  Helmet,
+} from '@atoms';
 
+
+const HomeContainer = styled.div`
+  padding: 32px 60px;
+`;
+
+const GoToSearchButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+  width: 100%;
+`;
 
 export default function Home() {
 
@@ -85,7 +97,7 @@ export default function Home() {
     data: bannerData, 
     loading: bannerLoading,
     error: bannerError
-  } = useQuery<{baners: {image: {path: string}}[]}>(
+  } = useQuery<{ baners: {image: { path: string } }[] }>(
     gql`
       {
         baners {
@@ -97,58 +109,66 @@ export default function Home() {
   `);
 
   return (
-    <div className="py-8 px-[60px]">
-      <Head>
-        <title>Inari - Головна</title>
-      </Head>
+    <HomeContainer>
+      <Helmet title="Головна" />
 
-        {
-          !bannerLoading && !bannerError && bannerData && bannerData.baners.length ? (
-            <ImageSlider
-              urls={bannerData.baners.map(item => item.image.path)}
-            />
-          ) : null
-        }
+      {
+        !bannerLoading && !bannerError && bannerData && bannerData.baners.length ? (
+          <ImageSlider
+            urls={bannerData.baners.map(item => item.image.path)}
+          />
+        ) : null
+      }
+      
+      {
+        !topAnimeMonthLoading && !topAnimeMonthError && topAnimeMonthData && topAnimeMonthData.topAnimeMonth.length ? (
+          <AnimeSlider
+            style={{
+              margin: '64px 0',
+            }}
+            title="Топ місяця"
+            animes={topAnimeMonthData.topAnimeMonth}
+          />
+        ) : null
+      }       
         
+      {
+        !lastUpdatedAnimeLoading && !lastUpdatedAnimeError && lastUpdatedAnimeData && lastUpdatedAnimeData.lastUpdatedAnime.length ? (
+          <AnimeSlider
+            style={{
+              margin: '64px 0',
+            }}
+            title="Нещодавно оновлені"
+            animes={lastUpdatedAnimeData.lastUpdatedAnime}
+          /> 
+        ) : null
+      }
 
-        {
-          !topAnimeMonthLoading && !topAnimeMonthError && topAnimeMonthData && topAnimeMonthData.topAnimeMonth.length ? (
-            <AnimeSlider
-              className="my-16"
-              title="Топ місяця"
-              animes={topAnimeMonthData.topAnimeMonth}
-            />
-          ) : null
-        }       
-        
-        {
-          !lastUpdatedAnimeLoading && !lastUpdatedAnimeError && lastUpdatedAnimeData && lastUpdatedAnimeData.lastUpdatedAnime.length ? (
-            <AnimeSlider
-              className="my-16"
-              title="Нещодавно оновлені"
-              animes={lastUpdatedAnimeData.lastUpdatedAnime}
-            /> 
-          ) : null
-        }
+      {
+        !lastAddedAnimeLoading && !lastAddedAnimeError && lastUpdatedAnimeData && lastAddedAnimeData.lastAddedAnime.length ? (
+          <AnimeSlider
+            style={{
+              marginTop: 64,
+            }}
+            title="Останні додані"
+            slidesPerColumn={2}
+            animes={lastAddedAnimeData.lastAddedAnime}
+          />
+        ) : null
+      }
 
-        {
-          !lastAddedAnimeLoading && !lastAddedAnimeError && lastUpdatedAnimeData && lastAddedAnimeData.lastAddedAnime.length ? (
-            <AnimeSlider
-              className="mt-16"
-              title="Останні додані"
-              slidesPerColumn={2}
-              animes={lastAddedAnimeData.lastAddedAnime}
-            />
-          ) : null
-        }
-
-       <div className="w-full flex justify-center mt-16">
-          <Link href="search">
-            <Button className="px-[30px] py-[15px] rounded-[50px]">
-              Перейти до пошуку
-            </Button>
-          </Link>
-        </div>
-    </div>
+      <GoToSearchButtonWrapper>
+        <Link href="search">
+          <Button 
+            style={{
+              padding: '15px 30px',
+              borderRadius: 50,
+            }}
+          >
+            Перейти до пошуку
+          </Button>
+        </Link>
+      </GoToSearchButtonWrapper>
+    </HomeContainer>
   )
 }
