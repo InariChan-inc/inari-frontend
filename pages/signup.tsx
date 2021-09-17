@@ -1,9 +1,9 @@
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import {  
   useEffect,
   useRef
 } from 'react';
+import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { gql } from '@apollo/client';
 import {
@@ -11,40 +11,62 @@ import {
   FormikErrors, 
   FormikValues
 } from 'formik';
-import { setUser } from '../redux/actions/user';
+import { setUser } from 'redux/actions/user';
 import {
   setToken,
   setRefreshToken
-} from '../redux/actions/token';
+} from 'redux/actions/token';
 import {
   Headline,
   Body,
   Link as LinkText,
-} from '../typography';
-import { Link } from '../atoms';
+} from '@typography';
+import {
+  Link,
+  Helmet,
+} from '@atoms';
 import {
   Person,
   Email,
   Key,
-} from '../atoms/icons';
+} from '@icons';
 import {
   Input,
   Button,
-} from '../molecules';
-import { AuthorizationLayout } from '../layouts';
-import ApolloClient from '../common/graphql/client';
-import { IRegistrationUser } from '../common/graphql/interfaces';
+} from '@molecules';
+import { AuthorizationLayout } from '@layouts';
+import ApolloClient from '@common/graphql/client';
+import { IRegistrationUser } from '@common/graphql/interfaces';
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
   NICKNAME_REGEX,
-} from '../common/regex';
+} from '@common/regex';
 import {
   EMPTY_ERROR,
   EXISTS_ERROR,
   NOT_MATCHED_ERROR,
-} from '../common/errors';
-import { sleep } from '../utils';
+} from '@common/errors';
+import { sleep } from '@utils';
+
+
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 48px;
+  margin-bottom: 64px;
+  width: 350px;
+`;
+
+const HelpSection = styled.section`
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+`;
+
 
 
 export default function SignIn() {
@@ -70,18 +92,19 @@ export default function SignIn() {
 
   return (
     <AuthorizationLayout>
-      <Head>
-        <title>Inari - Реєстрація</title>
-      </Head>
+      <Helmet title="Реєстрація" />
 
-      <Headline 
-        className="text-brown-2 mb-6"
+      <Headline
+        style={{
+          marginBottom: 24,
+        }}
+        color="brown-2"
         type={2}
       >
         Раді тебе бачити!
       </Headline>
       <Headline
-        className="text-brown-2"
+        color="brown-2"
         type={4}
       >
         Введіть дані для реєстрації :)
@@ -211,11 +234,13 @@ export default function SignIn() {
           isValid
         }) => {
           return (
-            <div className="flex flex-col justify-center items-center mt-12 mb-16 w-[350px]">
+            <FormContainer>
               <Input
                 isValidating={isValidating}
                 error={touched.name && !!errors.name}
-                className="mb-4"
+                style={{
+                  marginBottom: 16,
+                }}
                 label="Нікнейм"
                 name="name"
                 Icon={Person}
@@ -229,7 +254,9 @@ export default function SignIn() {
               <Input
                 isValidating={isValidating}
                 error={touched.email && !!errors.email}
-                className="mb-4"
+                style={{
+                  marginBottom: 16,
+                }}
                 label="Імейл"
                 name="email"
                 type="email"
@@ -241,18 +268,11 @@ export default function SignIn() {
                     <>
                       Ой. цей імейл уже зареєстровано. Ви можете{' '}
                       <LinkText 
-                        className="text-black" 
+                        color="black" 
                         type={2}
                       >
                         <Link href="/signin">увійти</Link>
                       </LinkText>
-                      {/* {' або '}
-                      <LinkText
-                        className="text-black"
-                        type={2}
-                      >
-                        <Link href="/reset-password">скинути пароль</Link>
-                      </LinkText> */}
                       .
                     </>
                   ) : undefined : undefined}
@@ -260,7 +280,9 @@ export default function SignIn() {
               <Input
                 isValidating={isValidating}
                 error={touched.password && !!errors.password}
-                className="mb-12"
+                style={{
+                  marginBottom: 48,
+                }}
                 label="Пароль"
                 name="password"
                 type="password"
@@ -269,44 +291,55 @@ export default function SignIn() {
               />
               <Button
                 ref={submitButtonRef}
-                className="mb-6 py-4 px-8 rounded-[30px]"
+                style={{
+                  marginBottom: 24,
+                  padding: '16px 32px',
+                  borderRadius: 30,
+                }}
                 onClick={handleSubmit}
                 disabled={isSubmitting || !isValid}
               >
                 Зареєструватися
               </Button>
               <Body
-                className="text-yellow-6 text-center whitespace-pre-line"
+                color="yellow-6"
+                style={{
+                  textAlign: 'center',
+                  whiteSpace: 'pre-line',
+                }}
                 type={6}
               >
                 Реєструючись, ви погоджуєтеся з{'\n'}
                 <LinkText
-                  className="text-black"
+                  color="black"
                   type={2}
                 >
                   <Link href="/rules">правилами платформи</Link>
                 </LinkText>
                 .
               </Body>
-            </div>
+            </FormContainer>
           )
         }}
       </Formik>
-      <section className="flex items-center">
+      <HelpSection>
         <Body 
           type={6}
-          className="text-yellow-6 mr-1"
+          style={{
+            marginRight: 4,
+          }}
+          color="yellow-6"
         >
           Вже маєш акаунт?
         </Body>
 
         <LinkText
-          className="text-black"
+          color="black"
           type={2}
         >
           <Link href="/signin">Увійди :)</Link>
         </LinkText>
-      </section>
+      </HelpSection>
     </AuthorizationLayout>
   );
 }
