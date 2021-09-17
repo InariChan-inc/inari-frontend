@@ -1,37 +1,67 @@
-import Head from 'next/head';
 import Router from 'next/router';
 import {
   useEffect,
   useRef,
   useState,
 } from 'react';
+import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { gql } from '@apollo/client';
 import { Formik } from 'formik';
-import { setUser } from '../redux/actions/user';
+import { setUser } from 'redux/actions/user';
 import {
   setToken,
   setRefreshToken
-} from '../redux/actions/token';
+} from 'redux/actions/token';
 import {
   Headline,
   Body,
   Link as LinkText,
-} from '../typography';
-import { Link } from '../atoms';
+} from '@typography';
+import {
+  Link,
+  Helmet,
+} from '@atoms';
 import {
   Email,
   Key,
   ErrorIcon
-} from '../atoms/icons';
+} from '@icons';
 import {
   Input,
   Button,
-} from '../molecules';
-import { AuthorizationLayout } from '../layouts';
+} from '@molecules';
+import { AuthorizationLayout } from '@layouts';
+import ApolloClient from '@common/graphql/client';
+import { ILoginUser } from '@common/graphql/interfaces';
 
-import ApolloClient from '../common/graphql/client';
-import { ILoginUser } from '../common/graphql/interfaces';
+
+
+const ErrorMessageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 48px;
+  margin-bottom: 64px;
+  width: 350px;
+`;
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 48px;
+  margin-bottom: 64px;
+  width: 350px;
+`;
+
+const HelpSection = styled.section`
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+`;
+
 
 
 export default function SignIn() {
@@ -58,41 +88,49 @@ export default function SignIn() {
 
   return (
     <AuthorizationLayout>
-      <Head>
-        <title>Inari - Вхід</title>
-      </Head>
+      <Helmet title="Вхід" />
 
       {
         userError ? (
-          <div className="flex justify-center items-start mt-12 mb-16 w-[350px]">
-            <div className="mr-[24px]">
+          <ErrorMessageContainer>
               <ErrorIcon
-                className="text-red-2 fill-current"
+                color="red-2"
                 size={36}
+                style={{
+                  marginRight: 24,
+                }}
               />
-            </div>
-            <div className="text-red-2">
-              <Headline
-                className="mb-5"
-                type={2}
-              >
-                Йой! Помилка!
-              </Headline>
-              <Body type={11}>
-                Некоректний логін або пароль. Будь ласка, перевірте коректність заповнених даних та спробуйте ще раз!
-              </Body>
-            </div>
-          </div>
+              <div>
+                <Headline
+                  color="red-2"
+                  style={{
+                    marginRight: 20,
+                  }}
+                  type={2}
+                >
+                  Йой! Помилка!
+                </Headline>
+                <Body
+                  type={11}
+                  color="red-2"
+                >
+                  Некоректний логін або пароль. Будь ласка, перевірте коректність заповнених даних та спробуйте ще раз!
+                </Body>
+              </div>
+          </ErrorMessageContainer>
         ) : (
           <>
-            <Headline 
-              className="text-brown-2 mb-6"
+            <Headline
+              color="brown-2"
+              style={{
+                marginBottom: 24,
+              }}
               type={2}
             >
               З поверненням!
             </Headline>
             <Headline
-              className="text-brown-2"
+              color="brown-2"
               type={4}
             >
               Введіть дані, щоб увійти :)
@@ -169,9 +207,11 @@ export default function SignIn() {
         }) => {
 
           return (
-            <div className="flex flex-col justify-center items-center mt-12 mb-16 w-[350px]">
+            <FormContainer>
               <Input
-                className="mb-4"
+                style={{
+                  marginBottom: 16,
+                }}
                 label="Імейл"
                 type="email"
                 name="login"
@@ -179,7 +219,9 @@ export default function SignIn() {
                 focusedOnStart
               />
               <Input
-                className="mb-12"
+                style={{
+                  marginBottom: 48,
+                }}
                 label="Пароль"
                 name="password"
                 type="password"
@@ -187,47 +229,39 @@ export default function SignIn() {
               />
               <Button
                 ref={submitButtonRef}
-                className="mb-6 py-4 px-8 rounded-[30px]"
+                style={{
+                  marginBottom: 24,
+                  padding: '16px 32px',
+                  borderRadius: 30,
+                }}
                 buttonType="submit"
                 onClick={handleSubmit}
                 disabled={!login || !password}
               >
                 Увійти
               </Button>
-            </div>
+            </FormContainer>
           )
         }}
       </Formik>
-      <section className="flex items-center mb-4">
+      <HelpSection>
         <Body 
           type={6}
-          className="text-yellow-6 mr-1"
+          color="yellow-6"
+          style={{
+            marginRight: 4,
+          }}
         >
           Не маєш акаунту?
         </Body>
 
         <LinkText
-          className="text-black"
+          color="black"
           type={2}
         >
           <Link href="/signup">Зареєструйся :)</Link>
         </LinkText>
-      </section>
-      {/* <section className="flex items-center">
-        <Body 
-          type={6}
-          className="text-yellow-6 mr-1"
-        >
-          Не пам'ятаєш пароль?
-        </Body>
-
-        <LinkText
-          className="text-black"
-          type={2}
-        >
-          <Link href="/signin">Скинути пароль</Link>
-        </LinkText>
-      </section> */}
+      </HelpSection>
     </AuthorizationLayout>
   );
 }
