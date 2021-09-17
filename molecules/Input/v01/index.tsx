@@ -5,6 +5,7 @@ import {
   useEffect,
   useRef,
   ReactNode,
+  CSSProperties,
 } from "react";
 import {
   useField,
@@ -26,7 +27,6 @@ import {
 } from './styles';
 
 export interface InputProps {
-  className?: string,
   disabled?: boolean,
   Icon?: JSXElementConstructor<BaseIconProps>
   label: string,
@@ -36,10 +36,10 @@ export interface InputProps {
   helper?: ReactNode,
   isValidating?: boolean,
   focusedOnStart?: boolean,
+  style?: CSSProperties,
 }
 
 const Input: FunctionComponent<InputProps> = ({
-  className = '',
   disabled,
   Icon,
   label,
@@ -48,7 +48,8 @@ const Input: FunctionComponent<InputProps> = ({
   error,
   helper,
   isValidating,
-  focusedOnStart
+  focusedOnStart,
+  style,
 }) => {
 
   const rightIconPositionClassName = type === 'password' ? 'right-14' : 'right-6';
@@ -84,7 +85,7 @@ const Input: FunctionComponent<InputProps> = ({
   }, [field.value]);
   
   return (
-    <InputContainer>
+    <InputContainer style={style}>
       <FieldContainer
         focused={focused}
         onClick={() => {inputRef.current?.focus()}}
