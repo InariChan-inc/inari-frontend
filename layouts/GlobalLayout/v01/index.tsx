@@ -41,11 +41,6 @@ const GlobalLayout: FunctionComponent = ({
             text: 'Технічна допомога',
           },
           {
-            to: 'support',
-            Icon: Support,
-            text: 'Підтримати' + '\n' + 'нас',
-          },
-          {
             to: 'info',
             Icon: Info,
             text: 'Право-\nвласникам',
