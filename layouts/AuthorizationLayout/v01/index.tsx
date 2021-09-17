@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import sign_banner from '../../../public/sign_banner.jpeg';
+import sign_banner from "@public/sign_banner.jpeg";
 import {
   AnimatedBaner,
   AuthorizationLayoutContainer,
