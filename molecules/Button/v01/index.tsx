@@ -11,7 +11,6 @@ interface ButtonProps {
     children?: string,
     Icon?: React.JSXElementConstructor<{}>,
     style?: CSSProperties,
-    className?: string,
     disabled?: boolean
 }
 
