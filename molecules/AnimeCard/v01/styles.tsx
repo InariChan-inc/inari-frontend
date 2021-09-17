@@ -1,25 +1,15 @@
 import styled from "styled-components";
-import { Link } from "@atoms";
-import {
-    Body,
-    Subtitle,
-} from "@typography";
+import { Body } from "@typography";
 
 
-export const AnimeCardLink = styled(Link)`
-    display: flex;
-    justify-content: flex-end;
-    width: 240px;
-    height: 420px;
-    margin-left: 15px;
-`;
-
-export const Container = styled.article`
+export const AnimeCardContainer = styled.article`
     position: relative;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     width: 240px;
+    height: 420px;
+    margin-left: 15px;
     border: 1px solid ${props => props.theme.colors['yellow-6']};
     border-radius: 3px;
 
@@ -38,12 +28,15 @@ export const AnimePoster = styled.div<{ path: string }>`
     background-image: url('${props => process.env.INARIBEHOST + props.path.split(' ').join('%20')}');
 `;
 
-export const Title = styled(Subtitle)`
+export const TitleWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     flex: 1 1 0%;
     width: 100%;
-    max-height: 80px;
+    height: 80px;
     padding: 20px 32px;
-    text-align: center;
 `;
 
 export const AnimeFormatLabel = styled(Body)`

@@ -1,10 +1,13 @@
 import styled, { css } from "styled-components";
 import { Body } from "@typography";
-import {
-  ErrorIcon,
-  Check,
-  Visibility,
-} from '@icons';
+
+
+const customIconWrapperStyles = css`
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  z-index: 10;
+`;
 
 interface TrackProps {
   disabled: boolean,
@@ -17,14 +20,8 @@ interface TrackProps {
   isTouched: boolean,
 }
 
-
-const commonIconStyles = css`
-  position: absolute;
-  transform: translateY(-50%);
-  top: 50%;
-`;
-
 const getIconRightPosition = (inputType: string) => css`right: ${inputType === 'password' ? 56 : 24}px;`;
+
 
 export const InputContainer = styled.div`
   width: 100%;
@@ -37,36 +34,25 @@ export const FieldContainer = styled.div<{ focused: boolean }>`
   box-shadow: ${props => props.focused ? `0 4px 8px 0 ${props.theme.colors["yellow-1"]}` : ''};
 `;
 
-export const IconWrapper = styled.div<{ disabled: boolean }>`
-  ${commonIconStyles}
+export const IconWrapper = styled.div`
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+`;
 
-  z-index: 10;
-  color: ${props => props.theme.colors["yellow-6"]};
+export const InputIconWrapper = styled(IconWrapper)<{ disabled: boolean }>`
+  left: 24px;
   cursor: ${props => props.disabled ? 'not-allowed' : 'text'};
 `;
 
-export const StyledErrorIcon = styled(ErrorIcon) <{ inputType: string }>`
-  ${commonIconStyles}
-  ${props => getIconRightPosition(props.inputType)}
-
-  color: ${props => props.theme.colors["red-1"]};
-  cursor: text;
+export const ValidationIconWrapper = styled(IconWrapper)<{ inputType: string }>`
+  ${({ inputType }) => getIconRightPosition(inputType)}
 `;
 
-export const StyledCheckIcon = styled(Check) <{ inputType: string }>`
-  ${commonIconStyles}
-  ${props => getIconRightPosition(props.inputType)}
-
-  color: ${props => props.theme.colors["green-1"]};
-  cursor: text;
-`;
-
-export const StyledVisibilityIcon = styled(Visibility)`
-  ${commonIconStyles}
-
+export const VisibilityIconWrapper = styled.div`
+  ${customIconWrapperStyles}
   right: 24px;
   cursor: pointer;
-  color: ${props => props.theme.colors["yellow-6"]};
 `;
 
 export const Label = styled(Body)<Omit<TrackProps, 'metaError'>>`

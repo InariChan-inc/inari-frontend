@@ -7,6 +7,7 @@ export const StyledButton = styled.button<{styleType: ButtonTypes}>`
     display: flex;
     align-items: center;
     transition-duration: 300ms;
+    cursor: pointer;
 
     :disabled {
         cursor: not-allowed;

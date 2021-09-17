@@ -58,6 +58,10 @@ const GlobalLayout: FunctionComponent = ({
 
       {/* Global style (scrollbar) */}
       <style jsx global>{`
+        *, *::before, *::after {
+          box-sizing: border-box;
+        }
+
         html {
           scrollbar-color: ${theme.colors['brown-2']} ${theme.colors['yellow-5']};
           scrollbar-width: 10px;
@@ -82,6 +86,22 @@ const GlobalLayout: FunctionComponent = ({
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
           background: ${theme.colors.black};
+        }
+
+        a {
+          text-decoration: none;
+        }
+
+        a, a:visited, a:hover, a:active {
+         color: inherit;
+        }
+
+        input, button {
+          border: none;
+        }
+
+        button {
+          cursor: pointer;
         }
       `}
       </style>

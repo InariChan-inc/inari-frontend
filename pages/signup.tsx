@@ -241,7 +241,7 @@ export default function SignIn() {
                 style={{
                   marginBottom: 16,
                 }}
-                label="Нікнейм"
+                label="Нікнейм/імейл"
                 name="name"
                 Icon={Person}
                 helper={touched.name ? 

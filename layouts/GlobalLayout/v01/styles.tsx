@@ -20,6 +20,8 @@ export const Main = styled.main`
   overflow-y: auto;
   border-left-width: 1px;
   border-top-width: 1px;
+  border-top-style: solid;
+  border-left-style: solid;
   border-top-left-radius: 10px;
   border-color: ${props => props.theme.colors["yellow-1"]};
 `;

@@ -3,17 +3,14 @@ import {
   AnimeFormat,
   Poster,
 } from "@common/graphql/interfaces";
-import {
-  Subtitle,
-  Body,
-} from '@typography';
+import { Link } from '@atoms';
+import { Subtitle } from '@typography';
 import { truncateByWords } from '@utils';
 import {
-  AnimeCardLink,
   AnimeFormatLabel,
   AnimePoster,
-  Container,
-  Title,
+  AnimeCardContainer,
+  TitleWrapper,
 } from './styles';
 
 
@@ -34,10 +31,12 @@ const AnimeCard: FunctionComponent<AnimeCardProps> = ({
     currentCountEpisodes,
     countEpisodes,
 }) => (
-  <AnimeCardLink href={`anime/${id}`}>
-    <Container>
+  <Link href={`anime/${id}`}>
+    <AnimeCardContainer>
       <AnimePoster path={poster.path} />
-      <Title>{truncateByWords(name, 7)}</Title>
+      <TitleWrapper>
+        <Subtitle>{truncateByWords(name, 7)}</Subtitle>
+      </TitleWrapper>
       {
         format ? (
         <AnimeFormatLabel type={3}>
@@ -47,8 +46,8 @@ const AnimeCard: FunctionComponent<AnimeCardProps> = ({
         </AnimeFormatLabel>
         ) : null
       }
-    </Container>
-  </AnimeCardLink>
+    </AnimeCardContainer>
+  </Link>
 );
 
 

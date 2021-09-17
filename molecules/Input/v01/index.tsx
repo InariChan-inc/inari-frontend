@@ -1,29 +1,33 @@
 import {
+  CSSProperties,
   FunctionComponent,
   JSXElementConstructor,
-  useState,
+  ReactNode,
   useEffect,
   useRef,
-  ReactNode,
-  CSSProperties,
+  useState,
 } from "react";
 import {
   useField,
 } from 'formik';
 import { BaseIconProps } from "@atoms/interfaces";
-import { Body } from "@typography";
 import {
-  InputContainer,
+  Check,
+  ErrorIcon,
+  Visibility,
+} from '@icons';
+import {
   FieldContainer,
-  IconWrapper,
-  StyledErrorIcon,
-  StyledCheckIcon,
-  StyledVisibilityIcon,
-  Label,
-  StyledInput,
   Fieldset,
-  Legend,
   Helper,
+  IconWrapper,
+  InputContainer,
+  InputIconWrapper,
+  Label,
+  Legend,
+  StyledInput,
+  ValidationIconWrapper,
+  VisibilityIconWrapper,
 } from './styles';
 
 export interface InputProps {
@@ -51,17 +55,10 @@ const Input: FunctionComponent<InputProps> = ({
   focusedOnStart,
   style,
 }) => {
-
-  const rightIconPositionClassName = type === 'password' ? 'right-14' : 'right-6';
-
   const [passwordInputType, setPasswordInputType] = useState('password');
-
   const [focused, setFocused] = useState(false);
-
   const [field, meta, helpers] = useField<string>(name);
-
   const inputRef = useRef<HTMLInputElement>(null);
-
   const [isThisInputBeingValidated, setIsThisInputBeingValidated] = useState(false);
 
   useEffect(() => {
@@ -92,29 +89,32 @@ const Input: FunctionComponent<InputProps> = ({
       >
       {
         Icon ? (
-          <IconWrapper disabled={disabled}>
-            <Icon />
-          </IconWrapper>
+          <InputIconWrapper disabled={disabled}>
+            <Icon color="yellow-6" />
+          </InputIconWrapper>
         ) : null
       }
       
       {
-        error !== undefined && meta.touched && !isThisInputBeingValidated ? error ? (
-          <StyledErrorIcon inputType={type} />
-        ) : (
-          <StyledCheckIcon inputType={type} />
+        error !== undefined && meta.touched && !isThisInputBeingValidated ? (
+          <ValidationIconWrapper inputType={type}>
+            { error ? <ErrorIcon color="red-2" />: <Check color="green-2" /> }
+          </ValidationIconWrapper>
         ) : null
       }
       
       {
         type === 'password' ? (
-          <StyledVisibilityIcon
-            visible={passwordInputType === 'text'}
-            onClick={event => {
-              event.stopPropagation();
-              setPasswordInputType(prev => prev === 'text' && 'password' || 'text')
-            }} 
-          />
+          <VisibilityIconWrapper>
+            <Visibility
+              color="yellow-6"
+              visible={passwordInputType === 'text'}
+              onClick={event => {
+                event.stopPropagation();
+                setPasswordInputType(prev => prev === 'text' && 'password' || 'text')
+              }} 
+            />
+          </VisibilityIconWrapper>
         ) : null
       }
 
