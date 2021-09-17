@@ -27,6 +27,7 @@ import {
 import useDropMenuOutsideClick from '@hooks/useDropMenuOutsideClick';
 import menuItems from './menuItems';
 import {
+  AccountControlContainer,
   AccountMenu,
   ControlsWrapper,
   NameWrapper,
@@ -71,7 +72,7 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
   })
 
   return (
-    <div className="flex items-center h-full">
+    <AccountControlContainer>
       <ControlsWrapper
         ref={rootRef}
         open={open}
@@ -128,7 +129,7 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
           dispatch(deleteAll());
         }}
       />
-    </div>
+    </AccountControlContainer>
   );
 };
 
