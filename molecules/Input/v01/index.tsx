@@ -119,7 +119,7 @@ const Input: FunctionComponent<InputProps> = ({
 
       <Label
         as="label"
-        type={7}
+        type={1}
         disabled={disabled}
         error={error}
         focused={focused}
@@ -164,7 +164,7 @@ const Input: FunctionComponent<InputProps> = ({
         >
           <Legend
             as="legend"
-            type={7}
+            type={1}
             disabled={disabled}
             focused={focused}
             isFieldNotEmpty={!!field.value}

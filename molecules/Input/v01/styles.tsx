@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { 
-  Body,
+import {
+  Caption,
   Helper,
 } from "@typography";
 
@@ -58,7 +58,7 @@ export const VisibilityIconWrapper = styled.div`
   cursor: pointer;
 `;
 
-export const Label = styled(Body)<Omit<TrackProps, 'metaError'>>`
+export const Label = styled(Caption)<Omit<TrackProps, 'metaError'>>`
     position: absolute;
     top: ${({ focused, isFieldNotEmpty }) => focused || isFieldNotEmpty ? 0 : '50%'};
     left: ${({ focused, isFieldNotEmpty, isIcon }) => focused || isFieldNotEmpty ? '32px' : isIcon ? '64px' : '24px'};
@@ -127,7 +127,7 @@ export const Fieldset = styled.fieldset<Omit<TrackProps, 'disabled' | 'focused' 
   }
 `;
 
-export const Legend = styled(Body)<Omit<TrackProps, 'error' | 'metaError' | 'isIcon' | 'isThisInputBeingValidated' | 'isTouched'>>`
+export const Legend = styled(Caption)<Omit<TrackProps, 'error' | 'metaError' | 'isIcon' | 'isThisInputBeingValidated' | 'isTouched'>>`
   display: block;
   color: transparent;
 
