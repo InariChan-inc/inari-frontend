@@ -1,99 +1,65 @@
 import styled from 'styled-components';
 import {
   ITypographyStyles,
-  TTypedTypographyComponent,
+  TTypedTypographyStyle,
+  TTypographyComponent,
 } from './types';
-import { getStyles } from './utils';
+import { getStyles, getTypographyStylesOf } from './utils';
 
 
-export type TBodyTypes = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
+export type TBodyTypes = 1 | 2 | 3 | 4 | 5 | 6;
 
 const bodyStyles: Record<TBodyTypes, ITypographyStyles> = {
   1: {
     fontFamily: 'montserrat',
     fontWeight: 'regular',
-    fontSize: 24,
+    fontSize: 16,
     letterSpacing: 0,
     lineHeight: 1,
   },
   2: {
     fontFamily: 'montserrat',
-    fontWeight: 'regular',
-    fontSize: 18,
+    fontWeight: 'bold',
+    fontSize: 16,
     letterSpacing: 0,
-    lineHeight: 1,
+    lineHeight: '140%',
   },
   3: {
     fontFamily: 'montserrat',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontWeight: 'regular',
+    fontSize: 14,
     letterSpacing: 0,
-    lineHeight: 1,
+    lineHeight: '130%',
   },
   4: {
-    fontFamily: 'montserrat',
-    fontWeight: 'medium',
-    fontSize: 16,
-    letterSpacing: 0,
-    lineHeight: '140%',
-  },
-  5: {
-    fontFamily: 'montserrat',
-    fontWeight: 'bold',
-    fontSize: 16,
-    letterSpacing: 0,
-    lineHeight: '140%',
-  },
-  6: {
     fontFamily: 'montserrat',
     fontWeight: 'semibold',
     fontSize: 14,
     letterSpacing: 0,
     lineHeight: 1,
   },
-  7: {
-    fontFamily: 'montserrat',
-    fontWeight: 'light',
-    italic: true,
-    fontSize: 14,
-    letterSpacing: 0.5,
-    lineHeight: 1,
-  },
-  8: {
+  5: {
     fontFamily: 'montserrat',
     fontWeight: 'medium',
     fontSize: 14,
     letterSpacing: 0,
     lineHeight: 1,
   },
-  9: {
+  6: {
     fontFamily: 'montserrat',
     fontWeight: 'medium',
     italic: true,
     fontSize: 14,
-    letterSpacing: 0,
+    letterSpacing: 0.42,
     lineHeight: 1,
-  },
-  10: {
-    fontFamily: 'montserrat',
-    fontWeight: 'medium',
-    italic: true,
-    fontSize: 16,
-    letterSpacing: 0,
-    lineHeight: 1,
-  },
-  11: {
-    fontFamily: 'montserrat',
-    fontWeight: 'medium',
-    fontSize: 12,
-    letterSpacing: 0,
-    lineHeight: '140%',
   },
 };
 
-const Body = styled.p<TTypedTypographyComponent<TBodyTypes>>`
+const Body: TTypographyComponent<"p", TTypedTypographyStyle<TBodyTypes>> = styled.p<TTypedTypographyStyle<TBodyTypes>>`
   ${props => getStyles(bodyStyles[props.type], props)}
 `;
+
+Body.getStyles = getTypographyStylesOf<TBodyTypes>(bodyStyles);
 
 
 export default Body;
