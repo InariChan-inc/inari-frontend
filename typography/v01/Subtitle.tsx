@@ -1,6 +1,13 @@
 import styled from 'styled-components';
-import { ITypographyStyles, TTypographyComponent } from './types';
-import { getStyles } from './utils';
+import {
+    ITypographyStyles,
+    TTypographyStyle,
+    TTypographyComponent,
+} from './types';
+import {
+    getStyles,
+    getTypographyStyles
+} from './utils';
 
 
 const subtitleStyles: ITypographyStyles = {
@@ -11,9 +18,11 @@ const subtitleStyles: ITypographyStyles = {
     lineHeight: '140%',
 }
 
-const Subtitle = styled.h3<TTypographyComponent>`
+const Subtitle: TTypographyComponent<"h3", TTypographyStyle> = styled.h3<TTypographyStyle>`
     ${props => getStyles(subtitleStyles, props)}
 `;
+
+Subtitle.getStyles = getTypographyStyles(subtitleStyles);
 
 
 export default Subtitle;

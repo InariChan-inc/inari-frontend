@@ -1,5 +1,8 @@
 import styled, { css } from "styled-components";
-import { Body } from "@typography";
+import { 
+  Body,
+  Helper,
+} from "@typography";
 
 
 const customIconWrapperStyles = css`
@@ -34,7 +37,7 @@ export const FieldContainer = styled.div<{ focused: boolean }>`
   box-shadow: ${props => props.focused ? `0 4px 8px 0 ${props.theme.colors["yellow-1"]}` : ''};
 `;
 
-export const IconWrapper = styled.div`
+const IconWrapper = styled.div`
   position: absolute;
   transform: translateY(-50%);
   top: 50%;
@@ -141,7 +144,7 @@ export const Legend = styled(Body)<Omit<TrackProps, 'error' | 'metaError' | 'isI
   ` : css`max-width: 0;`}
 `;
 
-export const Helper = styled(Body)<Omit<TrackProps, 'disabled' | 'metaError' | 'focused' | 'isFieldNotEmpty' | 'isIcon'>>`
+export const InputHelper = styled(Helper)<Omit<TrackProps, 'disabled' | 'metaError' | 'focused' | 'isFieldNotEmpty' | 'isIcon'>>`
   user-select: none;
   padding: 8px 24px;
 

@@ -1,4 +1,10 @@
 import React from "react";
+import {
+    FlattenInterpolation,
+    ThemeProps,
+    DefaultTheme,
+    StyledComponent,
+} from 'styled-components';
 import { TStringOrNumber } from "@common/types";
 import {
     TFontFamily,
@@ -21,8 +27,13 @@ export interface ITypographyStyles {
     underline?: boolean,
 }
 
-export type TTypedTypographyComponent<T> = TTypographyComponent & {
+export type TTypedTypographyStyle<T> = TTypographyStyle & {
     type: T,
 }
 
-export type TTypographyComponent = Partial<ITypographyStyles>;
+export type TTypographyStyle = Partial<ITypographyStyles>;
+
+export type TTypographyComponent<
+    TE extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    TS extends object
+> = StyledComponent<TE, DefaultTheme, TS, never> & { getStyles?: (type?: TStringOrNumber) => FlattenInterpolation<ThemeProps<DefaultTheme>> };

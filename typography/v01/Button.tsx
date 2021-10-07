@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import {
   ITypographyStyles,
-  TTypedTypographyComponent
+  TTypedTypographyStyle,
+  TTypographyComponent,
 } from "./types";
-import { getStyles } from "./utils";
+import {
+  getStyles,
+  getTypographyStylesOf,
+} from "./utils";
 
 
 export type TButtonTypes = 1 | 2 | 3 | 4;
@@ -39,9 +43,11 @@ const buttonStyles: Record<TButtonTypes, ITypographyStyles> = {
   },
 };
 
-const Button = styled.span<TTypedTypographyComponent<TButtonTypes>>`
+const Button: TTypographyComponent<"span", TTypedTypographyStyle<TButtonTypes>> = styled.span<TTypedTypographyStyle<TButtonTypes>>`
   ${props => getStyles(buttonStyles[props.type], props)}
 `;
+
+Button.getStyles = getTypographyStylesOf<TButtonTypes>(buttonStyles);
 
 
 export default Button;

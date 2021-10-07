@@ -1,5 +1,7 @@
+import { css } from 'styled-components';
 import { ITypographyStyles } from "./types";
 import theme from "@theme";
+import { TStringOrNumber } from '@common/types';
 
 export const getStyles = (defaultStyles: ITypographyStyles, customStyles: Partial<ITypographyStyles>) =>
     theme.mq({
@@ -13,3 +15,38 @@ export const getStyles = (defaultStyles: ITypographyStyles, customStyles: Partia
         textDecoration: customStyles.underline !== undefined ? customStyles.underline ? 'underline' : null : defaultStyles.underline ? 'underline' : null,
     });
 
+export const getTypographyStyles = (stylesObject: ITypographyStyles) => {
+    const {
+        as: _,
+        italic,
+        underline,
+        color,
+        ...styles
+    } = stylesObject;
+
+    return () => css`
+        font-style: ${italic ? 'italic' : null};
+        text-decoration: ${underline ? 'underline' : null};
+        color: ${props => (color ? props.theme.colors[color] : null)};
+
+        ${props => props.theme.mq(styles)}
+    `;
+}
+
+export const getTypographyStylesOf = <T extends TStringOrNumber>(stylesObject: Record<T, ITypographyStyles>) => (type: T) => {
+    const {
+        as: _,
+        italic,
+        underline,
+        color,
+        ...styles
+    } = stylesObject[type];
+
+    return css`
+        font-style: ${italic ? 'italic' : null};
+        text-decoration: ${underline ? 'underline' : null};
+        color: ${props => (color ? props.theme.colors[color] : null)};
+
+        ${props => props.theme.mq(styles)}
+    `;
+}

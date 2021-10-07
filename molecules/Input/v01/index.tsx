@@ -19,8 +19,7 @@ import {
 import {
   FieldContainer,
   Fieldset,
-  Helper,
-  IconWrapper,
+  InputHelper,
   InputContainer,
   InputIconWrapper,
   Label,
@@ -179,15 +178,13 @@ const Input: FunctionComponent<InputProps> = ({
       </FieldContainer>
       {
         helper ? (
-          <Helper
-            type={11}
+          <InputHelper
             error={error}
             isTouched={meta.touched}
             isThisInputBeingValidated={isThisInputBeingValidated}
-
           >
             {helper}
-          </Helper>
+          </InputHelper>
         ) : null
       }
     </InputContainer>

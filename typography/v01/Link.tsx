@@ -2,7 +2,9 @@ import { FC } from 'react';
 import styled from "styled-components";
 import {
   ITypographyStyles,
-  TTypedTypographyComponent,
+  TTypographyStyle,
+  TTypographyComponent,
+  TTypedTypographyStyle,
 } from "./types";
 import { getStyles } from "./utils";
 
@@ -30,7 +32,7 @@ const linkStyles: Record<TLinkTypes, ITypographyStyles> = {
   },
 };
 
-const Link = styled.span<TTypedTypographyComponent<TLinkTypes>>`
+const Link: TTypographyComponent<'span', TTypedTypographyStyle<TLinkTypes>>  = styled.span<TTypedTypographyStyle<TLinkTypes>>`
   ${props => getStyles(linkStyles[props.type], props)}
 `;
 

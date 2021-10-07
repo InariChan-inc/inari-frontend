@@ -241,12 +241,12 @@ export default function SignIn() {
                 style={{
                   marginBottom: 16,
                 }}
-                label="Нікнейм/імейл"
+                label="Нікнейм"
                 name="name"
                 Icon={Person}
                 helper={touched.name ? 
                   errors.name === EMPTY_ERROR ? 'Поле не може бути пустим :)' :
-                  errors.name === NOT_MATCHED_ERROR ? 'Нік має мати бути латиницею, містити принаймні 5 символів та може включати цифри.' :
+                  errors.name === NOT_MATCHED_ERROR ? 'Нікнейм має мати бути латиницею, містити принаймні 5 символів та може включати цифри.' :
                   errors.name === EXISTS_ERROR ? 'Цей нікнейм вже існує':
                   undefined : undefined}
                 focusedOnStart
