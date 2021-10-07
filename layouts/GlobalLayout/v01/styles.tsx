@@ -24,5 +24,4 @@ export const Main = styled.main`
   border-left-style: solid;
   border-top-left-radius: 10px;
   border-color: ${props => props.theme.colors["yellow-1"]};
-  padding: 32px 60px;
 `;

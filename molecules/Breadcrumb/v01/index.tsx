@@ -1,6 +1,9 @@
-import { CSSProperties, FunctionComponent } from "react";
+import {
+  CSSProperties,
+  FunctionComponent,
+  Fragment
+} from "react";
 import { Link } from '@atoms';
-import { Button } from '@typography';
 import {
   BreadcrumbContainer,
   Circle,
@@ -23,7 +26,7 @@ export const Breadcrumb: FunctionComponent<BreadcrumbProps> = ({
   <BreadcrumbContainer style={style}>
     {
       crumbs.map(({ name, to }, index) => (
-        <>
+        <Fragment key={index}>
           {index !== crumbs.length - 1 ? (
             <>
               <Link href={to}>
@@ -43,7 +46,7 @@ export const Breadcrumb: FunctionComponent<BreadcrumbProps> = ({
               {name}
             </Crumb>
           )}
-        </>
+        </Fragment>
       ))
     }
   </BreadcrumbContainer>

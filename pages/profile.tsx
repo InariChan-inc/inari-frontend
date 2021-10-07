@@ -21,6 +21,8 @@ const ProfileWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  padding: 32px 60px;
+  user-select: none;
 `;
 
 const ProfileContainer = styled.div`
@@ -125,15 +127,15 @@ function Profile() {
             style={{ width: '100%' }}
           >
             {
-              about.length <= 500 || isAboutOpen ? about : (
+              about.length <= 500 ? about : (
                 <>
-                  {truncateBySymbols(about, 500)}
+                  {isAboutOpen ? about : truncateBySymbols(about, 500)}
                   <MoreDetailsInlineButton
                     type={4}
                     color="brown-2"
-                    onClick={() => setIsAboutOpen(true)}
+                    onClick={() => setIsAboutOpen(prev => !prev)}
                   >
-                    Детальніше
+                    {isAboutOpen ? 'Сховати' : 'Детальніше'}
                   </MoreDetailsInlineButton>
                 </>
               )
@@ -159,7 +161,7 @@ function Profile() {
             >
               <FutureText>Ти знаходишся на тестовой версії, яку згодом ми наповнимо прекрасним функціоналом!</FutureText>
               <FutureText>Для цього нам потрібна твоя допомога: активно ділися з нами своїми враженнями і ідеями як ми можемо покращити наш продукт.<Link href="/" style={{ marginLeft: 4 }}><LinkText type={1}>Детальніше тут</LinkText></Link>.</FutureText>
-              <FutureText>Якщо є бажання ще й допомагати нам: приєднуйся до нашої команди!<Link href="/" style={{ marginLeft: 4 }}><LinkText type={1}>Детальніше тутАктуальну інформацію дізнавайся тут</LinkText></Link>.</FutureText>
+              <FutureText>Якщо є бажання ще й допомагати нам: приєднуйся до нашої команди!<Link href="/" style={{ marginLeft: 4 }}><LinkText type={1}>Актуальну інформацію дізнавайся тут</LinkText></Link>.</FutureText>
               <FutureText>Дякуємо, що ти з нами! Бажаємо приємного перегляду аніме :)</FutureText>
             </Body>
         </FutureFeatureSection>
