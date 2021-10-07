@@ -80,13 +80,13 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
         <NameWrapper>
           <Body
             color="brown-2"
-            type={5}
+            type={2}
           >
             {truncateBySymbols(name, 16)}
           </Body>
           <Body
             color="brown-2"
-            type={8}
+            type={5}
           >
             {role ? role.name : ''}
           </Body>

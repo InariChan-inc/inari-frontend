@@ -16,6 +16,7 @@ import {
 import {
   Headline,
   Body,
+  Helper,
   Link as LinkText,
 } from '@typography';
 import {
@@ -110,12 +111,9 @@ export default function SignIn() {
                 >
                   Йой! Помилка!
                 </Headline>
-                <Body
-                  type={11}
-                  color="red-2"
-                >
+                <Helper color="red-2">
                   Некоректний логін або пароль. Будь ласка, перевірте коректність заповнених даних та спробуйте ще раз!
-                </Body>
+                </Helper>
               </div>
           </ErrorMessageContainer>
         ) : (
