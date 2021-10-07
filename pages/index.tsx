@@ -16,6 +16,9 @@ import {
   Helmet,
 } from '@atoms';
 
+const HomeContainer = styled.div`
+  padding: 32px 60px;
+`;
 
 const GoToSearchButtonWrapper = styled.div`
   display: flex;
@@ -105,7 +108,7 @@ export default function Home() {
   `);
 
   return (
-    <>
+    <HomeContainer>
       <Helmet title="Головна" />
       
       {
@@ -165,6 +168,6 @@ export default function Home() {
           </Button>
         </Link>
       </GoToSearchButtonWrapper>
-    </>
+    </HomeContainer>
   )
 }

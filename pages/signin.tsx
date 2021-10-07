@@ -96,7 +96,7 @@ export default function SignIn() {
           <ErrorMessageContainer>
               <ErrorIcon
                 color="red-2"
-                size={36}
+                size={48}
                 style={{
                   marginRight: 24,
                 }}
