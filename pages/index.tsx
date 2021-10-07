@@ -17,10 +17,6 @@ import {
 } from '@atoms';
 
 
-const HomeContainer = styled.div`
-  padding: 32px 60px;
-`;
-
 const GoToSearchButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -109,9 +105,9 @@ export default function Home() {
   `);
 
   return (
-    <HomeContainer>
+    <>
       <Helmet title="Головна" />
-
+      
       {
         !bannerLoading && !bannerError && bannerData && bannerData.baners.length ? (
           <ImageSlider
@@ -169,6 +165,6 @@ export default function Home() {
           </Button>
         </Link>
       </GoToSearchButtonWrapper>
-    </HomeContainer>
+    </>
   )
 }
