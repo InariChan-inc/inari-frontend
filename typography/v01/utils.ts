@@ -5,6 +5,7 @@ import { TStringOrNumber } from '@common/types';
 
 export const getStyles = (defaultStyles: ITypographyStyles, customStyles: Partial<ITypographyStyles>) =>
   theme.mq({
+    margin: 0,
     color: theme.colors[customStyles.color || defaultStyles.color] || null,
     fontFamily: theme.font.family[customStyles.fontFamily || defaultStyles.fontFamily],
     fontWeight: theme.font.weight[customStyles.fontWeight || defaultStyles.fontWeight],

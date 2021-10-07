@@ -13,7 +13,7 @@ import { truncateBySymbols } from '@utils';
 import {
   getName,
   getRole,
-  getAvatar
+  getAvatar,
 } from 'redux/selectors/user';
 import {
   ArrowUp,
@@ -94,6 +94,7 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
         <StyledAvatar
           name={name}
           color={color.current}
+          imageUrl={avatar.path}
         />
         {
           open ? (
