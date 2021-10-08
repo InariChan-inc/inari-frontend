@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import {
+  Edit,
+  Share,
+} from '@icons';
+import {
   Avatar,
   FutureImage,
   Helmet,
   Link
 } from '@atoms';
-import { Breadcrumb } from '@molecules';
+import {
+  Breadcrumb,
+  IconWithTooltip,
+} from '@molecules';
 import {
   Body,
   Headline,
@@ -30,22 +37,30 @@ const ProfileContainer = styled.div`
   flex: 1;
 `;
 
+const ControlsPanel = styled.div`
+  position: absolute;
+  top: 0;
+  right: 30px;
+  display: flex;
+
+  > svg {
+    cursor: pointer;
+  }
+`;
+
 const ProfileInfo = styled.section`
   position: relative;
   width: 30%;
-  padding: 96px 48px;
+  padding: 96px 30px;
   display: flex;
   word-wrap: break-word;
   flex-direction: column;
   align-items: center;
 `;
 
-const About = styled.div`
-  width: 100%;
-  > * {
-    display: inline-block;
-    max-width: 100%;
-  }
+const ProfileDetail = styled.div`
+  margin-bottom: 10px;
+  display: flex;
 `;
 
 const MoreDetailsInlineButton = styled(Body)`
@@ -91,36 +106,52 @@ function Profile() {
           }
         ]}
         style={{
-          marginBottom: 26,
+          marginBottom: 30,
         }}
       />
       <ProfileContainer>
         <ProfileInfo>
+          <ControlsPanel>
+            <IconWithTooltip
+              icon={<Edit/>}
+              tooltipText="Налаштувати профіль"
+              style={{ marginRight: 27 }}
+            />
+            <IconWithTooltip
+              icon={<Share />}
+              tooltipText="Поширити профіль"
+            />
+          </ControlsPanel>
           <Avatar
             size={160}
             imageUrl={"https://cdn.pixabay.com/photo/2021/09/07/16/38/man-6604399_960_720.png"}
             style={{
-              marginBottom: 24,
+              marginBottom: 20,
             }}
           />
           <Headline
             type={2}
             color="black"
             style={{
-              marginBottom: 24,
+              marginBottom: 15,
             }}
           >
             Verybignickname
           </Headline>
-          <Body
-            type={1}
-            color="brown-2"
-            style={{
-              marginBottom: 16,
-            }}
-          >
-            Адмін
-          </Body>
+          <ProfileDetail>
+            <Body
+              type={1}
+              color="brown-2"
+              style={{ marginRight: 10 }}
+            >
+              Адмін,
+            </Body>
+            <Body
+              type={1}
+              color="brown-1"
+            >зареєс. 01.11.2021</Body>
+          </ProfileDetail>
+          
           <Body
             type={3}
             color="brown-2"
