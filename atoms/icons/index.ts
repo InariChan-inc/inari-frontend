@@ -23,3 +23,5 @@ export { default as PieChart } from "./PieChart";
 export { default as Settings } from "./Settings";
 export { default as AccountCircle } from "./AccountCircle";
 export { default as Bookmark } from "./Bookmark";
+export { default as Edit } from "./Edit";
+export { default as Share } from "./Share";

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Button } from '@typography';
 
 export const BreadcrumbContainer = styled.article`
-  padding: 22px 16px;
   display: flex;
   align-items: center;
 `;

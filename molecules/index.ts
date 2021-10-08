@@ -5,6 +5,7 @@ import Button from './Button';
 import Input from "./Input";
 import ScrollUpButton from "./ScrollUpButton";
 import Breadcrumb from "./Breadcrumb";
+import IconWithTooltip from "./IconWithTooltip";
 
 export {
   SearchInput,
@@ -14,6 +15,7 @@ export {
   Input,
   ScrollUpButton,
   Breadcrumb,
+  IconWithTooltip,
 };
 
 export type { 
