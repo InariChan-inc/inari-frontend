@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Button } from '@typography';
 
 export const BreadcrumbContainer = styled.article`
@@ -11,9 +11,11 @@ export const Crumb = styled(Button)<{ active: boolean; }>`
   transition-duration: 300ms;
   cursor: ${props => props.active ? 'default' : null};
 
-  :hover {
-    color: ${props => props.theme.colors['yellow-6']};
-  }
+  ${props => !props.active ? css`
+    :hover {
+      color: ${props.theme.colors['brown-2']};
+    }
+  ` : null}
 `;
 
 export const Circle = styled.div`
