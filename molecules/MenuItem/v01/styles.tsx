@@ -8,7 +8,7 @@ export const MenuItemContainer = styled.div<{ isActive: boolean }>`
   width: 100%;
   box-sizing: content-box;
   cursor: pointer;
-  padding: 20px 0;
+  padding: 16px 0;
   text-align: center;
   white-space: pre-line;
 

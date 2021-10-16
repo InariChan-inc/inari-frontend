@@ -15,12 +15,23 @@ export const MenuContainer = styled.nav`
   margin: 0;
 `;
 
+export const Controllers = styled.div`
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const BottomControllers = styled.div`
+  padding-bottom: 140px;
+`;
+
 export const LogoWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 15px 0 10px;
   width: 100%;
   cursor: pointer;
 `;

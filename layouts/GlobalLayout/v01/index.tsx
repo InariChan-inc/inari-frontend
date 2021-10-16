@@ -40,18 +40,13 @@ const GlobalLayout: FunctionComponent = ({
             Icon: Help,
             text: 'Технічна допомога',
           },
-          {
-            to: 'info',
-            Icon: Info,
-            text: 'Право-\nвласникам',
-          }
         ]}
       />
 
       <RightSectionWrapper>
         <Header />
         {/* COMPONENT ENTRY */}
-        <Main>
+        <Main id="main">
           {children}
         </Main>
       </RightSectionWrapper>

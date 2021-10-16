@@ -7,8 +7,9 @@ import {
   ScrollUpButton,
 } from '@molecules';
 import { MenuItemProps } from '@molecules/MenuItem';
-import { Body } from '@typography';
 import {
+  BottomControllers,
+  Controllers,
   CopyrightContainer,
   CopyrightText,
   LogoWrapper,
@@ -31,36 +32,41 @@ const Menu: FunctionComponent<MenuProps> = ({ menuItems }) => {
           <Logo size={60} />
         </LogoWrapper>
       </Link>
-      <MenuItemsContainer>
-        {
-          menuItems.map(({Icon, to, text}, index) => (
-            <MenuItem
-              key={index}
-              to={to}
-              Icon={Icon}
-              text={text}
-              isActive={router.asPath === '/' + to}
-            />
-          ))
-        }
-      </MenuItemsContainer>
-      <ScrollUpButton />
-
-      <CopyrightContainer>
-        <Copyright
-          color="yellow-5"
-          size={18}
-          style={{ marginBottom: 4 }}
-        />
-        <CopyrightText
-          type={6}
-          color="yellow-5"
-        >
+      <Controllers>
+        <MenuItemsContainer>
           {
-            '' + new Date().getFullYear() + '\n"Inari"'
+            menuItems.map(({Icon, to, text}, index) => (
+              <MenuItem
+                key={index}
+                to={to}
+                Icon={Icon}
+                text={text}
+                isActive={router.asPath === '/' + to}
+              />
+            ))
           }
-        </CopyrightText>
-      </CopyrightContainer>
+        </MenuItemsContainer>
+        
+        <BottomControllers>
+          <ScrollUpButton />
+
+          <CopyrightContainer>
+            <Copyright
+              color="yellow-5"
+              size={18}
+              style={{ marginBottom: 4 }}
+            />
+            <CopyrightText
+              type={6}
+              color="yellow-5"
+            >
+              {
+                '' + new Date().getFullYear() + '\n"Inari"'
+              }
+            </CopyrightText>
+          </CopyrightContainer>
+        </BottomControllers>
+      </Controllers>
     </MenuContainer>
   );
 };
