@@ -4,9 +4,8 @@ import {
   ITypographyStyles,
   TTypographyStyle,
   TTypographyComponent,
-  TTypedTypographyStyle,
 } from "./types";
-import { getStyles } from "./utils";
+import { getStyles, getTypographyStylesOf } from "./utils";
 
 
 export type TLinkTypes = 1 | 2;
@@ -32,8 +31,10 @@ const linkStyles: Record<TLinkTypes, ITypographyStyles> = {
   },
 };
 
-const Link: TTypographyComponent<'span', TTypedTypographyStyle<TLinkTypes>>  = styled.span<TTypedTypographyStyle<TLinkTypes>>`
+const Link: TTypographyComponent<'span', TLinkTypes>  = styled.span<TTypographyStyle<TLinkTypes>>`
   ${props => getStyles(linkStyles[props.type], props)}
 `;
+
+Link.getStyles = getTypographyStylesOf(linkStyles);
 
 export default Link;

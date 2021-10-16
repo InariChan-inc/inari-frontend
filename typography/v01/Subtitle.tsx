@@ -18,7 +18,7 @@ const subtitleStyles: ITypographyStyles = {
     lineHeight: '140%',
 }
 
-const Subtitle: TTypographyComponent<"h3", TTypographyStyle> = styled.h3<TTypographyStyle>`
+const Subtitle: TTypographyComponent<"h3"> = styled.h3<TTypographyStyle>`
     ${props => getStyles(subtitleStyles, props)}
 `;
 
