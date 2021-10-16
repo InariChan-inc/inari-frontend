@@ -6,11 +6,11 @@ import _ from 'lodash';
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { setFocus } from 'redux/actions/headerSearch';
+import { Search } from '@atoms/icons';
 import {
   FieldWrapper,
   SearchInputContainer,
   Label,
-  StyledSearchIcon,
   StyledInput,
 } from './styles';
 
@@ -43,7 +43,10 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
         <SearchInputContainer>
           <FieldWrapper>
             <Label>
-              <StyledSearchIcon />
+              <Search
+                color="yellow-5"
+                style={{ marginRight: 12 }}
+              />
               <StyledInput
                 name="search"
                 type="text"
