@@ -31,16 +31,15 @@ const Authorization: FunctionComponent<AuthorizationProps> = () => {
       /> */}
       <ButtonWrapper>
         <Button
-          Icon={Person}
           style={{ zIndex: 10 }}
-          onClick={() => router.push('signin')}
+          onClick={() => router.push('signup')}
         >
-            Увійти
+            Реєстрація
         </Button>
       
-        <SignUpButton onClick={() => router.push('signup')}>
+        <SignUpButton onClick={() => router.push('signin')}>
             <Text type={1}>
-              Реєстрація
+              Увійти
             </Text>
         </SignUpButton>    
       </ButtonWrapper>

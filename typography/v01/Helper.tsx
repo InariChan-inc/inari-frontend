@@ -18,7 +18,7 @@ const helperStyles: ITypographyStyles = {
     lineHeight: '140%',
 }
 
-const Helper: TTypographyComponent<"span", TTypographyStyle> = styled.span<TTypographyStyle>`
+const Helper: TTypographyComponent<"span"> = styled.span<TTypographyStyle>`
     ${props => getStyles(helperStyles, props)}
 `;
 

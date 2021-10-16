@@ -13,10 +13,10 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const SignUpButton = styled.button`
-  margin-left: -14px;
+  margin-left: -36px;
   background-color: ${props => props.theme.colors["yellow-1"]};
   transition-duration: 300ms;
-  padding: 10px 24px;
+  padding: 10px 20px 10px 52px; 
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
 

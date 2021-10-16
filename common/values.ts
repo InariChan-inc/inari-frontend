@@ -1,5 +1,5 @@
 const values = {
-  menuWidth: 132,
+  menuWidth: 118,
   headerHeight: 72,
 }
 

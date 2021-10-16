@@ -137,6 +137,8 @@ function Profile() {
             color="black"
             style={{
               marginBottom: 15,
+              width: '100%',
+              textAlign: 'center',
             }}
           >
             Verybignickname

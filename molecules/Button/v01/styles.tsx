@@ -25,7 +25,7 @@ export const StyledButton = styled.button<{styleType: ButtonTypes}>`
         switch(styleType) {
             case 1:
                 return css`
-                    padding: 12px 20px;
+                    padding: 10px 20px;
                     color: ${colors.white};
                     border-radius: 40px;
 

@@ -6,8 +6,7 @@ export const CircleButton = styled.div<{ isVisible: boolean }>`
   align-items: center;
   width: 50px;
   height: 50px;
-  margin-top: 64px;
-  margin-bottom: 32px;
+  margin-bottom: 60px;
   background-color: ${props => props.theme.colors['brown-2']};
   border-radius: 9999px;
   transition-property: opacity;

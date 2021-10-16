@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import {
   ITypographyStyles,
-  TTypedTypographyStyle,
   TTypographyComponent,
+  TTypographyStyle,
 } from './types';
 import { getStyles, getTypographyStylesOf } from './utils';
 
@@ -55,11 +55,11 @@ const bodyStyles: Record<TBodyTypes, ITypographyStyles> = {
   },
 };
 
-const Body: TTypographyComponent<"p", TTypedTypographyStyle<TBodyTypes>> = styled.p<TTypedTypographyStyle<TBodyTypes>>`
+const Body: TTypographyComponent<"p", TBodyTypes> = styled.p<TTypographyStyle<TBodyTypes>>`
   ${props => getStyles(bodyStyles[props.type], props)}
 `;
 
-Body.getStyles = getTypographyStylesOf<TBodyTypes>(bodyStyles);
+Body.getStyles = getTypographyStylesOf(bodyStyles);
 
 
 export default Body;

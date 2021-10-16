@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {
   ITypographyStyles,
-  TTypedTypographyStyle,
+  TTypographyStyle,
   TTypographyComponent,
 } from "./types";
 import {
@@ -48,11 +48,11 @@ const headlineStyles: Record<THeadlineTypes, ITypographyStyles> = {
 };
 
 
-const Headline: TTypographyComponent<'h1', TTypedTypographyStyle<THeadlineTypes>> = styled.h1<TTypedTypographyStyle<THeadlineTypes>>`
+const Headline: TTypographyComponent<'h1', THeadlineTypes> = styled.h1<TTypographyStyle<THeadlineTypes>>`
   ${props => getStyles(headlineStyles[props.type], props)}
 `;
 
-Headline.getStyles = getTypographyStylesOf<THeadlineTypes>(headlineStyles);
+Headline.getStyles = getTypographyStylesOf(headlineStyles);
 
 
 export default Headline;
