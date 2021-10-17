@@ -86,7 +86,7 @@ export const StyledInput = styled.input<Omit<TrackProps, 'disabled' | 'focused' 
   width: 100%;
   padding: 16px 24px;
   padding-left: ${({isIcon}) => isIcon ? '64px' : ''};
-  padding-right: ${({ type, error }) => type === 'password' ? '96px' : error ? '64px' : ''};
+  padding-right: ${({ type, error }) => type === 'password' ? '96px' : '64px'};
   outline: none;
   font-family: ${props => props.theme.font.family.montserrat};
   font-weight: ${props => props.theme.font.weight.medium};
