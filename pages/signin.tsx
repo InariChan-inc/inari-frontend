@@ -244,7 +244,7 @@ export default function SignIn() {
       </Formik>
       <HelpSection>
         <Body 
-          type={6}
+          type={4}
           color="yellow-6"
           style={{
             marginRight: 4,

@@ -145,6 +145,7 @@ export const Legend = styled(Caption)<Omit<TrackProps, 'error' | 'metaError' | '
 `;
 
 export const InputHelper = styled(Helper)<Omit<TrackProps, 'disabled' | 'metaError' | 'focused' | 'isFieldNotEmpty' | 'isIcon'>>`
+  display: block;
   user-select: none;
   padding: 8px 24px;
 

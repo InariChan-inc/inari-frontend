@@ -307,7 +307,7 @@ export default function SignIn() {
                   textAlign: 'center',
                   whiteSpace: 'pre-line',
                 }}
-                type={6}
+                type={4}
               >
                 Реєструючись, ви погоджуєтеся з{'\n'}
                 <LinkText
@@ -324,7 +324,7 @@ export default function SignIn() {
       </Formik>
       <HelpSection>
         <Body 
-          type={6}
+          type={4}
           style={{
             marginRight: 4,
           }}
