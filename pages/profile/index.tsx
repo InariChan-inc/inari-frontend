@@ -146,7 +146,6 @@ function Profile() {
             loading,
             error
           }) => {
-              console.log(loading);
               return (
               <ProfileInfo>
                 <ControlsPanel>
