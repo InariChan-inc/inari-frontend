@@ -36,10 +36,6 @@ import {
   MenuLink,
 } from './styles';
 
-const getRandom: (min: number, max: number) => number = (min, max) => Math.floor(Math.random()*(max - min)) + min;
-
-const getHSL = () => `hsl(${getRandom(25, 45)}, ${getRandom(50, 100)}%, ${getRandom(30,60)}%)`;
-
 
 export interface AccountControlProps {
 
@@ -53,8 +49,6 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
   const dispatch = useDispatch();
 
   const name = useSelector(getName);
-
-  const color = useRef<string>(getHSL());
 
   const role = useSelector(getRole);
   const avatar = useSelector(getAvatar);
@@ -94,7 +88,6 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
         </NameWrapper>
         <StyledAvatar
           name={name}
-          color={color.current}
           imageUrl={avatar?.path}
         />
         {
