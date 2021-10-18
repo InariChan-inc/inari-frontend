@@ -8,6 +8,7 @@ import {
 export const initialState: UserData = {
     name: '',
     email: '',
+    aboutMe: '',
     avatar: null,
     theme: ThemeEnum.LIGHT_THEME,
     roleData: null,

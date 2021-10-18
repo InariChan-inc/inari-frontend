@@ -31,10 +31,10 @@ import {
 import { GlobalLayout } from '@layouts';
 import client from '@common/graphql/client';
 import guest from '@common/graphql/guest';
-import store from '@redux';
+import store from '@r';
 import {
   setUser
-} from '../redux/actions/user';
+} from '@r/actions/user';
 
 import { IProfile } from '../common/graphql/interfaces';
 

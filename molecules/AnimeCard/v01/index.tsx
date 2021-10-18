@@ -39,7 +39,7 @@ const AnimeCard: FunctionComponent<AnimeCardProps> = ({
       </TitleWrapper>
       {
         format ? (
-        <AnimeFormatLabel type={3}>
+        <AnimeFormatLabel type={2}>
           {
             format === AnimeFormat.TV ? !!currentCountEpisodes && !!countEpisodes ? currentCountEpisodes + '/' + countEpisodes : !!currentCountEpisodes && currentCountEpisodes : format
           }

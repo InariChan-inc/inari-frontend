@@ -7,18 +7,19 @@ import {
   useSelector,
   useDispatch
 } from 'react-redux';
-import { clearUser } from 'redux/actions/user';
-import { deleteAll } from 'redux/actions/token';
+import { clearUser } from '@r/actions/user';
+import { deleteAll } from '@r/actions/token';
 import { truncateBySymbols } from '@utils';
 import {
   getName,
   getRole,
   getAvatar,
-} from 'redux/selectors/user';
+} from '@r/selectors/user';
+import { Link } from '@atoms';
 import {
   ArrowUp,
   ArrowDown,
-  LogOut
+  LogOut,
 } from '@icons';
 import {
   Body,
@@ -35,10 +36,6 @@ import {
   MenuLink,
 } from './styles';
 
-const getRandom: (min: number, max: number) => number = (min, max) => Math.floor(Math.random()*(max - min)) + min;
-
-const getHSL = () => `hsl(${getRandom(25, 45)}, ${getRandom(50, 100)}%, ${getRandom(30,60)}%)`;
-
 
 export interface AccountControlProps {
 
@@ -52,8 +49,6 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
   const dispatch = useDispatch();
 
   const name = useSelector(getName);
-
-  const color = useRef<string>(getHSL());
 
   const role = useSelector(getRole);
   const avatar = useSelector(getAvatar);
@@ -93,8 +88,7 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
         </NameWrapper>
         <StyledAvatar
           name={name}
-          color={color.current}
-          imageUrl={avatar.path}
+          imageUrl={avatar?.path}
         />
         {
           open ? (
@@ -113,9 +107,18 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
               path,
               title
             }) => (
-              <MenuLink href={path}>
-                  <Icon style={{ marginRight: 24 }} />
-                  <ButtonText type={4}>{title}</ButtonText>
+              <MenuLink>
+                  <Link
+                    href={path} 
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      padding: '16px 32px',
+                    }}
+                  >
+                    <Icon style={{ marginRight: 24 }} />
+                    <ButtonText type={4}>{title}</ButtonText>
+                  </Link>
               </MenuLink>
             ))
           }

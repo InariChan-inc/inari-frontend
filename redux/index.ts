@@ -12,6 +12,6 @@ const store = configureStore({
         token
     },
     devTools: process.env.NODE_ENV !== 'production',
-})
+});
 
 export default store;

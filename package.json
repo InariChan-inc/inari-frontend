@@ -1,5 +1,5 @@
 {
-  "name": "with-tailwindcss",
+  "name": "inari",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,9 +12,6 @@
   "dependencies": {
     "@apollo/client": "^3.3.20",
     "@reduxjs/toolkit": "^1.6.0",
-    "@types/facepaint": "^1.2.2",
-    "@types/lodash": "^4.14.171",
-    "@types/styled-components": "^5.1.13",
     "animate.css": "^4.1.1",
     "facepaint": "^1.2.1",
     "formik": "^2.2.9",
@@ -26,7 +23,7 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.9.0",
     "react-redux": "^7.2.4",
-    "redux": "^4.1.0",
+    "redux": "^4.1.1",
     "sass": "^1.35.2",
     "styled-components": "^5.3.1",
     "swiper": "^6.7.1"
@@ -39,8 +36,12 @@
     "@storybook/addon-links": "^6.3.0",
     "@storybook/react": "^6.3.0",
     "@types/dotenv-webpack": "^7.0.2",
+    "@types/facepaint": "^1.2.2",
+    "@types/lodash": "^4.14.171",
     "@types/node": "^15.12.5",
     "@types/react": "^17.0.11",
+    "@types/redux": "^3.6.0",
+    "@types/styled-components": "^5.1.13",
     "autoprefixer": "^10.2.6",
     "babel-loader": "^8.2.2",
     "babel-plugin-styled-components": "^1.13.2",

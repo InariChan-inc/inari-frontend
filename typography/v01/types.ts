@@ -27,11 +27,11 @@ export interface ITypographyStyles {
     underline?: boolean,
 }
 
-export type TTypographyStyle<T extends string | number | void = void> = Partial<ITypographyStyles> & {
+export type TTypographyStyle<T extends string | number | void = void> = Partial<ITypographyStyles> & (T extends void ? {} : {
     type: T;
-};
+});
 
 export type TTypographyComponent<
     TE extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     TT extends string | number | void = void
-> = StyledComponent<TE, DefaultTheme, TTypographyStyle<TT>, never> & { getStyles?:  (type: TT extends void ? void : TT) => FlattenInterpolation<ThemeProps<DefaultTheme>> };
+> = StyledComponent<TE, DefaultTheme, TTypographyStyle<TT>, never> & { getStyles?:  (type: TT extends void ? undefined : TT) => FlattenInterpolation<ThemeProps<DefaultTheme>> };

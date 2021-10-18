@@ -33,7 +33,7 @@ export const InputContainer = styled.div`
 export const FieldContainer = styled.div<{ focused: boolean }>`
   position: relative;
   border-radius: 9999px;
-  height: 56px;
+  height: 54px;
   box-shadow: ${props => props.focused ? `0 4px 8px 0 ${props.theme.colors["yellow-1"]}` : ''};
 `;
 
@@ -86,12 +86,9 @@ export const StyledInput = styled.input<Omit<TrackProps, 'disabled' | 'focused' 
   width: 100%;
   padding: 16px 24px;
   padding-left: ${({isIcon}) => isIcon ? '64px' : ''};
-  padding-right: ${({ type, error }) => type === 'password' ? '96px' : error ? '64px' : ''};
+  padding-right: ${({ type, error }) => type === 'password' ? '96px' : '64px'};
   outline: none;
-  font-family: ${props => props.theme.font.family.montserrat};
-  font-weight: ${props => props.theme.font.weight.medium};
-  font-style: italic;
-  font-size: 16px;
+  ${Caption.getStyles(1)}
   border-radius: 9999px;
   background-color: transparent;
   cursor: text;
@@ -145,6 +142,7 @@ export const Legend = styled(Caption)<Omit<TrackProps, 'error' | 'metaError' | '
 `;
 
 export const InputHelper = styled(Helper)<Omit<TrackProps, 'disabled' | 'metaError' | 'focused' | 'isFieldNotEmpty' | 'isIcon'>>`
+  display: block;
   user-select: none;
   padding: 8px 24px;
 

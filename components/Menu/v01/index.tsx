@@ -57,7 +57,7 @@ const Menu: FunctionComponent<MenuProps> = ({ menuItems }) => {
               style={{ marginBottom: 4 }}
             />
             <CopyrightText
-              type={6}
+              type={4}
               color="yellow-5"
             >
               {

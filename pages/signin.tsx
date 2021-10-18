@@ -8,11 +8,11 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { gql } from '@apollo/client';
 import { Formik } from 'formik';
-import { setUser } from 'redux/actions/user';
+import { setUser } from '@r/actions/user';
 import {
   setToken,
   setRefreshToken
-} from 'redux/actions/token';
+} from '@r/actions/token';
 import {
   Headline,
   Body,
@@ -244,7 +244,7 @@ export default function SignIn() {
       </Formik>
       <HelpSection>
         <Body 
-          type={6}
+          type={4}
           color="yellow-6"
           style={{
             marginRight: 4,
