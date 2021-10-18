@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { gql } from '@apollo/client';
 import styled from 'styled-components';
 import {
   Edit,
@@ -8,7 +9,8 @@ import {
   Avatar,
   FutureImage,
   Helmet,
-  Link
+  Link,
+  Query,
 } from '@atoms';
 import {
   Breadcrumb,
@@ -21,6 +23,10 @@ import {
 } from '@typography';
 import { truncateBySymbols } from '@utils';
 import { useRouter } from 'next/router';
+import { UserData } from '@common/graphql/interfaces';
+import client from '@common/graphql/client';
+import { useSelector } from 'react-redux';
+import { isUserLoggedIn } from '@r/selectors/token';
 
 const about = 'АарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожл';
 
@@ -88,12 +94,34 @@ const FutureText = styled.span`
 `;
 
 
+const GET_DATA = gql`
+  {
+    profile {
+      name
+      aboutMe
+      avatar {
+        pathResized
+      }
+      roleData {
+        name
+        key
+        permissions
+      }
+    }
+  }
+`;
+
 function Profile() {
+  const router = useRouter();
   
   const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const router = useRouter();
+  const isLogged = useSelector(isUserLoggedIn);
 
-  return (
+  if (process.browser && !isLogged) {
+    router.push('/signin');
+  }
+
+  return  isLogged ? (
     <ProfileWrapper>
       <Helmet title="Профіль" />
       <Breadcrumb
@@ -112,72 +140,95 @@ function Profile() {
         }}
       />
       <ProfileContainer>
-        <ProfileInfo>
-          <ControlsPanel>
-            <IconWithTooltip
-              Icon={Edit}
-              tooltipText="Налаштувати профіль"
-              onClick={() => router.push('/settings')}
-              style={{ marginRight: 24 }}
-            />
-            <IconWithTooltip
-              Icon={Share}
-              tooltipText="Поширити профіль"
-            />
-          </ControlsPanel>
-          <Avatar
-            size={160}
-            imageUrl={"https://cdn.pixabay.com/photo/2021/09/07/16/38/man-6604399_960_720.png"}
-            style={{
-              marginBottom: 20,
-            }}
-          />
-          <Headline
-            type={2}
-            color="black"
-            style={{
-              marginBottom: 15,
-              width: '100%',
-              textAlign: 'center',
-            }}
-          >
-            Verybignickname
-          </Headline>
-          <ProfileDetail>
-            <Body
-              type={1}
-              color="brown-2"
-              style={{ marginRight: 10 }}
-            >
-              Адмін,
-            </Body>
-            <Body
-              type={1}
-              color="brown-1"
-            >зареєс. 01.11.2021</Body>
-          </ProfileDetail>
-          
-          <Body
-            type={3}
-            color="brown-2"
-            style={{ width: '100%' }}
-          >
-            {
-              about.length <= 500 ? about : (
-                <>
-                  {isAboutOpen ? about : truncateBySymbols(about, 500)}
-                  <MoreDetailsInlineButton
-                    type={4}
-                    color="brown-2"
-                    onClick={() => setIsAboutOpen(prev => !prev)}
+        <Query<{profile: Omit<UserData, 'email' | 'theme'>; }> query={GET_DATA} client={client}>
+          {({
+            data,
+            loading,
+            error
+          }) => {
+              console.log(loading);
+              return (
+              <ProfileInfo>
+                <ControlsPanel>
+                  <IconWithTooltip
+                    Icon={Edit}
+                    tooltipText="Налаштувати профіль"
+                    onClick={() => router.push('/settings')}
+                    style={{ marginRight: 24 }}
+                  />
+                  <IconWithTooltip
+                    Icon={Share}
+                    tooltipText="Поширити профіль"
+                  />
+                </ControlsPanel>
+                <Avatar
+                  size={160}
+                  fontSize={72}
+                  imageUrl={!loading ? data.profile.avatar?.path : null}
+                  name={!loading ? data.profile.name : null}
+                  style={{
+                    marginBottom: 20,
+                  }}
+                />
+                {!loading ? (
+                  <Headline
+                    type={2}
+                    color="black"
+                    style={{
+                      marginBottom: 15,
+                      width: '100%',
+                      textAlign: 'center',
+                    }}
                   >
-                    {isAboutOpen ? 'Сховати' : 'Детальніше'}
-                  </MoreDetailsInlineButton>
-                </>
-              )
-            }
-          </Body>
-        </ProfileInfo>
+                    {data.profile.name}
+                  </Headline>
+                ) : null}
+                <ProfileDetail>
+
+                  {!loading && data.profile.roleData ? (
+                   <Body
+                     type={1}
+                     color="brown-2"
+                     style={{ marginRight: 10 }}
+                   >
+                     {data.profile.roleData.name}{/*,*/}
+                   </Body>
+                  ) : null}
+
+                  {/* <Body
+                    type={1}
+                    color="brown-1"
+                  >зареєс. 01.11.2021</Body> */}
+
+                </ProfileDetail>
+                
+                {!loading && data.profile.aboutMe ? (
+                  <Body
+                    type={3}
+                    color="brown-2"
+                    style={{ width: '100%' }}
+                  >
+                    {
+                      data.profile.aboutMe.length <= 500 ? data.profile.aboutMe : (
+                        <>
+                          {isAboutOpen ? data.profile.aboutMe : truncateBySymbols(data.profile.aboutMe, 500)}
+                          <MoreDetailsInlineButton
+                            type={4}
+                            color="brown-2"
+                            onClick={() => setIsAboutOpen(prev => !prev)}
+                          >
+                            {isAboutOpen ? 'Сховати' : 'Детальніше'}
+                          </MoreDetailsInlineButton>
+                        </>
+                      )
+                    }
+                  </Body>
+                ): null} 
+
+              </ProfileInfo>
+            );
+          }}
+        </Query>
         <FutureFeatureSection>
             <FutureImage
               width={145}
@@ -203,7 +254,7 @@ function Profile() {
         </FutureFeatureSection>
       </ProfileContainer>
     </ProfileWrapper>
-  )
+  ) : null;
 }
 
 export default Profile;
