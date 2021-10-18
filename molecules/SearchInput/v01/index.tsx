@@ -5,7 +5,7 @@ import {
 import _ from 'lodash';
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { setFocus } from 'redux/actions/headerSearch';
+import { setFocus } from '@r/actions/headerSearch';
 import { Search } from '@atoms/icons';
 import {
   FieldWrapper,

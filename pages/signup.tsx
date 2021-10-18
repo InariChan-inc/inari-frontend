@@ -11,11 +11,11 @@ import {
   FormikErrors, 
   FormikValues
 } from 'formik';
-import { setUser } from 'redux/actions/user';
+import { setUser } from '@r/actions/user';
 import {
   setToken,
   setRefreshToken
-} from 'redux/actions/token';
+} from '@r/actions/token';
 import {
   Headline,
   Body,

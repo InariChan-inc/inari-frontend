@@ -6,11 +6,10 @@ import {
 import { refreshToken as refreshTokenCall } from './tokenClient';
 import { setContext } from '@apollo/client/link/context';
 
-import store from '../../redux';
 import {
   setAll,
   deleteAll
-} from '../../redux/actions/token';
+} from '@r/actions/token';
 
 import {
   TOKEN_ITEM,
@@ -19,7 +18,7 @@ import {
   REFRESH_TOKEN_ITEM,
 } from '../localStorageItems';
 
-import Router from 'next/router';
+import store from '@r';
 
 const httpLink = new HttpLink({
   uri: process.env.URI,

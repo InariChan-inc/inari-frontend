@@ -3,9 +3,9 @@ import {
   useCallback
 } from "react";
 import { useSelector } from "react-redux";
-import { isFocused } from "redux/selectors/headerSearch";
-import { isUserLoggedIn } from "redux/selectors/token";
-import { isUserEmpty } from "redux/selectors/user";
+import { isFocused } from "@r/selectors/headerSearch";
+import { isUserLoggedIn } from "@r/selectors/token";
+import { isUserEmpty } from "@r/selectors/user";
 import { SearchInput } from 'molecules';
 import {
   Authorization,

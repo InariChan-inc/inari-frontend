@@ -28,6 +28,7 @@ export interface ImageData {
 export interface UserData {
   name: string,
   email: string,
+  aboutMe: string,
   theme: ThemeEnum,
   avatar?: ImageData,
   roleData?: RoleData,

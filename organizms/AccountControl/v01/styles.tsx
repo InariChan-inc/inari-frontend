@@ -41,6 +41,7 @@ export const NameWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
+  margin-right: 16px;
 `;
 
 export const StyledAvatar = styled(Avatar)`
@@ -51,22 +52,22 @@ export const StyledAvatar = styled(Avatar)`
 `;
 
 export const AccountMenu = styled.div<{ open: boolean }>`
-  display: ${props => props.open ? 'block' : 'hidden'};
+  display: ${props => props.open ? 'block' : 'none'};
   position: absolute;
   bottom: 0;
   right: -1px;
   min-width: 300px;
   border-width: 1px;
   border-color: ${props => props.theme.colors['yellow-1']};
+  border-style: solid;
   background-color: ${props => props.theme.colors.white};
   transform: translateY(100%);
 `;
 
-export const MenuLink = styled(Link)`
+export const MenuLink = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 16px 32px;
 
   :not(:first-of-type) {
     border-top-width: 1px;

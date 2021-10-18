@@ -7,18 +7,19 @@ import {
   useSelector,
   useDispatch
 } from 'react-redux';
-import { clearUser } from 'redux/actions/user';
-import { deleteAll } from 'redux/actions/token';
+import { clearUser } from '@r/actions/user';
+import { deleteAll } from '@r/actions/token';
 import { truncateBySymbols } from '@utils';
 import {
   getName,
   getRole,
   getAvatar,
-} from 'redux/selectors/user';
+} from '@r/selectors/user';
+import { Link } from '@atoms';
 import {
   ArrowUp,
   ArrowDown,
-  LogOut
+  LogOut,
 } from '@icons';
 import {
   Body,
@@ -94,7 +95,7 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
         <StyledAvatar
           name={name}
           color={color.current}
-          imageUrl={avatar.path}
+          imageUrl={avatar?.path}
         />
         {
           open ? (
@@ -113,9 +114,18 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
               path,
               title
             }) => (
-              <MenuLink href={path}>
-                  <Icon style={{ marginRight: 24 }} />
-                  <ButtonText type={4}>{title}</ButtonText>
+              <MenuLink>
+                  <Link
+                    href={path} 
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      padding: '16px 32px',
+                    }}
+                  >
+                    <Icon style={{ marginRight: 24 }} />
+                    <ButtonText type={4}>{title}</ButtonText>
+                  </Link>
               </MenuLink>
             ))
           }
