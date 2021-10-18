@@ -63,13 +63,16 @@ const tokenSlice = createSlice({
       state.token = '';
       state.tokenExp = 0;
     },
-    deleteAll: () => {
+    deleteAll: state => {
       localStorage?.removeItem(REFRESH_TOKEN_ITEM);
       localStorage?.removeItem(REFRESH_TOKEN_EXP_ITEM);
       localStorage?.removeItem(TOKEN_ITEM);
       localStorage?.removeItem(TOKEN_EXP_ITEM);
 
-      return initialState
+      state.token = '';
+      state.tokenExp = 0;
+      state.refreshToken = '';
+      state.refreshTokenExp = 0;
     }
   }
 });
