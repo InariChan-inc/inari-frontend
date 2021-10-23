@@ -12,6 +12,7 @@ export const initialState: UserData = {
     avatar: null,
     theme: ThemeEnum.LIGHT_THEME,
     roleData: null,
+    hashColor: '',
 }
 
 const userSlice = createSlice({

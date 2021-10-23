@@ -21,11 +21,6 @@ export interface AvatarProps {
 }
 
 
-const getRandom = (min: number, max: number) => Math.floor(Math.random()*(max - min)) + min;
-
-const getHSL = () => `hsl(${getRandom(25, 45)}, ${getRandom(50, 100)}%, ${getRandom(30,60)}%)`;
-
-
 const Avatar: FunctionComponent<AvatarProps> = ({
   imageUrl,
   name = '',
@@ -33,13 +28,10 @@ const Avatar: FunctionComponent<AvatarProps> = ({
   size = 48,
   fontSize,
   style,
-}) => {
-  const defaultColor = useRef<string>(getHSL());
-
-  return (
+}) => (
     <AvatarContainer
       backgroundImage={imageUrl}
-      backgroundColor={color || defaultColor.current}
+      backgroundColor={color}
       size={size}
       style={style}
     >
@@ -53,8 +45,7 @@ const Avatar: FunctionComponent<AvatarProps> = ({
         </Abbreviation>
       ) : null}
     </AvatarContainer>
-  );
-};
+);
 
 
 export default Avatar;

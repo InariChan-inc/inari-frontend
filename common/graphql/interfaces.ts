@@ -32,6 +32,7 @@ export interface UserData {
   theme: ThemeEnum,
   avatar?: ImageData,
   roleData?: RoleData,
+  hashColor: string,
 }
 
 export interface IProfile {

@@ -71,6 +71,7 @@ function App({ Component, pageProps }) {
                 key
                 permissions
               }
+              hashColor
             }
           }
         `
