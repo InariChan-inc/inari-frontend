@@ -18,6 +18,7 @@ interface IconWithTooltipProps {
   tooltipText: string;
   style?: CSSProperties;
   onClick?: MouseEventHandler<HTMLDivElement>;
+  onMouseOut?: MouseEventHandler<HTMLDivElement>;
 }
 
 const IconWithTooltip: VoidFunctionComponent<IconWithTooltipProps> = ({
@@ -25,6 +26,7 @@ const IconWithTooltip: VoidFunctionComponent<IconWithTooltipProps> = ({
   tooltipText,
   style,
   onClick,
+  onMouseOut
 }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -32,7 +34,12 @@ const IconWithTooltip: VoidFunctionComponent<IconWithTooltipProps> = ({
   return (
     <Container
       onMouseOver={() => setOpen(true)}
-      onMouseOut={() => setOpen(false)}
+      onMouseOut={(event) => {
+        setOpen(false);
+        if (onMouseOut) {
+          onMouseOut(event);
+        }
+      }}
       style={style}
       onClick={onClick}
     >
