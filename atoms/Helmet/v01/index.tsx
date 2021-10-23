@@ -1,15 +1,23 @@
+import {
+  FunctionComponent,
+  useRef,
+} from "react"
 import Head from "next/head";
-import { FunctionComponent } from "react"
 
 interface HelmetProps {
-  title: string,
+  title: string | string[],
 }
 
-const Helmet: FunctionComponent<HelmetProps> = ({ title }) => (
-  <Head>
-    <title>Inari &#8211; {title}</title>
-  </Head>
-);
+const Helmet: FunctionComponent<HelmetProps> = ({ title }) => {
+
+  return (
+    <Head>
+      <title>Inari {typeof title === 'string' 
+        ? `— ${title}`
+        : title.map(i => `— ${i}`).join(' ')}</title>
+    </Head>
+  );
+};
 
 
 export default Helmet;
