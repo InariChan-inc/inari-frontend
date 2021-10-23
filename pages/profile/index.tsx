@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { gql } from '@apollo/client';
 import styled from 'styled-components';
+import copy from 'copy-to-clipboard';
 import {
   Edit,
   Share,
@@ -21,14 +22,13 @@ import {
   Headline,
   Link as LinkText,
 } from '@typography';
-import { truncateBySymbols } from '@utils';
+import { sleep, truncateBySymbols } from '@utils';
 import { useRouter } from 'next/router';
 import { UserData } from '@common/graphql/interfaces';
 import client from '@common/graphql/client';
 import { useSelector } from 'react-redux';
 import { isUserLoggedIn } from '@r/selectors/token';
 
-const about = 'АарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожлитжплижпдАарпдптопатожл';
 
 const ProfileWrapper = styled.div`
   display: flex;
@@ -107,6 +107,7 @@ const GET_DATA = gql`
         key
         permissions
       }
+      hashColor
     }
   }
 `;
@@ -115,6 +116,7 @@ function Profile() {
   const router = useRouter();
   
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [shareMessage, setShareMessage] = useState('Поширити профіль');
   const isLogged = useSelector(isUserLoggedIn);
 
   if (process.browser && !isLogged) {
@@ -157,13 +159,19 @@ function Profile() {
                   />
                   <IconWithTooltip
                     Icon={Share}
-                    tooltipText="Поширити профіль"
+                    tooltipText={shareMessage}
+                    onClick={() => {
+                      copy(`${process.env.HOST}/profile/${data.profile.name}`)
+                      setShareMessage('Скопійовано :)')
+                    }}
+                    onMouseOut={() => { sleep(() => {setShareMessage('Поширити профіль')}, 400) }}
                   />
                 </ControlsPanel>
                 <Avatar
                   size={160}
                   fontSize={72}
-                  imageUrl={!loading ? data.profile.avatar?.path : null}
+                  color={!loading ? data.profile.hashColor : null}
+                  imageUrl={!loading ? data.profile.avatar?.pathResized : null}
                   name={!loading ? data.profile.name : null}
                   style={{
                     marginBottom: 20,
