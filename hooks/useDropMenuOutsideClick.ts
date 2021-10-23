@@ -1,7 +1,12 @@
-import { RefObject, useState } from "react";
+import {
+  RefObject,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 
-type IOutsideClickHook = (rootRef: RefObject<HTMLElement>, menuRootRef: RefObject<HTMLElement>) => [(event: MouseEvent) => void, boolean];
+type IOutsideClickHook = (rootRef: RefObject<HTMLElement>, menuRootRef: RefObject<HTMLElement>) => [(event: MouseEvent) => void, boolean, Dispatch<SetStateAction<boolean>>];
 
 const useDropMenuOutsideClick: IOutsideClickHook = (rootRef, menuRootRef) => {
   const [open, setOpen] = useState(false);
@@ -19,7 +24,8 @@ const useDropMenuOutsideClick: IOutsideClickHook = (rootRef, menuRootRef) => {
         setOpen(prev => !prev);
       }
     },
-    open
+    open,
+    setOpen
   ];
 };
 

@@ -14,6 +14,7 @@ import {
   getName,
   getRole,
   getAvatar,
+  getColor,
 } from '@r/selectors/user';
 import { Link } from '@atoms';
 import {
@@ -41,8 +42,6 @@ export interface AccountControlProps {
 
 }
 
-const defaultClassName = 'relative w-[300px] flex justify-end items-center h-full px-6 mr-8 cursor-pointer border-r border-l hover:bg-yellow-7 hover:border-yellow-1';
-
 const AccountControl: FunctionComponent<AccountControlProps> = ({
 
 }) => {
@@ -52,11 +51,12 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
 
   const role = useSelector(getRole);
   const avatar = useSelector(getAvatar);
+  const color = useSelector(getColor);
 
   const rootRef = useRef<HTMLDivElement>(null);
   const menuRootRef = useRef<HTMLDivElement>(null);
 
-  const [handleClick, open] = useDropMenuOutsideClick(rootRef, menuRootRef);
+  const [handleClick, open, setOpen] = useDropMenuOutsideClick(rootRef, menuRootRef);
 
   useEffect(() => {
     document.addEventListener('click', handleClick);
@@ -88,6 +88,7 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
         </NameWrapper>
         <StyledAvatar
           name={name}
+          color={color}
           imageUrl={avatar?.path}
         />
         {
@@ -107,7 +108,7 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
               path,
               title
             }) => (
-              <MenuLink>
+              <MenuLink onClick={() => setOpen(false)}>
                   <Link
                     href={path} 
                     style={{
