@@ -154,6 +154,7 @@ export default function SignIn() {
                     name
                     email
                     theme
+                    hashColor
                     roleData {
                       name
                       key
