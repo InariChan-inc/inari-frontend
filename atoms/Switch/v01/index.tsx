@@ -13,11 +13,13 @@ import {
 
 
 export interface SwitchProps {
+  id?: string;
   checked?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 const Switch: FunctionComponent<SwitchProps> = ({
+  id,
   checked,
   onChange,
 }) => {
@@ -30,6 +32,7 @@ const Switch: FunctionComponent<SwitchProps> = ({
   return (
     <SwitchContainer>
       <Input
+        id={id}
         type="checkbox"
         checked={selfChecked}
         onChange={(event) => {
