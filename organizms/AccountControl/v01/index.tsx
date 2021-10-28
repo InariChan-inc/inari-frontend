@@ -108,7 +108,9 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
               path,
               title
             }) => (
-              <MenuLink onClick={() => setOpen(false)}>
+              <MenuLink
+                key={title}
+                onClick={() => setOpen(false)}>
                   <Link
                     href={path} 
                     style={{

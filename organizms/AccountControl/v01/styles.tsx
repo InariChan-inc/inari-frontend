@@ -8,6 +8,7 @@ export const AccountControlContainer = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
+  user-select: none;
 `;
 
 export const ControlsWrapper = styled.div<{ open: boolean }>`

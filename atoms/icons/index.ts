@@ -25,3 +25,5 @@ export { default as AccountCircle } from "./AccountCircle";
 export { default as Bookmark } from "./Bookmark";
 export { default as Edit } from "./Edit";
 export { default as Share } from "./Share";
+export { default as Download } from './Download';
+export { default as Delete } from './Delete';

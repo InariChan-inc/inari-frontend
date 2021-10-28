@@ -189,6 +189,7 @@ export default function SignIn() {
                             key
                             permissions
                           }
+                          hashColor
                         }
                         tokenData {
                           token

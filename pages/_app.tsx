@@ -19,6 +19,8 @@ import {
   gql,
 } from "@apollo/client";
 
+import { BaseCSS } from 'styled-bootstrap-grid';
+
 import {
   ThemeProvider
 } from 'styled-components';
@@ -94,6 +96,7 @@ function App({ Component, pageProps }) {
 
         <ThemeProvider theme={theme}>
           <GlobalLayout>
+            <BaseCSS />
             <Component {...pageProps} />
           </GlobalLayout>
         </ThemeProvider>

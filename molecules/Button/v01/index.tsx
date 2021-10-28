@@ -5,13 +5,14 @@ import {
   Text,
 } from './styles';
 interface ButtonProps {
-    onClick?: () => void,
-    type?: ButtonTypes,
-    buttonType?: 'button' | 'submit' | 'reset',
-    children?: string,
-    Icon?: React.JSXElementConstructor<{}>,
-    style?: CSSProperties,
-    disabled?: boolean
+    onClick?: () => void;
+    type?: ButtonTypes;
+    buttonType?: 'button' | 'submit' | 'reset';
+    children?: string;
+    Icon?: React.JSXElementConstructor<{}>;
+    style?: CSSProperties;
+    disabled?: boolean;
+    padding?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
@@ -22,6 +23,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   type = 1,
   buttonType = 'button',
   style = {},
+  padding = '10px 20px',
 }, ref) => (
   <StyledButton
     styleType={type}
@@ -30,6 +32,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     disabled={disabled}
     onClick={onClick}
     style={style}
+    padding={padding}
   >
     {Icon ? <Icon /> : null}
     <Text

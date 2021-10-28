@@ -4,3 +4,4 @@ export { default as Avatar } from './Avatar';
 export { default as Helmet } from './Helmet';
 export { default as FutureImage } from './FutureImage';
 export { default as Query } from './Query';
+export { default as Switch } from './Switch';
