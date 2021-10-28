@@ -36,6 +36,7 @@ const authLink = setContext(async (_, { headers }) => {
       refreshToken,
       refreshTokenExp
     }
+  // @ts-ignore
   } = store.getState();
 
   // if token is expired
