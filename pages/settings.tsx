@@ -271,6 +271,13 @@ function Settings() {
               offset={1}
               sm={6}
             >
+              <Headline
+                color="brown-2"
+                type={4}
+                style={{ marginBottom: 15 }}
+              >
+                Про себе:
+              </Headline>
               <Textarea
                 limit={1000}
                 value={aboutSelf}
