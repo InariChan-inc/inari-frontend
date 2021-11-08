@@ -4,7 +4,7 @@ import {
   useRef
 } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { gql } from '@apollo/client';
 import {
   Formik, 
@@ -48,6 +48,7 @@ import {
   NOT_MATCHED_ERROR,
 } from '@common/errors';
 import { sleep } from '@utils';
+import { isUserLoggedIn } from '@r/selectors/token';
 
 
 
@@ -77,6 +78,14 @@ export default function SignIn() {
 
   const submitButtonRef = useRef<HTMLButtonElement>(null);
 
+  const isLogged = useSelector(isUserLoggedIn);
+
+  useEffect(() => {
+    if (isLogged) {
+      router.push('/');
+    }
+  }, [isLogged]);
+
   useEffect(() => {
     const enterClick: (this: Document, event: KeyboardEvent) => void = event => {
       if (event.key == 'Enter') {
@@ -90,7 +99,7 @@ export default function SignIn() {
     };
   }, []);
 
-  return (
+  return !isLogged ? (
     <AuthorizationLayout>
       <Helmet title="Реєстрація" />
 
@@ -342,5 +351,5 @@ export default function SignIn() {
         </LinkText>
       </HelpSection>
     </AuthorizationLayout>
-  );
+  ) : null;
 }
