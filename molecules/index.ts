@@ -7,6 +7,7 @@ import ScrollUpButton from "./ScrollUpButton";
 import Breadcrumb from "./Breadcrumb";
 import IconWithTooltip from "./IconWithTooltip";
 import Textarea from "./Textarea";
+import UploadFileButton from "./UploadFileButton";
 
 export {
   SearchInput,
@@ -18,6 +19,7 @@ export {
   Breadcrumb,
   IconWithTooltip,
   Textarea,
+  UploadFileButton,
 };
 
 export type { 
