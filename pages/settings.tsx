@@ -2,13 +2,19 @@ import { useRouter } from 'next/router';
 import {
   useState,
   useEffect,
+  ChangeEventHandler,
 } from 'react';
-import styled from 'styled-components';
+import {
+  useSelector,
+  useDispatch,
+} from 'react-redux';
+import styled, { css } from 'styled-components';
 import {
   Container,
   Row,
   Col,
 } from 'styled-bootstrap-grid';
+import gql from 'graphql-tag';
 import {
   Body,
   Helper,
@@ -16,21 +22,23 @@ import {
   Subtitle,
 } from '@typography';
 import {
+  Download,
+  Delete,
+} from '@icons';
+import {
   Avatar,
   Helmet,
   Switch,
 } from '@atoms';
 import {
-  Download,
-  Delete,
-} from '@icons';
-import {
   Breadcrumb,
   Button,
   Textarea,
+  UploadFileButton,
 } from '@molecules';
-import { useSelector } from 'react-redux';
+import { CropAvatarModal } from '@organizms';
 import { isUserLoggedIn } from '@r/selectors/token';
+import { setAvatar } from '@r/actions/user';
 import {
   getAboutMe,
   getAvatar,
@@ -39,8 +47,10 @@ import {
   getName,
   getTheme
 } from '@r/selectors/user';
-import { ThemeEnum } from '@common/graphql/interfaces';
-
+import { ImageData, ThemeEnum } from '@common/graphql/interfaces';
+import client from '@common/graphql/client';
+import updateProfile from '@common/updateProfile';
+import download from '@common/downloadClient';
 
 const SettingsContainer = styled.div`
   padding: 32px 60px;
@@ -55,10 +65,14 @@ const DataWrapper = styled(Col)`
   cursor: not-allowed;
 `;
 
-const SwitchLabel = styled.label`
+const SwitchLabel = styled.label<{ disabled?: boolean }>`
   ${Subtitle.getStyles()}
   display: block;
   cursor: pointer;
+  ${({disabled}) => disabled ? css`
+    opacity: .5;
+    cursor: not-allowed;
+  ` : null}
 `;
 
 const SettingsWrapper = styled(Container)`
@@ -103,6 +117,8 @@ const ControlsWrapper = styled.div`
 function Settings() {
   const router = useRouter();
 
+  const dispatch = useDispatch();
+
   const isLogged = useSelector(isUserLoggedIn);
 
   const name = useSelector(getName);
@@ -112,21 +128,97 @@ function Settings() {
   const color = useSelector(getColor);
   const theme = useSelector(getTheme);
 
-  const [isBlackTheme, setIsBlackTheme] = useState(theme === ThemeEnum.LIGHT_THEME);
+  const [isBlackTheme, setIsBlackTheme] = useState(theme !== ThemeEnum.LIGHT_THEME);
   const [year, setYear] = useState(false);
   const [isNotChanged, setIsNotChanged] = useState(true);
-  const [isAvatarNotChanged, setIsAvatarNotChanged] = useState(true);
-  const [aboutSelf, setAboutSelf] = useState(aboutMe || '');
+  const [aboutSelf, setAboutSelf] = useState(aboutMe);
+  
+  const [avatarImage, setAvatarImage] = useState('');
+  const [savedAvatar, setSavedAvatar] = useState('');
+  const [savedAvatarFile, setSavedAvatarFile] = useState<Blob>();
 
+  const onSelectImage: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      if (e.target.files[0].size / 1024 / 1024 > 3) {
+        alert('Файл важить більше дозволеного (3МБ)');
+      }
+
+      const reader = new FileReader();
+
+      reader.addEventListener('load', () => {
+        const img = new Image;
+
+        img.addEventListener('load', () => {
+          if (img.width < 100 || img.height < 100) {
+            alert('Роздільна здатність зображення має бути щонайменше 100х100');
+          } else { 
+            setAvatarImage(reader.result as string);
+          }
+        });
+
+        img.src = reader.result as string;
+      });
+
+      reader.readAsDataURL(e.target.files[0]);
+      e.target.value = '';
+    }
+  }
+
+  useEffect(() => {
+    setAboutSelf(aboutMe);
+  }, [aboutMe]);
 
   const cancelAll = () => {
     setAboutSelf(aboutMe || '');
+    setSavedAvatar('');
+    setSavedAvatarFile(undefined);
+  };
+
+  const handleSave = () => {
+    console.log('SAVED AVATAR', savedAvatarFile);
+    download.mutate<{ addNewOrUpdateAvatar: ImageData }>({
+      mutation: gql`
+        mutation ($file: Upload!) {
+          addNewOrUpdateAvatar(file: $file) {
+            id
+            name
+            type
+            path
+            pathResized
+            isTmp
+          }
+        }
+      `,
+      variables: {
+        file: savedAvatarFile
+      }
+    }).then((res) => {
+      dispatch(setAvatar(res.data?.addNewOrUpdateAvatar));
+      setSavedAvatarFile(undefined);
+      setSavedAvatar('');
+    }).catch(err => {
+      console.log(err);
+    });
+
+    client.mutate({
+      mutation: gql`
+        mutation {
+          updateProfile(data: {
+            aboutMe: "${aboutSelf}"
+          })
+        }
+      `
+    }).then(() => {
+      updateProfile();
+    },(error) => {
+      console.log(error);
+    })
   };
 
   useEffect(() => {
-    const itIs = aboutSelf === (aboutMe || '');
+    const itIs = aboutSelf === (aboutMe || '') && !savedAvatarFile;
     setIsNotChanged(itIs);
-  }, [aboutSelf]);
+  }, [aboutSelf, aboutMe, savedAvatarFile]);
 
   if (process.browser && !isLogged) {
     router.push('/signin');
@@ -160,7 +252,10 @@ function Settings() {
             offset={1}
             sm={5}
           >
-            <Row alignItems="center" style={{ marginBottom: 10 }}>
+            <Row
+              alignItems="center"
+              style={{ marginBottom: 10 }}
+            >
               <Col sm={4}>
                 <Subtitle>
                   Нікнейм:
@@ -174,7 +269,7 @@ function Settings() {
             </Row>
             <Row alignItems="center">
               <Col sm={4}>
-                <Subtitle as="label" htmlFor="settings_email">
+                <Subtitle>
                   Імейл:
                 </Subtitle>
               </Col>
@@ -191,12 +286,16 @@ function Settings() {
           >
             <Row style={{ padding: '14px 0' }}>
               <Col sm={9}>
-                <SwitchLabel htmlFor="settings_theme_switch">
-                  Темна тема
+                <SwitchLabel
+                  disabled
+                  htmlFor="settings_theme_switch"
+                >
+                  Темна тема (скоро)
                 </SwitchLabel>
               </Col>
               <Col sm={3}>
                 <Switch
+                  disabled
                   id="settings_theme_switch"
                   checked={isBlackTheme}
                   onChange={() => {
@@ -246,21 +345,26 @@ function Settings() {
                   fontSize={72}
                   color={color}
                   name={name}
-                  imageUrl={avatar?.path}
+                  imageUrl={savedAvatar || avatar?.path}
                 />
                 <ButtonWrapper>
-                  <Button
+                  <UploadFileButton
+                    accept="image/*"
+                    label="Загрузити"
                     Icon={Download}
                     padding="15px 30px"
                     style={{ marginBottom: 15 }}
-                  >
-                    Загрузити
-                  </Button>
+                    onChange={onSelectImage}
+                  />
                   <Button
-                    disabled={isAvatarNotChanged}
+                    disabled={!savedAvatarFile}
                     type={2}
                     Icon={Delete}
                     padding="15px 30px"
+                    onClick={() => {
+                      setSavedAvatarFile(undefined);
+                      setSavedAvatar(undefined);
+                    }}
                   >
                     Видалити
                   </Button>
@@ -292,6 +396,7 @@ function Settings() {
                   disabled={isNotChanged}
                   type={1}
                   padding="15px 30px"
+                  onClick={handleSave}
                 >
                   Зберегти
                 </Button>
@@ -308,6 +413,46 @@ function Settings() {
         </SettingsWrapper>
         
       </Container>
+      <CropAvatarModal
+        image={avatarImage}
+        onConfirm={(croppedArea) => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+
+          canvas.width = croppedArea.width;
+          canvas.height = croppedArea.height;
+        
+          ctx.imageSmoothingQuality = 'high';
+
+          const img = new Image;
+          img.addEventListener('load', () => {
+            ctx.drawImage(
+              img,
+              croppedArea.x,
+              croppedArea.y,
+              croppedArea.width,
+              croppedArea.height,
+              0,
+              0,
+              croppedArea.width,
+              croppedArea.height,
+            );
+
+            canvas.toBlob((blob) => {
+              setSavedAvatar(URL.createObjectURL(blob));
+              
+              (blob as any).name = 'avatar.jpg';
+
+              setSavedAvatarFile(blob);
+              setAvatarImage('');
+            });
+          });
+          img.src = avatarImage;
+        }}
+        onCancel={() => {
+          setAvatarImage('');
+        }}
+      />
     </SettingsContainer>
   ) : null;
 }
