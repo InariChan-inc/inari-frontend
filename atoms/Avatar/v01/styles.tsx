@@ -2,13 +2,13 @@ import styled from "styled-components";
 import { Body } from '@typography';
 import { TStringOrNumber } from "@common/types";
 
-export const AvatarContainer = styled.div<{ backgroundImage: string; backgroundColor: string; size: TStringOrNumber; }>`
+export const AvatarContainer = styled.div<{ backgroundImage?: string; backgroundColor: string; size: TStringOrNumber; }>`
   display: flex;
   justify-content: center;
   align-items: center;
 	position: relative;
   border-radius: 9999px;
-  background-image: url('${props => props.backgroundImage}');
+  background-image: url('${({ backgroundImage }) => backgroundImage ? backgroundImage.startsWith('blob') ? backgroundImage : `${process.env.INARIBEHOST}${backgroundImage}`: null}');
 	background-size: 100% 100%;
   background-color: ${props => props.backgroundColor};
   user-select: none;
