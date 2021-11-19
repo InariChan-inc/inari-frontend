@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
-export const SwitchContainer = styled.label`
+export const SwitchContainer = styled.label<{ disabled?: boolean }>`
   display: inline-block;
   position: relative;
   width: 40px;
   height: 20px;
   border-radius: 20px;
+
+  ${({ disabled }) => (disabled ? 'opacity: .5;' : null)}
 `;
 
 export const Slider = styled.span`
@@ -47,5 +49,9 @@ export const Input = styled.input`
 
   :checked + ${Slider}::before {
     transform: translateX(20px);
+  }
+
+  :disabled + ${Slider} {
+    cursor: not-allowed;
   }
 `;

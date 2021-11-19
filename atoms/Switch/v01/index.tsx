@@ -15,12 +15,14 @@ import {
 export interface SwitchProps {
   id?: string;
   checked?: boolean;
+  disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 const Switch: FunctionComponent<SwitchProps> = ({
   id,
   checked,
+  disabled,
   onChange,
 }) => {
   const [selfChecked, setSelfChecked] = useState(false);
@@ -30,8 +32,9 @@ const Switch: FunctionComponent<SwitchProps> = ({
   }, [checked]);
 
   return (
-    <SwitchContainer>
+    <SwitchContainer disabled={disabled}>
       <Input
+        disabled={disabled}
         id={id}
         type="checkbox"
         checked={selfChecked}
