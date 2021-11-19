@@ -9,7 +9,6 @@ export const GlobalLayoutContainer = styled.div`
 
 export const RightSectionWrapper = styled.div`
   flex: 1 1 0%;
-  position: relative;
   overflow-x: hidden;
   margin-left: ${values.menuWidth}px;
 `;

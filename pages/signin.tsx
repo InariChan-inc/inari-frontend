@@ -5,7 +5,7 @@ import {
   useState,
 } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { gql } from '@apollo/client';
 import { Formik } from 'formik';
 import { setUser } from '@r/actions/user';
@@ -35,6 +35,7 @@ import {
 import { AuthorizationLayout } from '@layouts';
 import ApolloClient from '@common/graphql/client';
 import { ILoginUser } from '@common/graphql/interfaces';
+import { isUserLoggedIn } from '@r/selectors/token';
 
 
 
@@ -74,6 +75,14 @@ export default function SignIn() {
 
   const dispatch = useDispatch();
 
+  const isLogged = useSelector(isUserLoggedIn);
+
+  useEffect(() => {
+    if (isLogged) {
+      Router.push('/');
+    }
+  }, [isLogged]);
+
   useEffect(() => {
     const enterClick: (this: Document, event: KeyboardEvent) => void = event => {
       if (event.key == 'Enter') {
@@ -87,7 +96,7 @@ export default function SignIn() {
     };
   }, []);
 
-  return (
+  return !isLogged ? (
     <AuthorizationLayout>
       <Helmet title="Вхід" />
 
@@ -262,5 +271,5 @@ export default function SignIn() {
         </LinkText>
       </HelpSection>
     </AuthorizationLayout>
-  );
+  ) : null;
 }

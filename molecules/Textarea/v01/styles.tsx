@@ -38,12 +38,12 @@ export const StyledTextarea = styled.textarea`
   }
 `;
 
-export const VisibleDragger = styled.div`
+export const Dragger = styled.div`
   position: relative;
   width: inherit;
   height: 11px;
   background-color: ${props => props.theme.colors['yellow-2']};
-  margin-top: -4px;
+  margin-top: -7px;
   border-radius: 0 0 5px 5px;
   z-index: 99;
   cursor: ns-resize;
@@ -57,6 +57,8 @@ export const VisibleDragger = styled.div`
     bottom: 2px;
     left: 50%;
     margin-left: -15px;
+    top: 50%;
+    margin-top: -1px;
     background-color: ${props => props.theme.colors['yellow-4']};
   }
 `;

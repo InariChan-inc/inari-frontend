@@ -6,8 +6,8 @@ export interface RoleData {
 }
 
 export enum ThemeEnum {
-  LIGHT_THEME,
-  BLACK_THEME
+  LIGHT_THEME = 'LIGHT_THEME',
+  BLACK_THEME = 'BLACK_THEME'
 }
 
 export enum ImageTypeEnum {

@@ -6,7 +6,7 @@ import {
 } from "react";
 import { Body } from "@typography";
 import {
-  VisibleDragger,
+  Dragger,
   StyledTextarea,
   TextareaContainer,
   WordCount,
@@ -90,7 +90,7 @@ const Textarea: VoidFunctionComponent<TextareaProps> = ({
           }
         }}
       />
-      <VisibleDragger ref={dragRef} />
+      <Dragger ref={dragRef} />
     </TextareaContainer>
   );
 };

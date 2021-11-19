@@ -100,7 +100,7 @@ const GET_DATA = gql`
       name
       aboutMe
       avatar {
-        pathResized
+        path
       }
       roleData {
         name
@@ -171,7 +171,7 @@ function Profile() {
                   size={160}
                   fontSize={72}
                   color={!loading ? data.profile.hashColor : null}
-                  imageUrl={!loading ? data.profile.avatar?.pathResized : null}
+                  imageUrl={!loading ? data.profile.avatar?.path : null}
                   name={!loading ? data.profile.name : null}
                   style={{
                     marginBottom: 20,

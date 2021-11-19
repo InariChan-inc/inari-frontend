@@ -34,11 +34,7 @@ import { GlobalLayout } from '@layouts';
 import client from '@common/graphql/client';
 import guest from '@common/graphql/guest';
 import store from '@r';
-import {
-  setUser
-} from '@r/actions/user';
-
-import { IProfile } from '../common/graphql/interfaces';
+import updateProfile from '@common/updateProfile';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -53,33 +49,7 @@ function App({ Component, pageProps }) {
     } = store.getState().token;
 
     if (token) {
-      client.query<IProfile>({
-        query: gql`
-          {
-            profile {
-              name
-              aboutMe
-              email
-              theme
-              avatar {
-                name
-                type
-                path
-                pathResized
-                isTmp
-              }
-              roleData {
-                name
-                key
-                permissions
-              }
-              hashColor
-            }
-          }
-        `
-      }).then(({ data: { profile } }) => {
-        store.dispatch(setUser(profile));
-      }).catch(error => console.error(error))
+      updateProfile();
     }
   }, []);
 

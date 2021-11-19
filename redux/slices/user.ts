@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     UserData,
-    ThemeEnum
+    ThemeEnum,
+    ImageData,
 } from '../../common/graphql/interfaces';
 
 
@@ -21,6 +22,9 @@ const userSlice = createSlice({
     reducers: {
         setUser: (_, {payload}: PayloadAction<UserData>) => payload,
         clearUser: _ => initialState,
+        setAvatar: (state, {payload}: PayloadAction<ImageData>) => {
+            state.avatar = payload;
+        }
     }
 });
 

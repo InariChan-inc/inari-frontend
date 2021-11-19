@@ -114,6 +114,8 @@ const AccountControl: FunctionComponent<AccountControlProps> = ({
                   <Link
                     href={path} 
                     style={{
+                      display: 'flex',
+                      alignItems: 'center',
                       width: '100%',
                       height: '100%',
                       padding: '16px 32px',
