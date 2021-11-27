@@ -193,6 +193,13 @@ export default function SignIn() {
                           name
                           email
                           theme
+                          avatar {
+                            name
+                            type
+                            path
+                            pathResized
+                            isTmp
+                          }
                           roleData {
                             name
                             key

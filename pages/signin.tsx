@@ -48,6 +48,10 @@ const ErrorMessageContainer = styled.div`
   width: 350px;
 `;
 
+const ErrorIconWrapper = styled.div`
+  margin-right: 24px;
+`;
+
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,10 +69,7 @@ const HelpSection = styled.section`
 `;
 
 
-
 export default function SignIn() {
-  // const router = useRouter();
-
   const submitButtonRef = useRef<HTMLButtonElement>(null);
 
   const [userError, setUserError] = useState(false);
@@ -103,13 +104,12 @@ export default function SignIn() {
       {
         userError ? (
           <ErrorMessageContainer>
+              <ErrorIconWrapper>
               <ErrorIcon
                 color="red-2"
-                size={48}
-                style={{
-                  marginRight: 24,
-                }}
+                size={36}
               />
+              </ErrorIconWrapper>
               <div>
                 <Headline
                   color="red-2"
@@ -164,6 +164,13 @@ export default function SignIn() {
                     email
                     theme
                     hashColor
+					          avatar {
+                      name
+                      type
+                      path
+                      pathResized
+                      isTmp
+                    }
                     roleData {
                       name
                       key
