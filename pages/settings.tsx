@@ -8,7 +8,6 @@ import {
   useSelector,
   useDispatch,
 } from 'react-redux';
-import styled, { css } from 'styled-components';
 import {
   Container,
   Row,
@@ -17,7 +16,6 @@ import {
 import gql from 'graphql-tag';
 import {
   Body,
-  Helper,
   Headline,
   Subtitle,
 } from '@typography';
@@ -35,8 +33,20 @@ import {
   Button,
   Textarea,
   UploadFileButton,
+  Feedback
 } from '@molecules';
 import { CropAvatarModal } from '@organizms';
+import {
+  SettingsContainer,
+  AvatarSetting,
+  ButtonWrapper,
+  ButtonsWrapper,
+  ControlsWrapper,
+  DataWrapper,
+  SettingsWrapper,
+  StyledHelper,
+  SwitchLabel,
+} from '@components/pages/settings';
 import { isUserLoggedIn } from '@r/selectors/token';
 import { setAvatar } from '@r/actions/user';
 import {
@@ -51,67 +61,6 @@ import { ImageData, ThemeEnum } from '@common/graphql/interfaces';
 import client from '@common/graphql/client';
 import updateProfile from '@common/updateProfile';
 import download from '@common/downloadClient';
-
-const SettingsContainer = styled.div`
-  padding: 32px 60px;
-`;
-
-const DataWrapper = styled(Col)`
-  border: 1px solid ${props => props.theme.colors['yellow-2']};
-  padding-top: 14px;
-  padding-bottom: 14px;
-  border-radius: 40px;
-  text-align: center;
-  cursor: not-allowed;
-`;
-
-const SwitchLabel = styled.label<{ disabled?: boolean }>`
-  ${Subtitle.getStyles()}
-  display: block;
-  cursor: pointer;
-  ${({disabled}) => disabled ? css`
-    opacity: .5;
-    cursor: not-allowed;
-  ` : null}
-`;
-
-const SettingsWrapper = styled(Container)`
-  background-color: ${props => props.theme.colors['yellow-7']};
-  border-radius: 10px;
-  margin: 0;
-  padding: 50px 0 30px;
-
-  > div[data-name*="row"] {
-    margin: 0;
-  }
-`;
-
-const StyledHelper = styled(Helper)`
-  display: block;
-
-  :last-of-type {
-    margin-bottom: 15px;
-  }
-`;
-
-const AvatarSetting = styled.div`
-  display: flex;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: 30px;
-`;
-
-const ControlsWrapper = styled.div`
-  display: flex;
-  
-  > button:first-of-type {
-    margin-right: 30px;
-  }
-`;
 
 
 function Settings() {
@@ -137,29 +86,34 @@ function Settings() {
   const [savedAvatar, setSavedAvatar] = useState('');
   const [savedAvatarFile, setSavedAvatarFile] = useState<Blob>();
 
+  const [feedbackText, setFeedbackText] = useState('');
+  const [feedbackType, setFeedbackType] = useState<'pre-success' | 'success' | 'error'>('success');
+
   const onSelectImage: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files && e.target.files.length > 0) {
-      if (e.target.files[0].size / 1024 / 1024 > 3) {
-        alert('Файл важить більше дозволеного (3МБ)');
-      }
+      if (e.target.files[0].size / 1024 / 1024 > 10) {
+        setFeedbackText('Ой! Аватарка більше 10 мб або не в форматі jpeg/png. Вибери, будь ласка, інший файл! :)');
+        setFeedbackType('error');
+      } else {
+        const reader = new FileReader();
 
-      const reader = new FileReader();
+        reader.addEventListener('load', () => {
+          const img = new Image;
 
-      reader.addEventListener('load', () => {
-        const img = new Image;
+          img.addEventListener('load', () => {
+            if (img.width < 100 || img.height < 100) {
+              setFeedbackText('Роздільна здатність зображення має бути щонайменше 100х100.');
+              setFeedbackType('error');
+            } else { 
+              setAvatarImage(reader.result as string);
+            }
+          });
 
-        img.addEventListener('load', () => {
-          if (img.width < 100 || img.height < 100) {
-            alert('Роздільна здатність зображення має бути щонайменше 100х100');
-          } else { 
-            setAvatarImage(reader.result as string);
-          }
+          img.src = reader.result as string;
         });
 
-        img.src = reader.result as string;
-      });
-
-      reader.readAsDataURL(e.target.files[0]);
+        reader.readAsDataURL(e.target.files[0]);
+      }
       e.target.value = '';
     }
   }
@@ -175,44 +129,45 @@ function Settings() {
   };
 
   const handleSave = () => {
-    console.log('SAVED AVATAR', savedAvatarFile);
-    download.mutate<{ addNewOrUpdateAvatar: ImageData }>({
-      mutation: gql`
-        mutation ($file: Upload!) {
-          addNewOrUpdateAvatar(file: $file) {
-            id
-            name
-            type
-            path
-            pathResized
-            isTmp
+    Promise.all([
+      download.mutate<{ addNewOrUpdateAvatar: ImageData }>({
+        mutation: gql`
+          mutation ($file: Upload!) {
+            addNewOrUpdateAvatar(file: $file) {
+              id
+              name
+              type
+              path
+              pathResized
+              isTmp
+            }
           }
+        `,
+        variables: {
+          file: savedAvatarFile
         }
-      `,
-      variables: {
-        file: savedAvatarFile
-      }
-    }).then((res) => {
-      dispatch(setAvatar(res.data?.addNewOrUpdateAvatar));
+      }),
+      client.mutate({
+        mutation: gql`
+          mutation {
+            updateProfile(data: {
+              aboutMe: "${aboutSelf}"
+            })
+          }
+        `
+      })
+    ]).then((res) => {
+      dispatch(setAvatar(res[0].data?.addNewOrUpdateAvatar));
       setSavedAvatarFile(undefined);
       setSavedAvatar('');
-    }).catch(err => {
-      console.log(err);
-    });
-
-    client.mutate({
-      mutation: gql`
-        mutation {
-          updateProfile(data: {
-            aboutMe: "${aboutSelf}"
-          })
-        }
-      `
-    }).then(() => {
       updateProfile();
-    },(error) => {
-      console.log(error);
-    })
+
+      setFeedbackType('success');
+      setFeedbackText('Зміни збережено! Інарі лайк іт :)');
+    }).catch((err) => {
+      setFeedbackType('error');
+      setFeedbackText('Помилка :( Спробуйте знову');
+    });
   };
 
   useEffect(() => {
@@ -321,8 +276,9 @@ function Settings() {
           </Col>
         </Row>
         <SettingsWrapper fluid>
-          <Row style={{ marginBottom: 120 }}>
+          <Row style={{ marginBottom: 48 }}>
             <Col
+              noGutter
               offset={1}
               sm={3}
             >
@@ -372,6 +328,7 @@ function Settings() {
               </AvatarSetting>
             </Col>
             <Col
+              noGutter
               offset={1}
               sm={6}
             >
@@ -390,24 +347,43 @@ function Settings() {
               />
             </Col>
             </Row>
-            <Row justifyContent="center">
-              <ControlsWrapper>
+            <Row style={{ marginBottom: 120 }}>
+              <Col
+                noGutter
+                offset={1}
+              >
                 <Button
-                  disabled={isNotChanged}
                   type={1}
                   padding="15px 30px"
-                  onClick={handleSave}
                 >
-                  Зберегти
+                  Змінити пароль
                 </Button>
-                <Button
-                  disabled={isNotChanged}
-                  type={2}
-                  padding="15px 30px"
-                  onClick={cancelAll}
-                >
-                  Скасувати
-                </Button>
+              </Col>
+            </Row>
+            <Row justifyContent="center">
+              <ControlsWrapper>
+                <Feedback
+                  type={feedbackType}
+                  text={feedbackText}
+                />
+                <ButtonsWrapper>
+                  <Button
+                    disabled={isNotChanged}
+                    type={1}
+                    padding="15px 30px"
+                    onClick={handleSave}
+                  >
+                    Зберегти
+                  </Button>
+                  <Button
+                    disabled={isNotChanged}
+                    type={2}
+                    padding="15px 30px"
+                    onClick={cancelAll}
+                  >
+                    Скасувати
+                  </Button>
+                </ButtonsWrapper>
               </ControlsWrapper>
             </Row>
         </SettingsWrapper>
@@ -445,6 +421,9 @@ function Settings() {
 
               setSavedAvatarFile(blob);
               setAvatarImage('');
+
+              setFeedbackType('pre-success');
+              setFeedbackText('Аватар загрузився.\nЗбережи, будь ласка, зміни!');
             });
           });
           img.src = avatarImage;
