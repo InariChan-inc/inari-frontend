@@ -1,11 +1,10 @@
 import {
-	useCallback,
 	useEffect,
 	useState,
 	VoidFunctionComponent
 } from "react";
+import Overlay from "@organizms/Modals/Overlay";
 import {
-	Overlay,
 	ModalContainer,
 	CropperContainer,
 	ButtonsContainer,
