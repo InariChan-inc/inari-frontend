@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { gql } from '@apollo/client';
+import { useSelector } from 'react-redux'
 import styled from 'styled-components';
 import copy from 'copy-to-clipboard';
 import {
@@ -24,11 +24,14 @@ import {
 } from '@typography';
 import { sleep, truncateBySymbols } from '@utils';
 import { useRouter } from 'next/router';
-import { UserData } from '@common/graphql/interfaces';
-import client from '@common/graphql/client';
-import { useSelector } from 'react-redux';
 import { isUserLoggedIn } from '@r/selectors/token';
-
+import {
+  getAboutMe,
+  getAvatar,
+  getColor,
+  getName,
+  getRole,
+} from '@r/selectors/user';
 
 const ProfileWrapper = styled.div`
   display: flex;
@@ -94,30 +97,18 @@ const FutureText = styled.span`
 `;
 
 
-const GET_DATA = gql`
-  {
-    profile {
-      name
-      aboutMe
-      avatar {
-        path
-      }
-      roleData {
-        name
-        key
-        permissions
-      }
-      hashColor
-    }
-  }
-`;
-
 function Profile() {
   const router = useRouter();
   
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [shareMessage, setShareMessage] = useState('Поширити профіль');
   const isLogged = useSelector(isUserLoggedIn);
+
+  const aboutMe = useSelector(getAboutMe);
+  const avatar = useSelector(getAvatar);
+  const color = useSelector(getColor);
+  const name = useSelector(getName);
+  const role = useSelector(getRole);
 
   if (process.browser && !isLogged) {
     router.push('/signin');
@@ -142,100 +133,86 @@ function Profile() {
         }}
       />
       <ProfileContainer>
-        <Query<{profile: Omit<UserData, 'email' | 'theme'>; }> query={GET_DATA} client={client}>
-          {({
-            data,
-            loading,
-            error
-          }) => {
-              return (
-              <ProfileInfo>
-                <ControlsPanel>
-                  <IconWithTooltip
-                    Icon={Edit}
-                    tooltipText="Налаштувати профіль"
-                    onClick={() => router.push('/settings')}
-                    style={{ marginRight: 24 }}
-                  />
-                  <IconWithTooltip
-                    Icon={Share}
-                    tooltipText={shareMessage}
-                    onClick={() => {
-                      copy(`${process.env.HOST}/profile/${data.profile.name}`)
-                      setShareMessage('Скопійовано :)')
-                    }}
-                    onMouseOut={() => { sleep(() => {setShareMessage('Поширити профіль')}, 400) }}
-                  />
-                </ControlsPanel>
-                <Avatar
-                  size={160}
-                  fontSize={72}
-                  color={!loading ? data.profile.hashColor : null}
-                  imageUrl={!loading ? data.profile.avatar?.path : null}
-                  name={!loading ? data.profile.name : null}
-                  style={{
-                    marginBottom: 20,
-                  }}
-                />
-                {!loading ? (
-                  <Headline
-                    type={2}
-                    color="black"
-                    style={{
-                      marginBottom: 15,
-                      width: '100%',
-                      textAlign: 'center',
-                    }}
-                  >
-                    {data.profile.name}
-                  </Headline>
-                ) : null}
-                <ProfileDetail>
+        <ProfileInfo>
+          <ControlsPanel>
+            <IconWithTooltip
+              Icon={Edit}
+              tooltipText="Налаштувати профіль"
+              onClick={() => router.push('/settings')}
+              style={{ marginRight: 24 }}
+            />
+            <IconWithTooltip
+              Icon={Share}
+              tooltipText={shareMessage}
+              onClick={() => {
+                copy(`${process.env.HOST}/profile/${name}`)
+                setShareMessage('Скопійовано :)')
+              }}
+              onMouseOut={() => { sleep(() => { setShareMessage('Поширити профіль') }, 400) }}
+            />
+          </ControlsPanel>
+          <Avatar
+            size={160}
+            fontSize={72}
+            color={color}
+            imageUrl={avatar?.path || avatar?.pathResized}
+            name={name}
+            style={{ marginBottom: 20 }}
+          />
+          <Headline
+            type={2}
+            color="black"
+            style={{
+              marginBottom: 15,
+              width: '100%',
+              textAlign: 'center',
+            }}
+          >
+            {name}
+          </Headline>
+          <ProfileDetail>
 
-                  {!loading && data.profile.roleData ? (
-                   <Body
-                     type={1}
-                     color="brown-2"
-                     style={{ marginRight: 10 }}
-                   >
-                     {data.profile.roleData.name}{/*,*/}
-                   </Body>
-                  ) : null}
+            {role ? (
+              <Body
+                type={1}
+                color="brown-2"
+                style={{ marginRight: 10 }}
+              >
+                {role.name}{/*,*/}
+              </Body>
+            ) : null}
 
-                  {/* <Body
+            {/* <Body
                     type={1}
                     color="brown-1"
                   >зареєс. 01.11.2021</Body> */}
 
-                </ProfileDetail>
-                
-                {!loading && data.profile.aboutMe ? (
-                  <Body
-                    type={3}
-                    color="brown-2"
-                    style={{ width: '100%' }}
-                  >
-                    {
-                      data.profile.aboutMe.length <= 500 ? data.profile.aboutMe : (
-                        <>
-                          {isAboutOpen ? data.profile.aboutMe : truncateBySymbols(data.profile.aboutMe, 500)}
-                          <MoreDetailsInlineButton
-                            type={4}
-                            color="brown-2"
-                            onClick={() => setIsAboutOpen(prev => !prev)}
-                          >
-                            {isAboutOpen ? 'Сховати' : 'Детальніше'}
-                          </MoreDetailsInlineButton>
-                        </>
-                      )
-                    }
-                  </Body>
-                ): null} 
+          </ProfileDetail>
 
-              </ProfileInfo>
-            );
-          }}
-        </Query>
+          {aboutMe ? (
+            <Body
+              type={3}
+              color="brown-2"
+              style={{ width: '100%' }}
+            >
+              {
+                aboutMe.length <= 500 ? aboutMe : (
+                  <>
+                    {isAboutOpen ? aboutMe : truncateBySymbols(aboutMe, 500)}
+                    <MoreDetailsInlineButton
+                      type={4}
+                      color="brown-2"
+                      onClick={() => setIsAboutOpen(prev => !prev)}
+                    >
+                      {isAboutOpen ? 'Сховати' : 'Детальніше'}
+                    </MoreDetailsInlineButton>
+                  </>
+                )
+              }
+            </Body>
+          ) : null}
+
+        </ProfileInfo>
         <FutureFeatureSection>
             <FutureImage
               width={145}
