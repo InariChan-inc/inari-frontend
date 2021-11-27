@@ -27,3 +27,5 @@ export { default as Edit } from "./Edit";
 export { default as Share } from "./Share";
 export { default as Download } from './Download';
 export { default as Delete } from './Delete';
+export { default as UnderlineCheck } from './UnderlineCheck';
+export { default as CheckCircle } from './CheckCircle';
