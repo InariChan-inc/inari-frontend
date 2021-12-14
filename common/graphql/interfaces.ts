@@ -33,6 +33,7 @@ export interface UserData {
   avatar?: ImageData,
   roleData?: RoleData,
   hashColor: string,
+  isSixteen: boolean,
 }
 
 export interface IProfile {
