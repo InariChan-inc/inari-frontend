@@ -35,7 +35,10 @@ import {
   UploadFileButton,
   Feedback
 } from '@molecules';
-import { CropAvatarModal } from '@organizms';
+import { 
+  CropAvatarModal,
+  ChangePasswordModal
+} from '@organizms';
 import {
   SettingsContainer,
   AvatarSetting,
@@ -48,14 +51,14 @@ import {
   SwitchLabel,
 } from '@components/pages/settings';
 import { isUserLoggedIn } from '@r/selectors/token';
-import { setAvatar } from '@r/actions/user';
 import {
   getAboutMe,
   getAvatar,
   getColor,
   getEmail,
   getName,
-  getTheme
+  getTheme,
+  isUserSixteen
 } from '@r/selectors/user';
 import { ImageData, ThemeEnum } from '@common/graphql/interfaces';
 import client from '@common/graphql/client';
@@ -76,18 +79,32 @@ function Settings() {
   const avatar = useSelector(getAvatar);
   const color = useSelector(getColor);
   const theme = useSelector(getTheme);
+  const isSixteen = useSelector(isUserSixteen);
 
   const [isBlackTheme, setIsBlackTheme] = useState(theme !== ThemeEnum.LIGHT_THEME);
-  const [year, setYear] = useState(false);
+  const [year, setYear] = useState(isSixteen);
   const [isNotChanged, setIsNotChanged] = useState(true);
   const [aboutSelf, setAboutSelf] = useState(aboutMe);
-  
+ 
+  const [openAvatarModal, setOpenAvatarModal] = useState(false);
   const [avatarImage, setAvatarImage] = useState('');
   const [savedAvatar, setSavedAvatar] = useState('');
   const [savedAvatarFile, setSavedAvatarFile] = useState<Blob>();
 
+  useEffect(() => {
+    setOpenAvatarModal(!!avatarImage);
+  }, [avatarImage]);
+
+  useEffect(() => {
+    setYear(isSixteen);
+  }, [isSixteen]);
+
   const [feedbackText, setFeedbackText] = useState('');
   const [feedbackType, setFeedbackType] = useState<'pre-success' | 'success' | 'error'>('success');
+
+  const [openPasswordModal, setOpenPasswordModal] = useState(false);
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   const onSelectImage: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -126,10 +143,14 @@ function Settings() {
     setAboutSelf(aboutMe || '');
     setSavedAvatar('');
     setSavedAvatarFile(undefined);
+    setOldPassword('');
+    setNewPassword('');
+    setYear(isSixteen);
   };
 
   const handleSave = () => {
-    Promise.all([
+    console.log('passwords', oldPassword, newPassword);
+    Promise.all([savedAvatarFile ?
       download.mutate<{ addNewOrUpdateAvatar: ImageData }>({
         mutation: gql`
           mutation ($file: Upload!) {
@@ -146,34 +167,46 @@ function Settings() {
         variables: {
           file: savedAvatarFile
         }
-      }),
+      }) : new Promise((res,rej) => res(true)),
       client.mutate({
         mutation: gql`
           mutation {
             updateProfile(data: {
-              aboutMe: "${aboutSelf}"
+              ${aboutMe !== aboutSelf ? `
+                aboutMe: "${aboutSelf}"
+              ` : ''} 
+              ${oldPassword && newPassword ? `
+                passwordOld: "${oldPassword}"
+                passwordNew: "${newPassword}"
+              ` : ''}
+              ${year !== isSixteen ? `
+                isSixteen: ${year}
+              ` : ''}
             })
           }
         `
       })
     ]).then((res) => {
-      dispatch(setAvatar(res[0].data?.addNewOrUpdateAvatar));
+      console.log('hello');
       setSavedAvatarFile(undefined);
       setSavedAvatar('');
+      setOldPassword('');
+      setNewPassword('');
       updateProfile();
 
       setFeedbackType('success');
       setFeedbackText('Зміни збережено! Інарі лайк іт :)');
     }).catch((err) => {
+      console.log(err);
       setFeedbackType('error');
       setFeedbackText('Помилка :( Спробуйте знову');
     });
   };
 
   useEffect(() => {
-    const itIs = aboutSelf === (aboutMe || '') && !savedAvatarFile;
+    const itIs = aboutSelf === (aboutMe || '') && !savedAvatarFile && !oldPassword && !newPassword && year === isSixteen;
     setIsNotChanged(itIs);
-  }, [aboutSelf, aboutMe, savedAvatarFile]);
+  }, [aboutSelf, aboutMe, savedAvatarFile, oldPassword, newPassword, year, isSixteen]);
 
   if (process.browser && !isLogged) {
     router.push('/signin');
@@ -355,8 +388,11 @@ function Settings() {
                 <Button
                   type={1}
                   padding="15px 30px"
+                  onClick={() => {
+                    setOpenPasswordModal(true);
+                  }}
                 >
-                  Змінити пароль
+                  {!!oldPassword && !!newPassword ? 'Пароль змінено' : 'Змінити пароль'}
                 </Button>
               </Col>
             </Row>
@@ -390,6 +426,7 @@ function Settings() {
         
       </Container>
       <CropAvatarModal
+        open={openAvatarModal}
         image={avatarImage}
         onConfirm={(croppedArea) => {
           const canvas = document.createElement('canvas');
@@ -430,6 +467,17 @@ function Settings() {
         }}
         onCancel={() => {
           setAvatarImage('');
+        }}
+      />
+      <ChangePasswordModal
+        open={openPasswordModal}
+        onConfirm={(oldPassword, newPassword) => {
+            setOldPassword(oldPassword);
+            setNewPassword(newPassword);
+            setOpenPasswordModal(false);
+        }}
+        onCancel={() => {
+          setOpenPasswordModal(false);
         }}
       />
     </SettingsContainer>
