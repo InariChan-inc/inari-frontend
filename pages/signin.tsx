@@ -162,6 +162,8 @@ export default function SignIn() {
                   userData {
                     name
                     email
+                    aboutMe
+                    isSixteen
                     theme
                     hashColor
 					          avatar {

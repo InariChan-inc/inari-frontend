@@ -192,6 +192,8 @@ export default function SignIn() {
                         userData {
                           name
                           email
+                          aboutMe
+                          isSixteen
                           theme
                           avatar {
                             name
