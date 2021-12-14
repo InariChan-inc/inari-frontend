@@ -7,6 +7,7 @@ export {
 };
 
 export {
-  CropAvatarModal
+  CropAvatarModal,
+  ChangePasswordModal
 } from './Modals';
 

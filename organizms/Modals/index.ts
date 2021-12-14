@@ -1,1 +1,2 @@
-export { default as CropAvatarModal } from './CropAvatarModal';
+export { default as CropAvatarModal } from './CropAvatar';
+export { default as ChangePasswordModal } from './ChangePassword';
