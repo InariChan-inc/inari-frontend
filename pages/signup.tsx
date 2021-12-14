@@ -192,7 +192,16 @@ export default function SignIn() {
                         userData {
                           name
                           email
+                          aboutMe
+                          isSixteen
                           theme
+                          avatar {
+                            name
+                            type
+                            path
+                            pathResized
+                            isTmp
+                          }
                           roleData {
                             name
                             key

@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { Button } from '@molecules';
+import styled from "styled-components";
 
 
 export const Overlay = styled.div<{ open: boolean }>`
@@ -21,6 +20,7 @@ export const Overlay = styled.div<{ open: boolean }>`
 export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
   padding: 30px;
   background-color: ${props => props.theme.colors.white};
@@ -29,15 +29,6 @@ export const ModalContainer = styled.div`
   height: 500px;
   z-index: 5003;
 `;
-
-export const CropperContainer = styled.div`
-  position: relative;
-  width: 75%;
-  aspect-ratio: 1 / 1;
-  border-radius: 10px;
-  overflow: hidden;
-`;
-
 
 export const ButtonsContainer = styled.div`
   display: flex;

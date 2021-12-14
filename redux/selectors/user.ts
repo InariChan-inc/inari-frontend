@@ -13,4 +13,5 @@ export const getAvatar = createSelector(selectSelf, state => state.avatar);
 export const getRole = createSelector(selectSelf, state => state.roleData);
 export const getColor = createSelector(selectSelf, state => state.hashColor);
 export const isUserEmpty = createSelector(selectSelf, state => JSON.stringify(state) === JSON.stringify(initialState));
+export const isUserSixteen = createSelector(selectSelf, state => state.isSixteen);
 

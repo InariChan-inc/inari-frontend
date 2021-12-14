@@ -133,6 +133,7 @@ const Input: FunctionComponent<InputProps> = ({
 
         <StyledInput 
           ref={inputRef}
+          realType={type}
           type={type === 'password' ? passwordInputType : type}
           name={name}
           disabled={disabled}

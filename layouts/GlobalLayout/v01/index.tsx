@@ -98,6 +98,16 @@ const GlobalLayout: FunctionComponent = ({
         button {
           cursor: pointer;
         }
+
+        ::-moz-selection {
+          background: ${theme.colors['brown-1']};
+          color: ${theme.colors.white}; 
+        }
+
+        ::selection {
+          background: ${theme.colors['brown-1']};
+          color: ${theme.colors.white};
+        }
       `}
       </style>
     </GlobalLayoutContainer>

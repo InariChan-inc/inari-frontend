@@ -31,6 +31,8 @@ export const InputContainer = styled.div`
 `;
 
 export const FieldContainer = styled.div<{ focused: boolean }>`
+  display: flex;
+  align-items: center;
   position: relative;
   border-radius: 9999px;
   height: 54px;
@@ -82,11 +84,11 @@ export const Label = styled(Caption)<Omit<TrackProps, 'metaError'>>`
     };
 `;
 
-export const StyledInput = styled.input<Omit<TrackProps, 'disabled' | 'focused' | 'metaError'>>`
+export const StyledInput = styled.input<Omit<TrackProps, 'disabled' | 'focused' | 'metaError'> & { realType: string }>`
   width: 100%;
   padding: 16px 24px;
   padding-left: ${({isIcon}) => isIcon ? '64px' : ''};
-  padding-right: ${({ type, error }) => type === 'password' ? '96px' : '64px'};
+  padding-right: ${({ realType, error }) => realType === 'password' ? '96px' : '64px'};
   outline: none;
   ${Caption.getStyles(1)}
   border-radius: 9999px;
@@ -115,7 +117,7 @@ export const Fieldset = styled.fieldset<Omit<TrackProps, 'disabled' | 'focused' 
   border-radius: 9999px;
   border-width: 1px;
   border-color: ${({error, isThisInputBeingValidated, isTouched, metaError, theme: { colors }}) => error !== undefined && !isThisInputBeingValidated && isTouched ? metaError ? colors["red-2"] : colors["green-2"] : colors["yellow-4"]};
-  
+  inset: -5px 0 0;
   user-select: none;
   pointer-events: none;
 
@@ -127,18 +129,22 @@ export const Fieldset = styled.fieldset<Omit<TrackProps, 'disabled' | 'focused' 
 export const Legend = styled(Caption)<Omit<TrackProps, 'error' | 'metaError' | 'isIcon' | 'isThisInputBeingValidated' | 'isTouched'>>`
   display: block;
   color: transparent;
+  width: auto;
 
   transition-property: all;
   transition-duration: 200ms;
 
   user-select: none;
   pointer-events: none;
+  white-space: nowrap;
 
   ${({ focused, isFieldNotEmpty, disabled }) => focused || isFieldNotEmpty || (disabled === false) ? css`
     padding-left: 4px;
     padding-right: 4px;
     max-width: 100%;
-  ` : css`max-width: 0;`}
+  ` : css`
+    max-width: 0.01px;
+  `}
 `;
 
 export const InputHelper = styled(Helper)<Omit<TrackProps, 'disabled' | 'metaError' | 'focused' | 'isFieldNotEmpty' | 'isIcon'>>`
