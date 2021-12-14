@@ -14,6 +14,7 @@ const updateProfile = () => {
 					aboutMe
 					email
 					theme
+					isSixteen
 					avatar {
 						name
 						type
