@@ -14,16 +14,12 @@ import SwiperCore, {
   Autoplay,
 } from 'swiper/core';
 
-import {
-  ApolloProvider,
-  gql,
-} from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 
 import { BaseCSS } from 'styled-bootstrap-grid';
 
-import {
-  ThemeProvider
-} from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material';
 import theme from '@theme';
 
 import {
@@ -31,13 +27,13 @@ import {
 } from 'react-redux';
 
 import { GlobalLayout } from '@layouts';
-import client from '@common/graphql/client';
 import guest from '@common/graphql/guest';
 import store from '@r';
 import updateProfile from '@common/updateProfile';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
+const MuiTheme = createTheme({});
 
 function App({ Component, pageProps }) {
 
@@ -64,12 +60,14 @@ function App({ Component, pageProps }) {
           <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" /> 
         </Head>
 
-        <ThemeProvider theme={theme}>
-          <GlobalLayout>
-            <BaseCSS />
-            <Component {...pageProps} />
-          </GlobalLayout>
-        </ThemeProvider>
+        <MuiThemeProvider theme={MuiTheme}>
+          <ThemeProvider theme={theme}>
+            <GlobalLayout>
+              <BaseCSS />
+              <Component {...pageProps} />
+            </GlobalLayout>
+          </ThemeProvider>
+        </MuiThemeProvider>
     </ReduxProvider>
     </ApolloProvider>
   );
