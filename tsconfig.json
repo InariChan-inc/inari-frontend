@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"],
       "@atoms": ["atoms"],
       "@atoms/*": ["atoms/*"],
       "@common": ["common"],
@@ -54,5 +55,6 @@
 , "pages/_app.tsx", "pages/_document.js"  ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  
 }
