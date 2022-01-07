@@ -22,10 +22,14 @@ export const getTypographyStyles = (stylesObject: ITypographyStyles) => {
     italic,
     underline,
     color,
+    fontFamily,
+    fontWeight,
     ...styles
   } = stylesObject;
 
   return () => css`
+    font-family: ${props => (fontFamily ? props.theme.font.family[fontFamily] : null)};
+    font-weight: ${props => (fontWeight ? props.theme.font.weight[fontWeight] : null)};
     font-style: ${italic ? 'italic' : null};
     text-decoration: ${underline ? 'underline' : null};
     color: ${props => (color ? props.theme.colors[color] : null)};
@@ -40,10 +44,14 @@ export const getTypographyStylesOf = <T extends TStringOrNumber>(stylesObject: R
     italic,
     underline,
     color,
+    fontFamily,
+    fontWeight,
    ...styles
   } = stylesObject[type];
 
   return css`
+    font-family: ${props => (fontFamily ? props.theme.font.family[fontFamily] : null)};
+    font-weight: ${props => (fontWeight ? props.theme.font.weight[fontWeight] : null)};
     font-style: ${italic ? 'italic' : null};
     text-decoration: ${underline ? 'underline' : null};
     color: ${props => (color ? props.theme.colors[color] : null)};
