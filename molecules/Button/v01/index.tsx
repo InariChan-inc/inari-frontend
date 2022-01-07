@@ -13,6 +13,7 @@ interface ButtonProps {
     style?: CSSProperties;
     disabled?: boolean;
     padding?: string;
+    margin?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
@@ -24,6 +25,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   buttonType = 'button',
   style = {},
   padding = '10px 20px',
+  margin = '0'
 }, ref) => (
   <StyledButton
     styleType={type}
@@ -33,6 +35,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     onClick={onClick}
     style={style}
     padding={padding}
+    margin={margin}
   >
     {Icon ? <Icon /> : null}
     <Text
