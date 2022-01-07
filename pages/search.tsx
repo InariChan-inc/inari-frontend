@@ -57,6 +57,8 @@ export default function Search() {
   const [notIncludedGenresOptions, setNotIncludedGenresOptions] = useState(options);
   const [episodesAmount, setEpisodesAmount] = useState<number[]>([1, 24]);
   const [years, setYears] = useState<number[]>([2001, 2022]);
+  const [onlyWithVideo, setOnlyWithWideo] = useState(false);
+  const [withSubtitles, setWithSubtitles] = useState(false);
 
   const genreAutocompleteProps = useAutocomplete({
     id: 'autocomplete-genre-filter',
@@ -84,6 +86,10 @@ export default function Search() {
     handleAnimeTypeClear();
     handleAnimeStatusClear();
     handleSeasonClear();
+    setEpisodesAmount([1, 24]);
+    setYears([2001, 2022]);
+    setOnlyWithWideo(false);
+    setWithSubtitles(false);
   }
 
   return (
@@ -178,11 +184,19 @@ export default function Search() {
               id="switch-only-with-video"
               title="Тільки з відео"
               information="Lorem ipsum dolor sit amet"
+              checked={onlyWithVideo}
+              onChange={() => {
+                setOnlyWithWideo(prev => !prev);
+              }}
             />
             <FilterSwitch
               id="switch-with-subtitles"
               title="З субтитрами"
               information="Lorem ipsum dolor sit amet"
+              checked={withSubtitles}
+              onChange={() => {
+                setWithSubtitles(prev => !prev);
+              }}
             />
           </FilterSwitchesWrapper>
 
