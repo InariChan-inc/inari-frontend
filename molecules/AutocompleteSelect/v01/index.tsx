@@ -1,5 +1,5 @@
 import {
-  VoidFunctionComponent,
+  useState,
   useEffect
 } from "react";
 import {
@@ -28,12 +28,12 @@ interface AutocompleteSelectProps extends ReturnType<typeof useAutocompleteWrapp
   label: string;
   disabled?: boolean;
   noOptionsText?: string;
+  limit?: number;
 }
 
 const AutocompleteSelect = ({
   id,
   label,
-  disabled,
   getRootProps,
   getInputLabelProps,
   getInputProps,
@@ -43,15 +43,12 @@ const AutocompleteSelect = ({
   groupedOptions,
   value,
   inputValue,
-  focused,
   popupOpen,
   anchorEl,
   setAnchorEl,
-  noOptionsText = 'Опції відсутні'
+  noOptionsText = 'Опції відсутні',
+  limit
 }: AutocompleteSelectProps) => {
-
-  console.log('GROUPED OPTIONS LENGTH', groupedOptions);
-
   const getOptions = () => {
     const filteredOptions = groupedOptions.map((option, index) => ({ option, index })).filter(({ option }) => !value.includes(option));
 
@@ -66,16 +63,18 @@ const AutocompleteSelect = ({
     return <NoOptionText>{noOptionsText}</NoOptionText>;
   };
 
-  console.log(anchorEl);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
-    console.log('DISABLED', disabled);
-    if (disabled) {
-      const labelEl = anchorEl.querySelector('label');
-
-      labelEl.classList.remove('Mui-focused');
+    if (limit !== undefined) {
+      if (value.length >= limit) {
+        anchorEl.querySelector('input').blur();
+        setDisabled(true);
+      } else {
+        setDisabled(false);
+      }
     }
-  }, [disabled]);
+  }, [value]);
 
   return (
     <AutocompleteSelectContainer>
