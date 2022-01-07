@@ -38,7 +38,6 @@ export const CloseIconWrapper = styled(IconButton)`
     :hover {
       background-color: ${(props) => lighten(0.8, props.theme.colors['brown-2'])};
     }
-
-    margin-left: 15px;
+    margin-left: 10px;
   }
 `;
