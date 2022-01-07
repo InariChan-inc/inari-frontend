@@ -11,9 +11,6 @@ export const SearchContainer = styled.div`
 `;
 
 export const FilterToggleButton = styled.div`
-  && {
-
-  }
 `;
 
 export const UpControllerWrapper = styled.div`
@@ -44,14 +41,24 @@ export const FiltersWrapper = styled.div<{ open: boolean }>`
   box-shadow: 0 16px 24px 0 ${(props) => props.theme.colors['yellow-1']};
   position: sticky;
   top: 30px;
-  overflow: auto;
+  overflow: hidden auto;
 
   > div:not(:last-of-type) {
     margin-bottom: 10px;
   }
 `;
 
+export const FilterSwitchesWrapper = styled.div`
+  margin: 20px 0 30px;
+`;
 
+export const ButtonsWrapper = styled.div`
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+`;
 
 export { default as SortSelect } from './SortSelect';
 export { default as FilterButton } from './FilterButton';
+export { default as FilterTitle } from './FilterTitle';
+export { default as FilterSwitch } from './FilterSwitch';

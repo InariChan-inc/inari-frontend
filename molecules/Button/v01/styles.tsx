@@ -3,12 +3,14 @@ import { Button } from "@typography";
 
 export type ButtonTypes = 1 | 2;
 
-export const StyledButton = styled.button<{styleType: ButtonTypes; padding: string }>`
+export const StyledButton = styled.button<{styleType: ButtonTypes; padding: string; margin: string }>`
   display: flex;
+  justify-content: center;
   align-items: center;
   transition-duration: 300ms;
   cursor: pointer;
   padding: ${({ padding }) => padding};
+  margin: ${({ margin }) => margin};
 
   :disabled {
     cursor: not-allowed;

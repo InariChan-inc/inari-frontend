@@ -1,38 +1,62 @@
 import {
   useState,
-  useEffect
+  useEffect,
 } from 'react';
 import {
   useAutocomplete
 } from '@mui/material';
+import { Body } from '@typography';
 import { Helmet } from '@atoms';
 import {
   AutocompleteSelect,
   Select,
+  Button,
+  Slider
 } from '@molecules';
 import {
   FilterButton,
+  FilterTitle,
+  FilterSwitch,
   SearchContainer,
   SortSelect,
   UpControllerWrapper,
   ContentWrapper,
   FiltersWrapper,
-  GridWrapper
+  GridWrapper,
+  ButtonsWrapper,
+  FilterSwitchesWrapper
 } from '@components/pages/search';
 import useSelect from '@hooks/useSelect';
 
+const SliderLabel = (value: number) => (
+  <Body type={5}>{value}</Body>
+);
 
 export default function Search() {
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const [animeType, handleAnimeTypeChange] = useSelect('');
-  const [animeStatus, handleAnimeStatusChange] = useSelect('');
-  const [season, handleSeasonChange] = useSelect('');
+  const {
+    value: animeType, 
+    handleValueChange: handleAnimeTypeChange,
+    handleValueClear: handleAnimeTypeClear
+  } = useSelect('');
+  const {
+    value: animeStatus, 
+    handleValueChange: handleAnimeStatusChange,
+    handleValueClear: handleAnimeStatusClear
+  } = useSelect('');
+  const {
+    value: season, 
+    handleValueChange: handleSeasonChange,
+    handleValueClear: handleSeasonClear
+  } = useSelect('');
 
   const [options, setOptions] = useState(['Fantasy', 'Shonen', 'Isekai', 'Hentai']);
   const [genresOptions, setGenresOptions] = useState(options);
   const [notIncludedGenresOptions, setNotIncludedGenresOptions] = useState(options);
+  const [episodesAmount, setEpisodesAmount] = useState<number[]>([1, 24]);
+  const [years, setYears] = useState<number[]>([2001, 2022]);
 
   const genreAutocompleteProps = useAutocomplete({
     id: 'autocomplete-genre-filter',
@@ -47,12 +71,20 @@ export default function Search() {
   });
 
   useEffect(() => {
-    setNotIncludedGenresOptions(options.filter((option) => !genreAutocompleteProps.value.includes(option)));  
+    setNotIncludedGenresOptions(options.filter((option) => !genreAutocompleteProps.value.includes(option)));
   }, [genreAutocompleteProps.value]);
 
   useEffect(() => {
     setGenresOptions(options.filter((option) => !notIncludedGenreAutocompleteProps.value.includes(option)));
   }, [notIncludedGenreAutocompleteProps.value]);
+
+  const handleClearAll = () => {
+    genreAutocompleteProps.getClearProps().onClick(undefined);
+    notIncludedGenreAutocompleteProps.getClearProps().onClick(undefined);
+    handleAnimeTypeClear();
+    handleAnimeStatusClear();
+    handleSeasonClear();
+  }
 
   return (
     <SearchContainer>
@@ -64,7 +96,7 @@ export default function Search() {
           }}
         />
         <FilterButton
-          open={isFilterOpen} 
+          open={isFilterOpen}
           onToggle={() => {
             setIsFilterOpen((prev) => !prev);
           }}
@@ -79,13 +111,13 @@ export default function Search() {
             {...genreAutocompleteProps}
             id="autocomplete-genre-filter"
             label="Жанри"
-            disabled={genreAutocompleteProps.value.length === 3}
+            limit={3}
           />
           <AutocompleteSelect
             {...notIncludedGenreAutocompleteProps}
             id="autocomplete-not-included-genre-filter"
             label="Не включати"
-            disabled={notIncludedGenreAutocompleteProps.value.length === 3}
+            limit={3}
           />
           <Select
             id="select-anime-type"
@@ -108,9 +140,67 @@ export default function Search() {
             value={season}
             onChange={handleSeasonChange}
           />
+
+          <FilterTitle
+            title="Кількість серій"
+            information="Lorem ipsum dolor sit amet"
+          />
+
+          <Slider 
+            min={1}
+            max={24}
+            value={episodesAmount}
+            onChange={(_, value) => {
+              setEpisodesAmount(value as number[]);
+            }}
+            valueLabelDisplay="on"
+            valueLabelFormat={SliderLabel}
+            disableSwap
+          />
+
+          <FilterTitle
+            title="Рік виходу"
+          />
+          <Slider 
+            min={2001}
+            max={2022}
+            value={years}
+            onChange={(_, value) => {
+              setYears(value as number[]);
+            }}
+            valueLabelDisplay="on"
+            valueLabelFormat={SliderLabel}
+            disableSwap
+          />
+
+          <FilterSwitchesWrapper>
+            <FilterSwitch
+              id="switch-only-with-video"
+              title="Тільки з відео"
+              information="Lorem ipsum dolor sit amet"
+            />
+            <FilterSwitch
+              id="switch-with-subtitles"
+              title="З субтитрами"
+              information="Lorem ipsum dolor sit amet"
+            />
+          </FilterSwitchesWrapper>
+
+          <ButtonsWrapper>
+            <Button
+              type={1}
+              padding="15px 0"
+              margin="0 0 15px"
+            >Шукати</Button>
+            <Button
+              type={2}
+              padding="15px 0"
+              onClick={handleClearAll}
+            >Очистити фільтр</Button>
+          </ButtonsWrapper>
         </FiltersWrapper>
       </ContentWrapper>
-      
+
     </SearchContainer>
   );
 }

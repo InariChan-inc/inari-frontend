@@ -25,7 +25,7 @@ const FilterButton: VoidFunctionComponent<FilterButtonProps> = ({
     <FilterButtonContainer>
       <StyledButton onClick={handleToggle}>
         <ButtonText type={3}>
-          Розширений фільтр
+          {open ? 'Сховати розширений ' : 'Розширений'} фільтр
         </ButtonText>
         <FilterIcon />
       </StyledButton>

@@ -1,4 +1,7 @@
-import { VoidFunctionComponent } from "react";
+import {
+  VoidFunctionComponent,
+  useRef
+} from "react";
 import {
   FormControl,
   SelectProps as MuiSelectProps
@@ -27,11 +30,21 @@ const Select: VoidFunctionComponent<SelectProps> = ({
   noneOptionText = 'Не важливо'
 }) => {
 
+  const rootRef = useRef<HTMLDivElement>();
+
   return (
-    <SelectContainer>
+    <SelectContainer ref={rootRef}>
       <FormControl fullWidth>
         <Label id={`${id}-label`}>{label}</Label>
         <StyledSelect
+          MenuProps={{
+            PaperProps: {
+              style: {
+                width: `${rootRef.current?.getBoundingClientRect().width}px`,
+                marginLeft: '28px'
+              }
+            }
+          }}
           fullWidth
           labelId={`${id}-label`}
           id={id}
