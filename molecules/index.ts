@@ -11,6 +11,7 @@ import UploadFileButton from "./UploadFileButton";
 import Feedback from "./Feedback";
 import AutocompleteSelect from "./AutocompleteSelect";
 import Select from './Select';
+import Slider from './Slider';
 
 export {
   SearchInput,
@@ -26,6 +27,7 @@ export {
   Feedback,
   AutocompleteSelect,
   Select,
+  Slider,
 };
 
 export type { 
