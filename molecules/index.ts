@@ -9,6 +9,8 @@ import IconWithTooltip from "./IconWithTooltip";
 import Textarea from "./Textarea";
 import UploadFileButton from "./UploadFileButton";
 import Feedback from "./Feedback";
+import AutocompleteSelect from "./AutocompleteSelect";
+import Select from './Select';
 
 export {
   SearchInput,
@@ -22,6 +24,8 @@ export {
   Textarea,
   UploadFileButton,
   Feedback,
+  AutocompleteSelect,
+  Select,
 };
 
 export type { 
