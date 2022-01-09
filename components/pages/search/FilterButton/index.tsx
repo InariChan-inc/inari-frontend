@@ -1,11 +1,10 @@
 import { VoidFunctionComponent } from "react";
 import { Button as ButtonText } from '@typography';
-import CloseIcon from '@mui/icons-material/Close';
 import {
-  CloseIconWrapper,
   FilterButtonContainer,
   FilterIcon,
-  StyledButton
+  StyledButton,
+  StyledCloseIcon
 } from './styles';
 
 interface FilterButtonProps {
@@ -28,12 +27,8 @@ const FilterButton: VoidFunctionComponent<FilterButtonProps> = ({
           {open ? 'Сховати розширений ' : 'Розширений'} фільтр
         </ButtonText>
         <FilterIcon />
+        {open ? <StyledCloseIcon /> : null}
       </StyledButton>
-      {open ? (
-        <CloseIconWrapper onClick={handleToggle}>
-          <CloseIcon /> 
-        </CloseIconWrapper>
-      ) : null}
     </FilterButtonContainer>  
   );
 };

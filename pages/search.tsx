@@ -3,15 +3,19 @@ import {
   useEffect,
 } from 'react';
 import {
+  Grid,
   useAutocomplete
 } from '@mui/material';
 import { Body } from '@typography';
 import { Helmet } from '@atoms';
 import {
   AutocompleteSelect,
+  AnimeCard,
+  AnimeCardProps,
   Select,
   Button,
-  Slider
+  Slider,
+  NoResults,
 } from '@molecules';
 import {
   FilterButton,
@@ -24,9 +28,11 @@ import {
   FiltersWrapper,
   GridWrapper,
   ButtonsWrapper,
-  FilterSwitchesWrapper
+  FilterSwitchesWrapper,
 } from '@components/pages/search';
 import useSelect from '@hooks/useSelect';
+import animeCardMock from '../ANIME_CARD_MOCK.json';
+
 
 const SliderLabel = (value: number) => (
   <Body type={5}>{value}</Body>
@@ -60,16 +66,26 @@ export default function Search() {
   const [onlyWithVideo, setOnlyWithWideo] = useState(false);
   const [withSubtitles, setWithSubtitles] = useState(false);
 
+  const [genreInputValue, setGenreInputValue] = useState('');
+
   const genreAutocompleteProps = useAutocomplete({
     id: 'autocomplete-genre-filter',
     options: genresOptions,
-    multiple: true
+    multiple: true,
+    onInputChange: (_, value) => {
+      setGenreInputValue(value);
+    }
   });
+
+  const [notIncludedGenreInputValue, setNotIncludedGenreInputValue] = useState('');
 
   const notIncludedGenreAutocompleteProps = useAutocomplete({
     id: 'autocomplete-not-included-genre-filter',
     options: notIncludedGenresOptions,
-    multiple: true
+    multiple: true,
+    onInputChange: (_, value) => {
+      setNotIncludedGenreInputValue(value);
+    }
   });
 
   useEffect(() => {
@@ -110,6 +126,22 @@ export default function Search() {
       </UpControllerWrapper>
       <ContentWrapper>
         <GridWrapper isFilterOpen={isFilterOpen}>
+          {true ? (
+              <Grid container rowSpacing={2} columns={5} justifyContent="space-around">
+                {(animeCardMock as AnimeCardProps[]).slice(0, 20).map((anime) => (
+                  <Grid key={anime.id} item xs={1} minWidth={265}>
+                    <AnimeCard
+                      {...anime}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+          ) : (
+            <NoResults
+              imageWidth={150}
+              imageHeight={191.35}
+            />
+          )}
         </GridWrapper>
 
         <FiltersWrapper open={isFilterOpen}>

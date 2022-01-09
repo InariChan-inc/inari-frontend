@@ -25,7 +25,7 @@ export const AnimePoster = styled.div<{ path: string }>`
     height: 340px;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url('${props => process.env.INARIBEHOST + props.path.split(' ').join('%20')}');
+    background-image: url('${props => props.path.startsWith('http') ? props.path : process.env.INARIBEHOST + props.path.split(' ').join('%20')}');
 `;
 
 export const TitleWrapper = styled.div`
