@@ -6,8 +6,8 @@ export const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 32px 60px;
-  height: 100%;
   position: relative;
+  min-height: 100%;
 `;
 
 export const FilterToggleButton = styled.div`
@@ -16,6 +16,11 @@ export const FilterToggleButton = styled.div`
 export const UpControllerWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+  background-color: white;
+  padding: 10px 0;
 `;
 
 export const ContentWrapper = styled.div`
@@ -26,6 +31,9 @@ export const ContentWrapper = styled.div`
 
 export const GridWrapper = styled.div<{ isFilterOpen: boolean }>`
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${({ isFilterOpen }) => isFilterOpen && 'margin-right: 82px;'}
 `;
 
@@ -34,13 +42,13 @@ export const FiltersWrapper = styled.div<{ open: boolean }>`
   width: 305px;
   padding: 35px;
   height: fit-content;
-  max-height: calc(100vh - ${values.menuWidth}px - 1px - 32px - 36px - 30px);
+  max-height: calc(100vh - ${values.headerHeight}px - 1px - 32px - 36px - 30px - 30px - 32px);
   border: 1px solid ${(props) => props.theme.colors['yellow-1']};
   border-radius: 5px;
   overflow: auto;
   box-shadow: 0 16px 24px 0 ${(props) => props.theme.colors['yellow-1']};
   position: sticky;
-  top: 30px;
+  top: 86px;
   overflow: hidden auto;
 
   > div:not(:last-of-type) {
