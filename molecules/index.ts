@@ -12,6 +12,7 @@ import Feedback from "./Feedback";
 import AutocompleteSelect from "./AutocompleteSelect";
 import Select from './Select';
 import Slider from './Slider';
+import NoResults from "./NoResults";
 
 export {
   SearchInput,
@@ -28,6 +29,7 @@ export {
   AutocompleteSelect,
   Select,
   Slider,
+  NoResults,
 };
 
 export type { 
