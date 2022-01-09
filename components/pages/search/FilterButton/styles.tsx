@@ -4,6 +4,7 @@ import {
   IconButton,
 } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import CloseIcon from '@mui/icons-material/Close';
 import { lighten } from 'polished';
 
 export const FilterButtonContainer = styled.div`
@@ -30,14 +31,9 @@ export const FilterIcon = styled(FilterListIcon)`
   }
 `;
 
-export const CloseIconWrapper = styled(IconButton)`
+export const StyledCloseIcon = styled(CloseIcon)`
   && {
-    color: ${(props) => props.theme.colors['brown-2']};
-    padding: 6px;
-
-    :hover {
-      background-color: ${(props) => lighten(0.8, props.theme.colors['brown-2'])};
-    }
+    color: ${({ theme }) => theme.colors['brown-2']};
     margin-left: 10px;
   }
 `;
