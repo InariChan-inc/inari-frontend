@@ -10,13 +10,18 @@ interface NoResultsImage {
 }
 
 
-const NoResultsImage: VoidFunctionComponent<NoResultsImage> = (props) => (
+const NoResultsImage: VoidFunctionComponent<NoResultsImage> = ({
+  width = 1107,
+  height = 1411,
+  style
+}) => (
   <svg
-    width={1107}
-    height={1411}
+    viewBox="0 0 1107 1411"
+    width={width}
+    height={height}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
+    style={style}
   >
     <path
       d="M510.311 1410.61c194.824 0 352.76-53.44 352.76-119.36s-157.936-119.36-352.76-119.36c-194.824 0-352.76 53.44-352.76 119.36s157.936 119.36 352.76 119.36Z"
