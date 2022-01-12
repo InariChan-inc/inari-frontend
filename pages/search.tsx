@@ -127,7 +127,10 @@ export default function Search() {
       <ContentWrapper>
         <GridWrapper isFilterOpen={isFilterOpen}>
           {true ? (
-              <Grid container rowSpacing={2} columns={5} justifyContent="space-around">
+              <Grid container
+                rowSpacing={2}
+                columns={5}
+                justifyContent="space-evenly">
                 {(animeCardMock as AnimeCardProps[]).slice(0, 20).map((anime) => (
                   <Grid key={anime.id} item xs={1} minWidth={265}>
                     <AnimeCard
