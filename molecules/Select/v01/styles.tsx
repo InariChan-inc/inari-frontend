@@ -88,6 +88,10 @@ export const StyledMenuItem = styled(MenuItem)`
 
     &.Mui-selected {
       background-color: ${({ theme }) => theme.colors['brown-3']};
+
+      :hover {
+        background-color: ${({ theme }) => theme.colors['brown-1']};
+      }
     }
   }
 `;
