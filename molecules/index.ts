@@ -12,10 +12,12 @@ import AutocompleteSelect from "./AutocompleteSelect";
 import Select from './Select';
 import Slider from './Slider';
 import NoResults from "./NoResults";
+import AnimeRow from './AnimeRow';
 
 export {
   MenuItem,
   AnimeCard,
+  AnimeRow,
   Button,
   Input,
   ScrollUpButton,
