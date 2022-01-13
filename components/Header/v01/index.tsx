@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 import { isFocused } from "@r/selectors/headerSearch";
 import { isUserLoggedIn } from "@r/selectors/token";
 import { isUserEmpty } from "@r/selectors/user";
-import { SearchInput } from 'molecules';
 import {
   Authorization,
-  AccountControl
+  AccountControl,
+  SearchInput,
 } from '../../../organizms';
 import { useRouter } from "next/router";
 import {

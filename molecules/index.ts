@@ -1,4 +1,3 @@
-import SearchInput from "./SearchInput";
 import MenuItem from "./MenuItem";
 import AnimeCard, { AnimeCardProps } from "./AnimeCard";
 import Button from './Button';
@@ -15,7 +14,6 @@ import Slider from './Slider';
 import NoResults from "./NoResults";
 
 export {
-  SearchInput,
   MenuItem,
   AnimeCard,
   Button,
