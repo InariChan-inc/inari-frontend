@@ -18,9 +18,9 @@ export enum ImageTypeEnum {
 
 export interface ImageData {
   id: number,
-  name?: string,
-  type?: ImageTypeEnum,
-  path?: string,
+  name: string,
+  type: ImageTypeEnum,
+  path: string,
   pathResized?: string,
   isTmp?: boolean
 }
@@ -89,7 +89,39 @@ export enum AnimeSeason {
   NO_SEASON = 'NO_SEASON'
 }
 
+export enum AnimeStatus {
+  NEW = 'NEW',
+  ONGOING = 'ONGOING',
+  COMPLETED = 'COMPLETED'
+}
+
 export interface Poster {
   path?: string,
   pathResized?: string
 }
+
+export interface Genre {
+  id: number;
+  name: string;
+}
+
+export interface AnimeData {
+  id: number;
+  name: string;
+  poster: ImageData;
+  description: string;
+  studio: string;
+  currentCountEpisodes?: number;
+  countEpisodes: number;
+  monthViews: number;
+  duration: number;
+  format: AnimeFormat;
+  season: AnimeSeason;
+  status: AnimeStatus;
+  genres: Genre[];
+  dateRelease: string;
+  dateEnd: string;
+  createdAt: string;
+  updateAt: string;
+}
+
