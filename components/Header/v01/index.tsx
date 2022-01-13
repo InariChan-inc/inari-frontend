@@ -10,7 +10,7 @@ import {
   Authorization,
   AccountControl,
   SearchInput,
-} from '../../../organizms';
+} from '@organisms';
 import { useRouter } from "next/router";
 import {
   BlackScreen,
