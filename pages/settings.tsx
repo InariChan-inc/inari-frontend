@@ -38,7 +38,7 @@ import {
 import { 
   CropAvatarModal,
   ChangePasswordModal
-} from '@organizms';
+} from 'organisms';
 import {
   SettingsContainer,
   AvatarSetting,

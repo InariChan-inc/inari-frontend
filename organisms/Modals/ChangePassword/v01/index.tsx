@@ -1,6 +1,6 @@
 import { VoidFunctionComponent, useState } from "react";
 import { Formik, FormikErrors, FormikValues } from "formik";
-import GlobalModal, { GlobalModalProps } from "@organizms/Modals/Global";
+import GlobalModal, { GlobalModalProps } from "organisms/Modals/Global";
 import { Key } from "@atoms/icons";
 import { Input } from "@molecules";
 import { sleep } from "@utils";
