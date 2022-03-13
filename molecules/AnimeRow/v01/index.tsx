@@ -16,11 +16,11 @@ import {
   Image,
   TitleWrapper,
 } from './styles';
-import { AnimeData } from '@common/graphql/interfaces';
+import { AnimeData, AnimeFormat } from '@common/graphql/interfaces';
 import poster_default from '@public/mok_poster.png';
 
 
-interface AnimeRowProps extends Partial<Pick<AnimeData, 'id' | 'name' | 'poster' | 'description' | 'currentCountEpisodes' | 'countEpisodes'>>  {
+interface AnimeRowProps extends Partial<Pick<AnimeData, 'id' | 'name' | 'poster' | 'description' | 'format' | 'currentCountEpisodes' | 'countEpisodes'>>  {
 
 }
 
@@ -31,6 +31,7 @@ const AnimeRow: VoidFunctionComponent<AnimeRowProps> = ({
   name = 'Lorem ipsum dolor sit amet',
   poster: { path, pathResized } = {},
   description = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit velit, odio fugiat deserunt enim voluptatum magni, quisquam, doloribus eaque ratione blanditiis suscipit porro quo voluptates beatae aliquam. Nisi, magni nobis?',
+  format,
   currentCountEpisodes = 100,
   countEpisodes = 100
 }) => {
@@ -50,10 +51,12 @@ const AnimeRow: VoidFunctionComponent<AnimeRowProps> = ({
         <TitleWrapper>
           {name}
         </TitleWrapper>
-        <CounterWrapper>
-          Серії:
-          <Counter type={3} color="brown-2">{currentCountEpisodes}/{countEpisodes}</Counter>
-        </CounterWrapper>
+        {format === AnimeFormat.TV ? (
+          <CounterWrapper>
+            Серії:
+            <Counter type={3} color="brown-2">{currentCountEpisodes}/{countEpisodes}</Counter>
+          </CounterWrapper>
+        ) : null}
         <Description
           type={3}
           color="brown-3"
