@@ -43,13 +43,14 @@ export const StyledInput = styled.input`
 `;
 
 export const PropositionsContainer = styled.div`
+  visibility: hidden;
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 20px;
   left: 0;
   right: 0;
-  padding-top: 58px;
+  padding: 53px 30px 30px 30px;
   width: 100%;
   height: 50vh;
   background-color: #fff;
@@ -59,10 +60,22 @@ export const PropositionsContainer = styled.div`
 
 export const OfferedAnimesWrapper = styled.div`
   flex: 1;
+  overflow: hidden auto;
+  
+  ::-webkit-scrollbar {
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 15px 0 15px 0;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 15px 0 15px 0;
+  }
 `;
 
 export const AllResultsButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 30px 0;
+  margin-top: 30px;
 `;

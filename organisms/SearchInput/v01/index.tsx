@@ -8,12 +8,18 @@ import { useDispatch } from 'react-redux';
 import { setFocus } from '@r/actions/headerSearch';
 import { Search } from '@atoms/icons';
 import {
+  AnimeRow,
+  Button,
+} from '@molecules';
+import {
   FieldWrapper,
   SearchInputContainer,
   Label,
   StyledInput,
+  PropositionsContainer,
+  OfferedAnimesWrapper,
+  AllResultsButtonWrapper
 } from './styles';
-
 
 interface SearchInputProps {
     placeholder: string,
@@ -68,6 +74,22 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
               />
             </Label>
           </FieldWrapper>
+         <PropositionsContainer>
+            <OfferedAnimesWrapper>
+                {new Array(4).fill(0).map((_, i) => (
+                  <AnimeRow
+                    key={i}
+                  />
+                ))}
+            </OfferedAnimesWrapper>
+            <AllResultsButtonWrapper>
+                <Button
+                  type={1}
+                >
+                  Показати всі результати {` (${100})`}
+                </Button>
+            </AllResultsButtonWrapper>
+          </PropositionsContainer>
         </SearchInputContainer>
       );
     }}
