@@ -6,10 +6,11 @@ export const RChipContainer = styled.div<{ isAdult: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 40px;
   background-color: ${({ isAdult, theme }) => theme.colors[isAdult ? 'brown-2' : 'yellow-4']};
-  padding: 10px 15px;
+  padding: 10px 20px;
   margin-right: 30px;
+  height: 40px;
 `;
 
 export const StyledInfoIcon = styled(InfoIcon)`

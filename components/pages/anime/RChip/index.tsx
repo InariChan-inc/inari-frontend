@@ -1,6 +1,6 @@
 import { VoidFunctionComponent } from "react";
 import { Tooltip } from '@mui/material';
-import { Body } from '@typography';
+import { Headline } from '@typography';
 import {
   RChipContainer,
   StyledInfoIcon
@@ -19,12 +19,12 @@ const RChip: VoidFunctionComponent<RChipProps> = ({
 
   return (
     <RChipContainer isAdult={isAdult}>
-      <Body
-        type={2}
+      <Headline
+        type={4}
         color="white"
       >
         R-{age}+
-      </Body>
+      </Headline>
       {isAdult ? 
         <Tooltip
           title={title}

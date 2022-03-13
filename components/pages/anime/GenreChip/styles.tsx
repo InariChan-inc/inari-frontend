@@ -8,9 +8,6 @@ export const GenreChipContainer = styled.div`
   align-items: center;
   padding: 10px 20px;
   background-color: ${({ theme }) => theme.colors['yellow-1']};
-  border-radius: 10px;
-
-  :not(:last-of-type) {
-    margin-right: 15px;
-  }
+  border-radius: 40px;
+  height: 40px;
 `;

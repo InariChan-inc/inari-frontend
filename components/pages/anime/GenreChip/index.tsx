@@ -7,7 +7,7 @@ import {
 const GenreChip: FunctionComponent = ({ children }) => (
   <GenreChipContainer>
     <Body
-      type={5}
+      type={4}
       color="brown-2"
     >
       {children}
