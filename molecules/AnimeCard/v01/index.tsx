@@ -31,7 +31,7 @@ const AnimeCard: FunctionComponent<AnimeCardProps> = ({
     currentCountEpisodes,
     countEpisodes,
 }) => (
-  <Link href={`anime/${id}`}>
+  <Link href={`/anime/${id}`}>
     <AnimeCardContainer>
       <AnimePoster path={poster.path} />
       <TitleWrapper>
