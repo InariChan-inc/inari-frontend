@@ -1,5 +1,12 @@
-import { Caption } from '@typography';
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { CircularProgress, circularProgressClasses } from "@mui/material";
+import CallMissedRoundedIcon from '@mui/icons-material/CallMissedRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import {
+  Subtitle,
+  Caption,
+  Link,
+} from '@typography';
 
 
 export const SearchInputContainer = styled.div`
@@ -42,8 +49,10 @@ export const StyledInput = styled.input`
   }
 `;
 
-export const PropositionsContainer = styled.div`
-  visibility: hidden;
+export const PropositionsContainer = styled.div<{visible: boolean, isResult: boolean}>`
+  visibility: ${({ visible }) => visible ? 'visible' : 'hidden'};
+  opacity: ${({ visible }) => visible ? 1 : 0};
+  transition: 300ms ease;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -52,7 +61,7 @@ export const PropositionsContainer = styled.div`
   right: 0;
   padding: 53px 30px 30px 30px;
   width: 100%;
-  height: 50vh;
+  height: ${({ isResult }) => isResult ? '50vh' : 'unset'};
   background-color: #fff;
   z-index: 9998;
   clip-path: polygon(0 38px, 100% 0, 100% 100%, 0% 100%);
@@ -78,4 +87,70 @@ export const AllResultsButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 30px;
+`;
+
+export const NoResultsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  > svg {
+    min-width: 115px;
+    min-height: 146px;
+    margin-right: 20px;
+  }
+`;
+
+export const NoResultsTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const NoResultsBodyText = styled(Subtitle)`
+  margin-top: 5px;
+`;
+
+export const PSText = styled(Subtitle)`
+  margin-top: 16px;
+`;
+
+export const ControlsWrapper = styled.div`
+  display: flex;
+`;
+
+const getIconCommonStyles = (visible: boolean) => css`
+  visibility: ${visible ? 'visible' : 'hidden'};
+  opacity: ${visible ? '1' : '0'};
+  transition: 300ms ease;
+`;
+
+export const GoToSearchIcon = styled(CallMissedRoundedIcon)<{ visible: boolean }>`
+  ${({ visible }) => getIconCommonStyles(visible)}
+  color: ${({ theme }) => theme.colors['yellow-5']};
+  transform: rotate(-45deg);
+`;
+
+export const CloseIcon = styled(CloseRoundedIcon)<{ visible: boolean }>`
+  ${({ visible }) => getIconCommonStyles(visible)}
+  color: ${({ theme }) => theme.colors['yellow-5']};
+  margin: 0 12px;
+`;
+
+export const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
+export const Loader = styled(CircularProgress)`
+  &.${circularProgressClasses.root} {
+    color: ${({ theme }) => theme.colors["yellow-4"]} !important;
+  }
+`;
+
+export const GoToSearchLink = styled.span`
+  ${Link.getStyles(2)}
+  cursor: pointer;
 `;
