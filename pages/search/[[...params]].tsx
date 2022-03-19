@@ -31,7 +31,7 @@ import {
   FilterSwitchesWrapper,
 } from '@components/pages/search';
 import useSelect from '@hooks/useSelect';
-import animeCardMock from '../ANIME_CARD_MOCK.json';
+import animeCardMock from '../../ANIME_CARD_MOCK.json';
 
 
 const SliderLabel = (value: number) => (
@@ -39,7 +39,6 @@ const SliderLabel = (value: number) => (
 );
 
 export default function Search() {
-
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const {
