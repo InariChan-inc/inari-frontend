@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { Body } from "@typography";
+import {
+  Body,
+  Subtitle,
+} from "@typography";
 
 
 export const AnimeCardContainer = styled.article`
@@ -37,6 +40,8 @@ export const TitleWrapper = styled.div`
     width: 100%;
     height: 80px;
     padding: 20px 32px;
+
+    ${Subtitle.getStyles()}
 `;
 
 export const AnimeFormatLabel = styled(Body)`
