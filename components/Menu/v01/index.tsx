@@ -19,7 +19,7 @@ import {
 
 
 interface MenuProps {
-    menuItems: Pick<MenuItemProps, 'to' | 'Icon' | 'text'>[],
+    menuItems: Omit<MenuItemProps, 'isActive'>[];
 }
 
 const Menu: FunctionComponent<MenuProps> = ({ menuItems }) => {
@@ -35,13 +35,11 @@ const Menu: FunctionComponent<MenuProps> = ({ menuItems }) => {
       <Controllers>
         <MenuItemsContainer>
           {
-            menuItems.map(({Icon, to, text}, index) => (
+            menuItems.map((menuItem) => (
               <MenuItem
-                key={index}
-                to={to}
-                Icon={Icon}
-                text={text}
-                isActive={router.asPath === '/' + to}
+                key={menuItem.to}
+                {...menuItem}
+                isActive={router.asPath.includes(menuItem.to)}
               />
             ))
           }

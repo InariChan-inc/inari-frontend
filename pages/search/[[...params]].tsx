@@ -31,7 +31,7 @@ import {
   FilterSwitchesWrapper,
 } from '@components/pages/search';
 import useSelect from '@hooks/useSelect';
-import animeCardMock from '../ANIME_CARD_MOCK.json';
+import animeCardMock from '../../ANIME_CARD_MOCK.json';
 
 
 const SliderLabel = (value: number) => (
@@ -39,7 +39,6 @@ const SliderLabel = (value: number) => (
 );
 
 export default function Search() {
-
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const {
@@ -127,7 +126,10 @@ export default function Search() {
       <ContentWrapper>
         <GridWrapper isFilterOpen={isFilterOpen}>
           {true ? (
-              <Grid container rowSpacing={2} columns={5} justifyContent="space-around">
+              <Grid container
+                rowSpacing={2}
+                columns={5}
+                justifyContent="space-evenly">
                 {(animeCardMock as AnimeCardProps[]).slice(0, 20).map((anime) => (
                   <Grid key={anime.id} item xs={1} minWidth={265}>
                     <AnimeCard

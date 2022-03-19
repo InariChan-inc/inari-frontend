@@ -6,6 +6,7 @@ export { default as FutureImage } from './FutureImage';
 export { default as NoResultsImage } from './NoResultsImage';
 export { default as Query } from './Query';
 export { default as Switch } from './Switch';
+export { default as GridOffset } from './GridOffset';
 export type {
   SwitchProps
 } from './Switch/v01';

@@ -1,4 +1,3 @@
-import SearchInput from "./SearchInput";
 import MenuItem from "./MenuItem";
 import AnimeCard, { AnimeCardProps } from "./AnimeCard";
 import Button from './Button';
@@ -13,11 +12,12 @@ import AutocompleteSelect from "./AutocompleteSelect";
 import Select from './Select';
 import Slider from './Slider';
 import NoResults from "./NoResults";
+import AnimeRow, { AnimeRowProps } from './AnimeRow';
 
 export {
-  SearchInput,
   MenuItem,
   AnimeCard,
+  AnimeRow,
   Button,
   Input,
   ScrollUpButton,
@@ -33,5 +33,6 @@ export {
 };
 
 export type { 
-  AnimeCardProps, 
+  AnimeCardProps,
+  AnimeRowProps,
 };

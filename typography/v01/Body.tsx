@@ -15,7 +15,7 @@ const bodyStyles: Record<TBodyTypes, ITypographyStyles> = {
     fontWeight: 'regular',
     fontSize: 16,
     letterSpacing: 0,
-    lineHeight: 1,
+    lineHeight: 'normal',
   },
   2: {
     fontFamily: 'montserrat',

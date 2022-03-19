@@ -5,10 +5,10 @@ import { MenuItemContainer } from './styles';
 import { BaseIconProps } from '@atoms/interfaces';
 
 export interface MenuItemProps {
-    to: string,
-    Icon: JSXElementConstructor<BaseIconProps>,
-    text: string,
-    isActive?: boolean,
+    to: string;
+    Icon: JSXElementConstructor<BaseIconProps>;
+    text: string;
+    isActive?: boolean;
 }
 
 const MenuItem: FunctionComponent<MenuItemProps> = ({

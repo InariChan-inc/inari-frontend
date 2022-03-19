@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import {
   ButtonTypes,
   StyledButton,
@@ -8,7 +8,7 @@ interface ButtonProps {
     onClick?: () => void;
     type?: ButtonTypes;
     buttonType?: 'button' | 'submit' | 'reset';
-    children?: string;
+    children?: ReactNode;
     Icon?: React.JSXElementConstructor<{}>;
     style?: CSSProperties;
     disabled?: boolean;

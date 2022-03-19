@@ -4,7 +4,7 @@ import {
 } from "react";
 import Cropper from "react-easy-crop";
 import { Point, Area, MediaSize } from 'react-easy-crop/types';
-import GlobalModal, { GlobalModalProps } from "@organizms/Modals/Global";
+import GlobalModal, { GlobalModalProps } from "organisms/Modals/Global";
 import {
 	CropperContainer,
 } from './styles';

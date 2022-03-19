@@ -33,7 +33,7 @@ export const BlackScreen = styled.div<{ open: boolean }>`
   bottom: 0;
   background-color: ${props => props.theme.colors.black};
   transition-duration: 300ms;
-  z-index: 9998;
+  z-index: 9997;
 
   ${({ open }) => css`
     opacity: ${open ? 0.6 : 0};

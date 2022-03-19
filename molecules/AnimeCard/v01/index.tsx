@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import Ellipsis from 'react-lines-ellipsis';
 import {
   AnimeFormat,
   Poster,
@@ -31,11 +32,17 @@ const AnimeCard: FunctionComponent<AnimeCardProps> = ({
     currentCountEpisodes,
     countEpisodes,
 }) => (
-  <Link href={`anime/${id}`}>
+  <Link href={`/anime/${id}`}>
     <AnimeCardContainer>
       <AnimePoster path={poster.path} />
       <TitleWrapper>
-        <Subtitle>{truncateByWords(name, 7)}</Subtitle>
+        <Ellipsis
+          component="span"
+          text={name} 
+          ellipsis="..."
+          maxLine="3"
+          basedOn="letters"
+        />
       </TitleWrapper>
       {
         format ? (
