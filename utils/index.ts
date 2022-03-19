@@ -13,3 +13,13 @@ export const getFirstLetters: (str: string, amount: number) => string = (str, am
 
   return strArray.map(item => item[0]).join('').slice(0, amount);
 }
+
+type SearchQuery = {
+  name?: string;
+};
+
+export const generateSearchPath = (queries: SearchQuery) => {
+  if (!Object.values(queries).filter(value => !!value).length) return '/search';
+
+  return `/search?${Object.entries(queries).map(([key, value]) => `${key}=${value}`).join('&')}`;
+};
