@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Body } from '@typography';
 
 export const AnimeRowContainer = styled.div`
+  cursor: pointer;
   user-select: none;
   display: flex;
 

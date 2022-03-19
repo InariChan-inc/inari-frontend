@@ -20,7 +20,7 @@ import { AnimeData, AnimeFormat } from '@common/graphql/interfaces';
 import poster_default from '@public/mok_poster.png';
 
 
-interface AnimeRowProps extends Partial<Pick<AnimeData, 'id' | 'name' | 'poster' | 'description' | 'format' | 'currentCountEpisodes' | 'countEpisodes'>>  {
+export interface AnimeRowProps extends Partial<Pick<AnimeData, 'id' | 'name' | 'poster' | 'description' | 'format' | 'currentCountEpisodes' | 'countEpisodes'>>  {
 
 }
 
