@@ -39,7 +39,7 @@ const Header: VoidFunctionComponent<HeaderProps> = () => {
   const UserComponent = useCallback(renderUserSide, [isLoggedIn, isEmpty, router.isReady]);
 
   const [proposalsSearch, setProposalsSearch] = useState('');
-  const [proposals, setProposals] = useState<AnimeRowProps[]>([]);
+  const [proposals, setProposals] = useState<AnimeRowProps[] | undefined>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   return (
@@ -54,31 +54,39 @@ const Header: VoidFunctionComponent<HeaderProps> = () => {
                 if (proposalsSearch !== searchValue) {
                   setLoading(true);
                   setProposalsSearch(searchValue);
-                  client.query<{ animesSearch: AnimeRowProps[] }>({
+                  client.query<{ animes: { data: AnimeRowProps[] } }>({
                     query: gql`
                     {
-                      animesSearch(search: "${searchValue}") {
-                        id
-                        name
-                        poster {
-                        	id
-                          path
-                          pathResized
-  	                    }
-                        description
-                        format
-                        currentCountEpisodes
-                        countEpisodes
+                      animes(data: {
+                        filters: {
+                          searchParams: "${searchValue || ''}"
+                        }
+                        size: 10
+                      }) {
+                        data {
+                          id
+                          name
+                          poster {
+                            id
+                            path
+                            pathResized
+                          }
+                          description
+                          format
+                          currentCountEpisodes
+                          countEpisodes
+                        }
                       }
                     }
                   `}).then((res) => {
-                    setProposals(res.data.animesSearch);
+                    setProposals(res.data.animes.data);
 
                     setTimeout(() => setLoading(false), 500);
                   });
                 }
               } else {
-                setProposals([]);
+                setProposals(undefined);
+                setProposalsSearch('');
               }
             }}
             onSubmit={searchValue => {
