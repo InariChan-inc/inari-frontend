@@ -11,16 +11,10 @@ import {
   useDispatch, 
   useSelector
 } from 'react-redux';
-import {
-  Headline,
-  Link as LinkText
-} from '@typography';
+import { Headline } from '@typography';
 import { setFocus } from '@r/actions/headerSearch';
 import { isFocused } from '@r/selectors/headerSearch';
-import {
-  Link,
-  NoResultsImage,
-} from '@atoms';
+import { NoResultsImage } from '@atoms';
 import { Search } from '@atoms/icons';
 import {
   AnimeRow,
@@ -49,7 +43,7 @@ import {
 
 interface SearchInputProps {
     placeholder: string;
-    proposals: AnimeRowProps[];
+    proposals?: AnimeRowProps[];
     isLoading: boolean;
     onSearch: (searchValue: string) => void;
     onSubmit: (searchValue: string) => void;
@@ -164,12 +158,12 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
                 </ControlsWrapper>
               </Label>
             </FieldWrapper>
-            <PropositionsContainer visible={isSearchFocused && search.length >= 3} isResult={isLoading || !!proposals.length}>
+            <PropositionsContainer $visible={isSearchFocused && search.length >= 3 && !!proposals?.length} isResult={isLoading || !!proposals?.length}>
               {isLoading ? (
                 <LoaderWrapper>
                   <Loader />
                 </LoaderWrapper>
-              ) : proposals.length ? (
+              ) : proposals === undefined ? null : proposals.length ? (
                   <>
                     <OfferedAnimesWrapper>
                       {proposals.map((anime) => (
