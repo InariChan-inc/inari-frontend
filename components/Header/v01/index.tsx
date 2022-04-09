@@ -49,7 +49,6 @@ const Header: VoidFunctionComponent<HeaderProps> = () => {
             proposals={proposals}
             isLoading={loading}
             onSearch={searchValue => {
-              console.log('SEARCH: ', searchValue);
               if (searchValue?.length >= 3) {
                 if (proposalsSearch !== searchValue) {
                   setLoading(true);
@@ -90,8 +89,8 @@ const Header: VoidFunctionComponent<HeaderProps> = () => {
               }
             }}
             onSubmit={searchValue => {
-              console.log('SUBMITTED: ', searchValue);
-              router.push(generateSearchPath({ name: searchValue }), undefined, { shallow: true });
+              const { season } = router.query;
+              router.push(generateSearchPath({ name: searchValue, season: season as string }), undefined, { shallow: true });
             }}
             onClear={() => {
               setProposals([]);
