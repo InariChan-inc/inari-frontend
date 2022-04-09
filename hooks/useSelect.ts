@@ -18,7 +18,8 @@ export default function useSelect(defaultValue: ISelectOption = null) {
   }
 
   return { 
-    value, 
+    value,
+    setValue, 
     handleValueChange,
     handleValueClear
   };
