@@ -1,25 +1,58 @@
-import { FunctionComponent } from 'react';
+import styled from "styled-components";
+import {
+  ITypographyStyles,
+  TTypographyStyle,
+  TTypographyComponent,
+} from "./types";
+import {
+  getStyles,
+  getTypographyStylesOf,
+} from "./utils";
 
 
-type HeadlineType =  1 | 2 | 3 | 4;
+export type THeadlineTypes = 1 | 2 | 3 | 4;
 
-interface HeadlineProps {
-    type: HeadlineType,
-    children: string,
-}
-
-const HeaderComponents: {[type in HeadlineType]: React.FunctionComponent<{children: string}>} = {
-    1: ({children}) => <h1 className="font-montserrat font-bold text-48 tracking-normal leading-none">{children}</h1>,
-    2: ({children}) => <h2 className="font-montserrat font-bold text-36 tracking-normal leading-none">{children}</h2>,
-    3: ({children}) => <h3 className="font-montserrat font-bold text-28 tracking-normal leading-none">{children}</h3>,
-    4: ({children}) => <h4 className="font-montserrat font-bold text-20 tracking-normal leading-none">{children}</h4>,
+const headlineStyles: Record<THeadlineTypes, ITypographyStyles> = {
+  1: {
+    as: 'h1',
+    fontFamily: 'montserrat',
+    fontWeight: 'bold',
+    fontSize: 44,
+    letterSpacing: 0,
+    lineHeight: 1,
+  },
+  2: {
+    as: 'h2',
+    fontFamily: 'montserrat',
+    fontWeight: 'bold',
+    fontSize: 32,
+    letterSpacing: 0,
+    lineHeight: 1,
+  },
+  3: {
+    as: 'h3',
+    fontFamily: 'montserrat',
+    fontWeight: 'bold',
+    fontSize: 24,
+    letterSpacing: 0,
+    lineHeight: 1,
+  },
+  4: {
+    as: 'h4',
+    fontFamily: 'montserrat',
+    fontWeight: 'bold',
+    fontSize: 18,
+    letterSpacing: 0,
+    lineHeight: 1,
+  },
 };
 
-const Headline: FunctionComponent<HeadlineProps> = ({type, children}) => {
-    const HeaderComponent = HeaderComponents[type];
 
-    return <HeaderComponent>{children}</HeaderComponent>
-};
+const Headline: TTypographyComponent<'h1', THeadlineTypes> = styled.h1<TTypographyStyle<THeadlineTypes>>`
+  ${props => getStyles(headlineStyles[props.type], props)}
+`;
+
+Headline.getStyles = getTypographyStylesOf(headlineStyles);
 
 
-export default Headline
+export default Headline;

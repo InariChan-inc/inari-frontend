@@ -1,12 +1,28 @@
-import { FunctionComponent } from "react";
+import styled from 'styled-components';
+import {
+    ITypographyStyles,
+    TTypographyStyle,
+    TTypographyComponent,
+} from './types';
+import {
+    getStyles,
+    getTypographyStyles
+} from './utils';
 
-interface SubtitleProps {
-    children: string,
+
+const subtitleStyles: ITypographyStyles = {
+    fontFamily: 'montserrat',
+    fontWeight: 'medium',
+    fontSize: 16,
+    letterSpacing: 0.1,
+    lineHeight: '140%',
 }
 
-const Subtitle: FunctionComponent<SubtitleProps> = ({children}) => (
-    <h3 className="font-montserrat font-medium text-18 tracking-1p leading-140p">{children}</h3>
-)
+const Subtitle: TTypographyComponent<"h3"> = styled.h3<TTypographyStyle>`
+    ${props => getStyles(subtitleStyles, props)}
+`;
+
+Subtitle.getStyles = getTypographyStyles(subtitleStyles);
 
 
 export default Subtitle;

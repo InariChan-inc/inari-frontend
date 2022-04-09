@@ -1,27 +1,65 @@
-import { FunctionComponent } from 'react';
+import styled from 'styled-components';
+import {
+  ITypographyStyles,
+  TTypographyComponent,
+  TTypographyStyle,
+} from './types';
+import { getStyles, getTypographyStylesOf } from './utils';
 
 
-type BodyType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type TBodyTypes = 1 | 2 | 3 | 4 | 5 | 6;
 
-interface BodyProps {
-    type: BodyType,
-    children: string,
-}
+const bodyStyles: Record<TBodyTypes, ITypographyStyles> = {
+  1: {
+    fontFamily: 'montserrat',
+    fontWeight: 'regular',
+    fontSize: 16,
+    letterSpacing: 0,
+    lineHeight: 'normal',
+  },
+  2: {
+    fontFamily: 'montserrat',
+    fontWeight: 'bold',
+    fontSize: 16,
+    letterSpacing: 0,
+    lineHeight: '140%',
+  },
+  3: {
+    fontFamily: 'montserrat',
+    fontWeight: 'regular',
+    fontSize: 14,
+    letterSpacing: 0,
+    lineHeight: '130%',
+  },
+  4: {
+    fontFamily: 'montserrat',
+    fontWeight: 'semibold',
+    fontSize: 14,
+    letterSpacing: 0,
+    lineHeight: 1,
+  },
+  5: {
+    fontFamily: 'montserrat',
+    fontWeight: 'medium',
+    fontSize: 14,
+    letterSpacing: 0,
+    lineHeight: 1,
+  },
+  6: {
+    fontFamily: 'montserrat',
+    fontWeight: 'medium',
+    italic: true,
+    fontSize: 14,
+    letterSpacing: 0.42,
+    lineHeight: 1,
+  },
+};
 
-const bodyStyles: {[type in BodyType]: string} = {
-    1: 'font-montserrat text-24 tracking-normal leading-none',
-    2: 'font-montserrat text-18 tracking-normal leading-none',
-    3: 'font-montserrat font-bold text-18 tracking-normal leading-none',
-    4: 'font-montserrat font-medium text-16 tracking-normal leading-140p',
-    5: 'font-montserrat font-bold text-16 tracking-normal leading-140p',
-    6: 'font-montserrat font-semibold text-14 tracking-normal leading-none',
-    7: 'font-montserrat font-light italic text-14 tracking-3p leading-none',
-    8: 'font-montserrat font-medium text-14 tracking-normal leading-none',
-}
+const Body: TTypographyComponent<"p", TBodyTypes> = styled.p<TTypographyStyle<TBodyTypes>>`
+  ${props => getStyles(bodyStyles[props.type], props)}
+`;
 
-const Body: FunctionComponent<BodyProps> = ({type, children}) => (
-    <p className={bodyStyles[type]}>{children}</p>
-)
+Body.getStyles = getTypographyStylesOf(bodyStyles);
 
 
 export default Body;
