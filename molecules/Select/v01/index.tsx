@@ -39,8 +39,9 @@ const Select: VoidFunctionComponent<SelectProps> = ({
   return (
     <SelectContainer ref={rootRef}>
       <FormControl fullWidth>
-        <Label id={`${id}-label`}>{label}</Label>
+        <Label id={`${id}-label`} shrink={value !== null}>{label}</Label>
         <StyledSelect
+          shrink={value !== null}
           MenuProps={{
             PaperProps: {
               style: {
