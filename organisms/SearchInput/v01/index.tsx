@@ -158,7 +158,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
                 </ControlsWrapper>
               </Label>
             </FieldWrapper>
-            <PropositionsContainer $visible={isSearchFocused && search.length >= 3 && !!proposals?.length} isResult={isLoading || !!proposals?.length}>
+            <PropositionsContainer $visible={isSearchFocused && search.length >= 3} isResult={isLoading || !!proposals?.length}>
               {isLoading ? (
                 <LoaderWrapper>
                   <Loader />
@@ -173,14 +173,16 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
                         />
                       ))}
                     </OfferedAnimesWrapper>
-                    <AllResultsButtonWrapper>
-                      <Button
-                        type={1}
-                        onClick={() => onSubmit(search)}
-                      >
-                        Показати всі результати {` (${proposals.length})`}
-                      </Button>
-                    </AllResultsButtonWrapper>
+                    {!router.asPath.includes('search') ? (
+                      <AllResultsButtonWrapper>
+                        <Button
+                          type={1}
+                          onClick={() => onSubmit(search)}
+                        >
+                          Показати всі результати {` (${proposals.length})`}
+                        </Button>
+                      </AllResultsButtonWrapper>
+                    ) : null}
                   </>
               ): (
                 <>
