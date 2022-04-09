@@ -5,3 +5,7 @@ export {
 };
 
 export default v01;
+
+export type {
+  ISelectOption
+} from './v01';

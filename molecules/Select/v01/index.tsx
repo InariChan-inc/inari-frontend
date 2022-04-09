@@ -14,9 +14,14 @@ import {
 } from './styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-interface SelectProps extends MuiSelectProps<string> {
+export interface ISelectOption {
+  value: string;
+  label: string;
+}
+
+interface SelectProps extends MuiSelectProps<ISelectOption> {
   id: string;
-  options: string[];
+  options: ISelectOption[];
   noneOptionText?: string;
 }
 
@@ -29,7 +34,6 @@ const Select: VoidFunctionComponent<SelectProps> = ({
   onChange,
   noneOptionText = 'Не важливо'
 }) => {
-
   const rootRef = useRef<HTMLDivElement>();
 
   return (
@@ -42,20 +46,26 @@ const Select: VoidFunctionComponent<SelectProps> = ({
               style: {
                 width: `${rootRef.current?.getBoundingClientRect().width}px`,
                 marginLeft: '28px'
-              }
+              },
+              onBlur: () => {
+                setTimeout(() => {
+                  (document.activeElement as HTMLInputElement).blur();
+                }, 0);
+              },
             }
           }}
           fullWidth
-          labelId={`${id}-label`}
+          labelId={`${id}-label`}      
           id={id}
           value={value}
+          renderValue={({ label: l }) => l}
           label={label}
           onChange={onChange}
           IconComponent={ExpandMoreIcon}
         >
-          <StyledMenuItem key="None-select-item" value="">{noneOptionText}</StyledMenuItem>
-          ${options.map((option, index) => (
-            <StyledMenuItem key={option} value={option}>{option}</StyledMenuItem>
+          <StyledMenuItem key="None-select-item" value={null}>{noneOptionText}</StyledMenuItem>
+          ${options.map((option) => (
+            <StyledMenuItem key={option.value} value={option as any}>{option.label}</StyledMenuItem>
           ))}
         </StyledSelect>
       </FormControl>

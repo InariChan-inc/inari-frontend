@@ -9,7 +9,7 @@ import Textarea from "./Textarea";
 import UploadFileButton from "./UploadFileButton";
 import Feedback from "./Feedback";
 import AutocompleteSelect from "./AutocompleteSelect";
-import Select from './Select';
+import Select, { ISelectOption } from './Select';
 import Slider from './Slider';
 import NoResults from "./NoResults";
 import AnimeRow, { AnimeRowProps } from './AnimeRow';
@@ -35,4 +35,5 @@ export {
 export type { 
   AnimeCardProps,
   AnimeRowProps,
+  ISelectOption,
 };
