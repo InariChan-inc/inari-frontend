@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import {
   useState,
   useEffect,
@@ -34,6 +35,7 @@ import {
   FilterSwitchesWrapper,
 } from '@components/pages/search';
 import useSelect from '@hooks/useSelect';
+import { generateSearchPath } from '@utils';
 import animeCardMock from '../../ANIME_CARD_MOCK.json';
 
 
@@ -67,20 +69,32 @@ const SliderLabel = (value: number) => (
 );
 
 export default function Search() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.isReady) {
+      const { season } = router.query;
+      if ((season as string) in AnimeSeason) {
+        setSeason(animeSeasonOption.find((option) => option.value === season) || null);
+      }
+    }
+  }, [router.isReady, router.query]);
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const {
-    value: animeType,
-    handleValueChange: handleAnimeTypeChange,
-    handleValueClear: handleAnimeTypeClear
-  } = useSelect();
-  const {
-    value: animeStatus,
-    handleValueChange: handleAnimeStatusChange,
-    handleValueClear: handleAnimeStatusClear
-  } = useSelect();
+  // const {
+  //   value: animeType,
+  //   handleValueChange: handleAnimeTypeChange,
+  //   handleValueClear: handleAnimeTypeClear
+  // } = useSelect();
+  // const {
+  //   value: animeStatus,
+  //   handleValueChange: handleAnimeStatusChange,
+  //   handleValueClear: handleAnimeStatusClear
+  // } = useSelect();
   const {
     value: season,
+    setValue: setSeason,
     handleValueChange: handleSeasonChange,
     handleValueClear: handleSeasonClear
   } = useSelect();
@@ -98,31 +112,21 @@ export default function Search() {
 
   const [includedGenresOptions, setIncludedGenresOptions] = useState<string[]>([]);
   // const [notIncludedGenresOptions, setNotIncludedGenresOptions] = useState<string[]>([]);
-  const [episodesAmount, setEpisodesAmount] = useState<number[]>([1, 24]);
-  const [years, setYears] = useState<number[]>([2001, 2022]);
-  const [onlyWithVideo, setOnlyWithWideo] = useState(false);
-  const [withSubtitles, setWithSubtitles] = useState(false);
-
-  const [genreInputValue, setGenreInputValue] = useState('');
+  // const [episodesAmount, setEpisodesAmount] = useState<number[]>([1, 24]);
+  // const [years, setYears] = useState<number[]>([2001, 2022]);
+  // const [onlyWithVideo, setOnlyWithWideo] = useState(false);
+  // const [withSubtitles, setWithSubtitles] = useState(false);
 
   const includedGenreAutocompleteProps = useAutocomplete({
     id: 'autocomplete-genre-filter',
     options: includedGenresOptions,
     multiple: true,
-    onInputChange: (_, value) => {
-      setGenreInputValue(value);
-    }
   });
-
-  // const [notIncludedGenreInputValue, setNotIncludedGenreInputValue] = useState('');
 
   // const notIncludedGenreAutocompleteProps = useAutocomplete({
   //   id: 'autocomplete-not-included-genre-filter',
   //   options: notIncludedGenresOptions,
   //   multiple: true,
-  //   onInputChange: (_, value) => {
-  //     setNotIncludedGenreInputValue(value);
-  //   }
   // });
 
   useEffect(() => {
@@ -147,14 +151,26 @@ export default function Search() {
   const handleClearAll = () => {
     includedGenreAutocompleteProps.getClearProps().onClick(undefined);
     // notIncludedGenreAutocompleteProps.getClearProps().onClick(undefined);
-    handleAnimeTypeClear();
-    handleAnimeStatusClear();
+    // handleAnimeTypeClear();
+    // handleAnimeStatusClear();
     handleSeasonClear();
-    setEpisodesAmount([1, 24]);
-    setYears([2001, 2022]);
-    setOnlyWithWideo(false);
-    setWithSubtitles(false);
+    // setEpisodesAmount([1, 24]);
+    // setYears([2001, 2022]);
+    // setOnlyWithWideo(false);
+    // setWithSubtitles(false);
   }
+
+  const handleSearchSubmit = () => {
+    const { name } = router.query;
+    router.push(
+      generateSearchPath({
+        name: name as string,
+        season: season?.value
+      }),
+      undefined,
+      { shallow: true }
+    );
+  };
 
   return (
     <SearchContainer>
@@ -291,6 +307,7 @@ export default function Search() {
               type={1}
               padding="15px 0"
               margin="0 0 15px"
+              onClick={handleSearchSubmit}
             >Шукати</Button>
             <Button
               type={2}
