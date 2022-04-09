@@ -8,6 +8,7 @@ import {
   Grid,
   useAutocomplete,
 } from '@mui/material';
+import guest from '@common/graphql/guest';
 import { AnimeSeason } from '@common/graphql/interfaces';
 import { Body } from '@typography';
 import { Helmet } from '@atoms';
@@ -71,14 +72,17 @@ const SliderLabel = (value: number) => (
 export default function Search() {
   const router = useRouter();
 
+  const [animes, setAnimes] = useState<AnimeCardProps[]>([]);
+
+  const genres = useQuery<{ genres: { name: string }[] }>(GET_GENRES);
+
+  const [genresOptions, setGenresOptions] = useState<string[]>([]);
+
   useEffect(() => {
-    if (router.isReady) {
-      const { season } = router.query;
-      if ((season as string) in AnimeSeason) {
-        setSeason(animeSeasonOption.find((option) => option.value === season) || null);
-      }
+    if (!genres.loading) {
+      setGenresOptions(genres.data.genres.map(({ name }) => name) || []);
     }
-  }, [router.isReady, router.query]);
+  }, [genres]);
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -99,17 +103,6 @@ export default function Search() {
     handleValueClear: handleSeasonClear
   } = useSelect();
 
-  const genres = useQuery<{ genres: { name: string }[] }>(GET_GENRES);
-
-  const [genresOptions, setGenresOptions] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (!genres.loading) {
-      setGenresOptions(genres.data.genres.map(({ name }) => name) || []);
-    }
-  }, [genres]);
-
-
   const [includedGenresOptions, setIncludedGenresOptions] = useState<string[]>([]);
   // const [notIncludedGenresOptions, setNotIncludedGenresOptions] = useState<string[]>([]);
   // const [episodesAmount, setEpisodesAmount] = useState<number[]>([1, 24]);
@@ -117,10 +110,16 @@ export default function Search() {
   // const [onlyWithVideo, setOnlyWithWideo] = useState(false);
   // const [withSubtitles, setWithSubtitles] = useState(false);
 
+  const [includedGenresValue, setIncludedGenresValue] = useState<string[]>([]);
+
   const includedGenreAutocompleteProps = useAutocomplete({
     id: 'autocomplete-genre-filter',
     options: includedGenresOptions,
     multiple: true,
+    value: includedGenresValue,
+    onChange: (_, value) => {
+      setIncludedGenresValue(value);
+    }
   });
 
   // const notIncludedGenreAutocompleteProps = useAutocomplete({
@@ -165,12 +164,76 @@ export default function Search() {
     router.push(
       generateSearchPath({
         name: name as string,
-        season: season?.value
+        season: season?.value,
+        includedGenres: includedGenreAutocompleteProps.value
       }),
       undefined,
       { shallow: true }
     );
   };
+
+  useEffect(() => {
+    if (router.isReady) {
+      const { name, season, includedGenres } = router.query;
+      if ((season as string) in AnimeSeason) {
+        setSeason(animeSeasonOption.find((option) => option.value === season) || null);
+      }
+
+      if (genresOptions?.length && includedGenres) {
+        // console.log('includedGenres', (includedGenres as string).split(',').slice(0, 3));
+
+        console.log('INCLUDED', (includedGenres as string)
+                    .split(',')
+                    .filter((genre) => genresOptions.includes(genre))
+                    .slice(0, 3)
+                    .map((genre) => `"${genre}"`)
+                    .join(','));
+
+        setIncludedGenresValue((includedGenres as string).split(',').filter((genre) => genresOptions.includes(genre)).slice(0, 3));
+      }
+
+      guest.query<{ animes: { data: AnimeCardProps[] } }>({
+        query: gql`
+          {
+            animes(data: {
+              filters: {
+                searchParams: "${name || ''}"
+                ${season ? `seasonParams: ${season}` : ''}
+                ${genresOptions?.length && includedGenres ? 
+                  `genreParams: [${
+                    (includedGenres as string)
+                    .split(',')
+                    .filter((genre) => genresOptions.includes(genre))
+                    .slice(0, 3)
+                    .map((genre) => `"${genre}"`)
+                    .join(',')
+                  }]` 
+                  : ''}
+              }
+              size: 1000
+            }) {
+              data {
+                id
+                name
+                poster {
+                  path
+                  pathResized
+                }
+                format
+                currentCountEpisodes
+                countEpisodes
+              }          
+            }
+          }
+        `
+      }).then((res) => {
+        console.log('ANIMES', res.data.animes.data);
+        setAnimes(res.data.animes.data);
+      }).catch((err) => {
+        console.log('ERROR', err);
+      })
+    }
+  }, [router.isReady, router.query, genresOptions]);
 
   return (
     <SearchContainer>
@@ -194,8 +257,8 @@ export default function Search() {
             <Grid container
               rowSpacing={2}
               columns={5}
-              justifyContent="space-evenly">
-              {(animeCardMock as AnimeCardProps[]).slice(0, 20).map((anime) => (
+            >
+              {animes.map((anime) => (
                 <Grid key={anime.id} item xs={1} minWidth={265}>
                   <AnimeCard
                     {...anime}

@@ -89,8 +89,8 @@ const Header: VoidFunctionComponent<HeaderProps> = () => {
               }
             }}
             onSubmit={searchValue => {
-              const { season } = router.query;
-              router.push(generateSearchPath({ name: searchValue, season: season as string }), undefined, { shallow: true });
+              const { season, includedGenres } = router.query;
+              router.push(generateSearchPath({ name: searchValue, season: season as string, includedGenres: includedGenres as string[] }), undefined, { shallow: true });
             }}
             onClear={() => {
               setProposals([]);

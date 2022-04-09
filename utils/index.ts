@@ -17,10 +17,11 @@ export const getFirstLetters: (str: string, amount: number) => string = (str, am
 type SearchQuery = {
   name?: string;
   season?: string;
+  includedGenres?: string[];
 };
 
 export const generateSearchPath = (queries: SearchQuery) => {
-  const filteredQueries = Object.entries(queries).filter(([, value]) => !!value);
+  const filteredQueries = Object.entries(queries).filter(([, value]) => Array.isArray(value) ? value.length : !!value);
   if (!filteredQueries.length) return '/search';
 
   return `/search?${filteredQueries.map(([key, value]) => value ? `${key}=${value}` : '').join('&')}`;
