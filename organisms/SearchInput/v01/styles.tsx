@@ -49,9 +49,9 @@ export const StyledInput = styled.input`
   }
 `;
 
-export const PropositionsContainer = styled.div<{visible: boolean, isResult: boolean}>`
-  visibility: ${({ visible }) => visible ? 'visible' : 'hidden'};
-  opacity: ${({ visible }) => visible ? 1 : 0};
+export const PropositionsContainer = styled.div<{$visible: boolean, isResult: boolean}>`
+  visibility: ${({ $visible }) => $visible ? 'visible' : 'hidden'};
+  opacity: ${({ $visible }) => $visible ? 1 : 0};
   transition: 300ms ease;
   display: flex;
   flex-direction: column;

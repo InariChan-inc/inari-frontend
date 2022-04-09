@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { Select, InputLabel, MenuItem } from '@mui/material';
+import { Select, InputLabel, MenuItem, selectClasses } from '@mui/material';
 import { Button } from '@typography';
 
 export const SelectContainer = styled.div`
   position: relative;
 `;
 
-export const StyledSelect = styled(Select)`
+export const StyledSelect = styled(Select)<{shrink: boolean}>`
   &.MuiInputBase-root {
     height: 48px;
     border-radius: 50px;
@@ -53,6 +53,10 @@ export const StyledSelect = styled(Select)`
           padding-left: 10px;
         }
       }
+    }
+
+    legend {
+      max-width: ${({ shrink }) => shrink ? '100%' : '0.01px'};
     }
   }
 `;

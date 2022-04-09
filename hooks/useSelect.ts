@@ -2,22 +2,24 @@ import {
   useState,
 } from 'react';
 import { SelectChangeEvent } from '@mui/material';
+import { ISelectOption } from '@molecules';
 
-type TSelectChangeEventHandler = (event: SelectChangeEvent) => void;
+type TSelectChangeEventHandler = (event: SelectChangeEvent<ISelectOption>) => void;
 
-export default function useSelect(defaultValue?: string) {
-  const [value, setValue] = useState<string>(defaultValue);
-
+export default function useSelect(defaultValue: ISelectOption = null) {
+  const [value, setValue] = useState(defaultValue);
   const handleValueChange: TSelectChangeEventHandler = (event) => {
-    setValue(event.target.value as string);
+    setValue(event.target.value as ISelectOption);
   };
 
   const handleValueClear = () => {
-    setValue('');
+    setValue(null);
+    (document.activeElement as HTMLInputElement).blur();
   }
 
   return { 
-    value, 
+    value,
+    setValue, 
     handleValueChange,
     handleValueClear
   };

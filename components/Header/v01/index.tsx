@@ -39,7 +39,7 @@ const Header: VoidFunctionComponent<HeaderProps> = () => {
   const UserComponent = useCallback(renderUserSide, [isLoggedIn, isEmpty, router.isReady]);
 
   const [proposalsSearch, setProposalsSearch] = useState('');
-  const [proposals, setProposals] = useState<AnimeRowProps[]>([]);
+  const [proposals, setProposals] = useState<AnimeRowProps[] | undefined>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   return (
@@ -49,41 +49,48 @@ const Header: VoidFunctionComponent<HeaderProps> = () => {
             proposals={proposals}
             isLoading={loading}
             onSearch={searchValue => {
-              console.log('SEARCH: ', searchValue);
               if (searchValue?.length >= 3) {
                 if (proposalsSearch !== searchValue) {
                   setLoading(true);
                   setProposalsSearch(searchValue);
-                  client.query<{ animesSearch: AnimeRowProps[] }>({
+                  client.query<{ animes: { data: AnimeRowProps[] } }>({
                     query: gql`
                     {
-                      animesSearch(search: "${searchValue}") {
-                        id
-                        name
-                        poster {
-                        	id
-                          path
-                          pathResized
-  	                    }
-                        description
-                        format
-                        currentCountEpisodes
-                        countEpisodes
+                      animes(data: {
+                        filters: {
+                          searchParams: "${searchValue || ''}"
+                        }
+                        size: 10
+                      }) {
+                        data {
+                          id
+                          name
+                          poster {
+                            id
+                            path
+                            pathResized
+                          }
+                          description
+                          format
+                          currentCountEpisodes
+                          countEpisodes
+                        }
                       }
                     }
                   `}).then((res) => {
-                    setProposals(res.data.animesSearch);
+                    setProposals(res.data.animes.data);
 
                     setTimeout(() => setLoading(false), 500);
                   });
                 }
               } else {
-                setProposals([]);
+                setProposals(undefined);
+                setProposalsSearch('');
               }
             }}
             onSubmit={searchValue => {
-              console.log('SUBMITTED: ', searchValue);
-              router.push(generateSearchPath({ name: searchValue }), undefined, { shallow: true });
+              const { season, includedGenres } = router.query;
+              router.push(generateSearchPath({ name: searchValue, season: season as string, includedGenres: includedGenres as string[] }), undefined, { shallow: true });
             }}
             onClear={() => {
               setProposals([]);
