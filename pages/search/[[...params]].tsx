@@ -104,7 +104,7 @@ export default function Search() {
   } = useSelect();
 
   const [includedGenresOptions, setIncludedGenresOptions] = useState<string[]>([]);
-  // const [notIncludedGenresOptions, setNotIncludedGenresOptions] = useState<string[]>([]);
+  const [notIncludedGenresOptions, setNotIncludedGenresOptions] = useState<string[]>([]);
   // const [episodesAmount, setEpisodesAmount] = useState<number[]>([1, 24]);
   // const [years, setYears] = useState<number[]>([2001, 2022]);
   // const [onlyWithVideo, setOnlyWithWideo] = useState(false);
@@ -122,34 +122,34 @@ export default function Search() {
     }
   });
 
-  // const notIncludedGenreAutocompleteProps = useAutocomplete({
-  //   id: 'autocomplete-not-included-genre-filter',
-  //   options: notIncludedGenresOptions,
-  //   multiple: true,
-  // });
+  const notIncludedGenreAutocompleteProps = useAutocomplete({
+    id: 'autocomplete-not-included-genre-filter',
+    options: notIncludedGenresOptions,
+    multiple: true,
+  });
 
   useEffect(() => {
     includedGenreAutocompleteProps.getClearProps().onClick(undefined);
-    // notIncludedGenreAutocompleteProps.getClearProps().onClick(undefined);
+    notIncludedGenreAutocompleteProps.getClearProps().onClick(undefined);
     setIncludedGenresOptions(genresOptions);
-    // setNotIncludedGenresOptions(genresOptions);
+    setNotIncludedGenresOptions(genresOptions);
   }, [genresOptions]);
 
-  // useEffect(() => {
-  //   if (!genres.loading) { 
-  //     setNotIncludedGenresOptions(genresOptions.filter((option) => !includedGenreAutocompleteProps.value.includes(option)));
-  //   }
-  // }, [includedGenreAutocompleteProps.value]);
+  useEffect(() => {
+    if (!genres.loading) { 
+      setNotIncludedGenresOptions(genresOptions.filter((option) => !includedGenreAutocompleteProps.value.includes(option)));
+    }
+  }, [includedGenreAutocompleteProps.value]);
 
-  // useEffect(() => {
-  //   if (!genres.loading) {
-  //     setIncludedGenresOptions(genresOptions.filter((option) => !notIncludedGenreAutocompleteProps.value.includes(option)));
-  //   }
-  // }, [notIncludedGenreAutocompleteProps.value]);
+  useEffect(() => {
+    if (!genres.loading) {
+      setIncludedGenresOptions(genresOptions.filter((option) => !notIncludedGenreAutocompleteProps.value.includes(option)));
+    }
+  }, [notIncludedGenreAutocompleteProps.value]);
 
   const handleClearAll = () => {
     includedGenreAutocompleteProps.getClearProps().onClick(undefined);
-    // notIncludedGenreAutocompleteProps.getClearProps().onClick(undefined);
+    notIncludedGenreAutocompleteProps.getClearProps().onClick(undefined);
     // handleAnimeTypeClear();
     // handleAnimeStatusClear();
     handleSeasonClear();
@@ -284,12 +284,12 @@ export default function Search() {
             />
           ) : null}
 
-          {/* <AutocompleteSelect
+          <AutocompleteSelect
             {...notIncludedGenreAutocompleteProps}
             id="autocomplete-not-included-genre-filter"
             label="Не включати"
             limit={3}
-          /> */}
+          />
           {/* <Select
             id="select-anime-type"
             label="Тип аніме"

@@ -169,5 +169,5 @@ export default function Home() {
         </Link>
       </GoToSearchButtonWrapper>
     </HomeContainer>
-  )
+  );
 }
